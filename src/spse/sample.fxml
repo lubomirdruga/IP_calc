@@ -1,8 +1,100 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<GridPane fx:controller="spse.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-</GridPane>
+<?import com.jfoenix.validation.*?>
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+
+<StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.Controller">
+   <children>
+      <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.0" prefWidth="488.0">
+         <children>
+            <Pane fx:id="NWLabel" layoutX="34.0" layoutY="19.0" prefHeight="682.0" prefWidth="421.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <JFXTextField fx:id="firstOctet" alignment="BOTTOM_CENTER" focusColor="#2782cd" layoutX="105.0" layoutY="68.0" onAction="#getInputIP" prefHeight="41.0" prefWidth="49.0" promptText="192" />
+                  <JFXButton fx:id="submitButton" buttonType="RAISED" layoutX="288.0" layoutY="188.0" onAction="#handleSubmit" prefHeight="41.0" prefWidth="92.0" style="-fx-background-color: #2196f3;" text="Odoslať" textFill="#ffffff" />
+                  <JFXTextField fx:id="secondOctet" alignment="BOTTOM_CENTER" focusColor="#2782cd" layoutX="168.0" layoutY="68.0" onAction="#getInputIP" prefHeight="41.0" prefWidth="49.0" promptText="168" />
+                  <JFXTextField fx:id="fourthOctet" alignment="BOTTOM_CENTER" focusColor="#2782cd" layoutX="285.0" layoutY="68.0" onAction="#getInputIP" prefHeight="41.0" prefWidth="49.0" promptText="0" />
+                  <JFXTextField fx:id="thirdOctet" alignment="BOTTOM_CENTER" focusColor="#2782cd" layoutX="229.0" layoutY="68.0" onAction="#getInputIP" prefHeight="41.0" prefWidth="49.0" promptText="10" />
+                  <JFXTextField fx:id="prefix" alignment="BOTTOM_CENTER" layoutX="102.0" layoutY="142.0" onAction="#getInputIP" prefHeight="27.0" prefWidth="51.0" promptText="24" />
+                  <Label layoutX="31.0" layoutY="97.0" text="IP adresa" />
+                  <Label layoutX="30.0" layoutY="161.0" text="Prefix" />
+                  <Label layoutX="13.0" layoutY="20.0" text="Základné parametre IP adresy">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutX="15.0" layoutY="238.0" prefHeight="429.0" prefWidth="400.0">
+                     <children>
+                        <HBox prefHeight="45.0" prefWidth="400.0">
+                           <children>
+                              <Label prefHeight="41.0" prefWidth="172.0" text="NW adresa:" textAlignment="CENTER" />
+                              <Label fx:id="NWaddressLabel" prefHeight="41.0" prefWidth="260.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="45.0" prefWidth="400.0">
+                           <children>
+                              <Label prefHeight="41.0" prefWidth="172.0" text="Prefix:" textAlignment="CENTER" />
+                              <Label fx:id="prefixLabel" prefHeight="41.0" prefWidth="260.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="45.0" prefWidth="400.0">
+                           <children>
+                              <Label prefHeight="41.0" prefWidth="172.0" text="BC adresa:" textAlignment="CENTER" />
+                              <Label fx:id="BCaddressLabel" prefHeight="41.0" prefWidth="260.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="45.0" prefWidth="400.0">
+                           <children>
+                              <Label prefHeight="41.0" prefWidth="172.0" text="Maska:" textAlignment="CENTER" />
+                              <Label fx:id="maskAddressLabel" prefHeight="41.0" prefWidth="260.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="45.0" prefWidth="400.0">
+                           <children>
+                              <Label prefHeight="41.0" prefWidth="172.0" text="Wildcard:" textAlignment="CENTER" />
+                              <Label fx:id="wildcardAddressLabel" prefHeight="41.0" prefWidth="260.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="45.0" prefWidth="400.0">
+                           <children>
+                              <Label prefHeight="41.0" prefWidth="172.0" text="Prvá použiteľná IP:" textAlignment="CENTER" />
+                              <Label fx:id="firstIPLabel" prefHeight="41.0" prefWidth="260.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="45.0" prefWidth="400.0">
+                           <children>
+                              <Label prefHeight="41.0" prefWidth="172.0" text="Posledná použiteľná IP:" textAlignment="CENTER" />
+                              <Label fx:id="lastIPLabel" prefHeight="41.0" prefWidth="260.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="45.0" prefWidth="400.0">
+                           <children>
+                              <Label prefHeight="41.0" prefWidth="172.0" text="Počet adries:" textAlignment="CENTER" />
+                              <Label fx:id="addressCountLabel" prefHeight="41.0" prefWidth="260.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="45.0" prefWidth="400.0">
+                           <children>
+                              <Label prefHeight="41.0" prefWidth="172.0" text="Trieda IP adresy:" textAlignment="CENTER" />
+                              <Label fx:id="classIPLabel" prefHeight="41.0" prefWidth="260.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="45.0" prefWidth="400.0">
+                           <children>
+                              <Label prefHeight="41.0" prefWidth="172.0" text="Typ IP adresy:" textAlignment="CENTER" />
+                              <Label fx:id="typeIPLabel" prefHeight="41.0" prefWidth="260.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
