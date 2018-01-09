@@ -59,9 +59,7 @@ public class Controller {
 
 
 
-    //todo ku submit btn pridat clear tlacidlo
     //format address count
-    //todo show/hide vbox
 
 
     @FXML
@@ -107,11 +105,10 @@ public class Controller {
         addressCountLabel.setText(iPv4.getAddressCount());
         addressOrderLabel.setText(iPv4.getDecOrder());
         classIPLabel.setText(iPv4.getClassIP());
-        //todo
-        typeIPLabel.setText("");
+        typeIPLabel.setText(iPv4.getTypeIP());
+
         infoVBox.setVisible(true);
         validated = false;
-
     }
 
     @FXML
