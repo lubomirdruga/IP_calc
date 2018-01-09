@@ -9,14 +9,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
-import java.io.IOException;
 
 public class Controller {
 
     public AnchorPane anchorPane;
     public StackPane stackPane;
+    public JFXButton clearButton;
+    public VBox infoVBox;
+    public Label addressOrderLabel;
     @FXML
     private JFXButton submitButton;
     @FXML
@@ -56,8 +58,15 @@ public class Controller {
     private IPv4 iPv4;
 
 
+
+    //todo ku submit btn pridat clear tlacidlo
+    //format address count
+    //todo show/hide vbox
+
+
     @FXML
-    void getInputIP() throws Exception {
+    void getInputIP() throws Exception
+    {
         int[] ipv4IP = new int[4];
 
         String textFieldPrefix = prefix.getText().trim();
@@ -96,8 +105,12 @@ public class Controller {
         firstIPLabel.setText(iPv4.getDecFirstAddress());
         lastIPLabel.setText(iPv4.getDecLastAddress());
         addressCountLabel.setText(iPv4.getAddressCount());
+        addressOrderLabel.setText(iPv4.getDecOrder());
         classIPLabel.setText(iPv4.getClassIP());
+        //todo
         typeIPLabel.setText("");
+        infoVBox.setVisible(true);
+        validated = false;
 
     }
 
@@ -154,4 +167,29 @@ public class Controller {
 
     }
 
+    public void clearAll()
+    {
+
+        prefix.clear();
+
+        firstOctet.clear();
+        secondOctet.clear();
+        thirdOctet.clear();
+        fourthOctet.clear();
+
+        NWaddressLabel.setText("");
+        prefixLabel.setText("");
+        BCaddressLabel.setText("");
+        maskAddressLabel.setText("");
+        wildcardAddressLabel.setText("");
+        firstIPLabel.setText("");
+        lastIPLabel.setText("");
+        addressCountLabel.setText("");
+        addressOrderLabel.setText("");
+        classIPLabel.setText("");
+        typeIPLabel.setText("");
+        iPv4 = null;
+        infoVBox.setVisible(false);
+
+    }
 }

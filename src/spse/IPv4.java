@@ -17,14 +17,17 @@ public class IPv4
 
     int prefix;
 
+    //todo SIDEBAR
+
     //todo premenovat dec --> decimal           bin --> binary !!
 
-    // todo metoda na konvertovanie ipv4 dec pola na string vo forme IP(string), na nasledny vypis do grafiky/Label
+    // todo metoda na konvertovanie ipv4 dec pola na string vo forme IP(string), na nasledny vypis do grafiky/Label /... asi ani nebude treba
 
 
     public IPv4 (int[] ipv4DEC, int prefix)
     {
         // todo boolean vlsm
+        //todo toto alebo dva rozne konstruktory, bude to mat vacsi zmysel! :)
 
         this.ipv4DEC = ipv4DEC;
         this.prefix = prefix;
@@ -32,7 +35,6 @@ public class IPv4
         calculateAllIPinformations();
         // calucluate needed for VLSM();
     }
-
 
 
     // todo dve public metody na zakladne zistenie parametrov IP
@@ -251,17 +253,19 @@ public class IPv4
         return Integer.toString(addressCount);
     }
 
+    public String getDecOrder()
+    {
+        return Integer.toString(decOrder);
+    }
+
     public String getClassIP()
     {
         return classIP;
     }
 
-    //todo dorobit gettre na triedu a typ IP
+    //todo dorobit getter na typ IP
 
-    //todo doplnit do GUI poradie!
-    public int getDecOrder() {
-        return decOrder;
-    }
+
 
 
 

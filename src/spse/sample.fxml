@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.validation.*?>
-<?import java.lang.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-
 <StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.Controller">
    <children>
-      <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.0" prefWidth="488.0">
+      <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="764.0" prefWidth="523.0">
          <children>
-            <Pane fx:id="NWLabel" layoutX="34.0" layoutY="19.0" prefHeight="682.0" prefWidth="421.0" style="-fx-background-color: #ffffff;">
+            <Pane fx:id="NWLabel" layoutX="34.0" layoutY="19.0" prefHeight="720.0" prefWidth="460.0" style="-fx-background-color: #ffffff; -fx-background-position: center;">
                <children>
                   <JFXTextField fx:id="firstOctet" alignment="BOTTOM_CENTER" focusColor="#2782cd" layoutX="105.0" layoutY="68.0" onAction="#getInputIP" prefHeight="41.0" prefWidth="49.0" promptText="192" />
-                  <JFXButton fx:id="submitButton" buttonType="RAISED" layoutX="288.0" layoutY="188.0" onAction="#handleSubmit" prefHeight="41.0" prefWidth="92.0" style="-fx-background-color: #2196f3;" text="Odoslať" textFill="#ffffff" />
+                  <JFXButton fx:id="submitButton" buttonType="RAISED" layoutX="339.0" layoutY="197.0" onAction="#handleSubmit" prefHeight="41.0" prefWidth="92.0" style="-fx-background-color: #2196f3;" text="Odoslať" textFill="#ffffff" />
                   <JFXTextField fx:id="secondOctet" alignment="BOTTOM_CENTER" focusColor="#2782cd" layoutX="168.0" layoutY="68.0" onAction="#getInputIP" prefHeight="41.0" prefWidth="49.0" promptText="168" />
                   <JFXTextField fx:id="fourthOctet" alignment="BOTTOM_CENTER" focusColor="#2782cd" layoutX="285.0" layoutY="68.0" onAction="#getInputIP" prefHeight="41.0" prefWidth="49.0" promptText="0" />
                   <JFXTextField fx:id="thirdOctet" alignment="BOTTOM_CENTER" focusColor="#2782cd" layoutX="229.0" layoutY="68.0" onAction="#getInputIP" prefHeight="41.0" prefWidth="49.0" promptText="10" />
@@ -28,7 +23,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <VBox layoutX="15.0" layoutY="238.0" prefHeight="429.0" prefWidth="400.0">
+                  <VBox fx:id="infoVBox" layoutX="15.0" layoutY="238.0" prefHeight="468.0" prefWidth="433.0" visible="false">
                      <children>
                         <HBox prefHeight="45.0" prefWidth="400.0">
                            <children>
@@ -80,6 +75,12 @@
                         </HBox>
                         <HBox prefHeight="45.0" prefWidth="400.0">
                            <children>
+                              <Label prefHeight="41.0" prefWidth="172.0" text="Poradie adresy:" textAlignment="CENTER" />
+                              <Label fx:id="addressOrderLabel" prefHeight="41.0" prefWidth="260.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="45.0" prefWidth="400.0">
+                           <children>
                               <Label prefHeight="41.0" prefWidth="172.0" text="Trieda IP adresy:" textAlignment="CENTER" />
                               <Label fx:id="classIPLabel" prefHeight="41.0" prefWidth="260.0" />
                            </children>
@@ -92,6 +93,7 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <JFXButton fx:id="clearButton" buttonType="RAISED" layoutX="237.0" layoutY="197.0" onAction="#clearAll" prefHeight="41.0" prefWidth="92.0" style="-fx-background-color: #E74C3C;" text="Vymazať" textFill="WHITE" />
                </children>
             </Pane>
          </children>
