@@ -7,6 +7,8 @@ public class IPv4
     //static
     final int IPv4length = 4; //konstanta
 
+
+
     //ipv4 host adresa zadana uzivatelom
     int[] ipv4DEC = new int[IPv4length];
     String[] ipv4BIN = new String[IPv4length];
@@ -14,24 +16,29 @@ public class IPv4
     int decOrder, addressCount;
     int[] decNW, decBC, decMask, decWildcard, decFirstAddress, decLastAddress;
 
-
     int prefix;
+
+
+
+    //VLSM params
+    public int neededSize, allocatedSize;
+    String name;
 
     //todo SIDEBAR
 
-
+    //IPv4 zakkladne parametre konstruktor
     public IPv4 (int[] ipv4DEC, int prefix)
     {
-        // todo boolean vlsm
-        //todo toto alebo dva rozne konstruktory, bude to mat vacsi zmysel! :)
-
         this.ipv4DEC = ipv4DEC;
         this.prefix = prefix;
-
-        calculateAllIPinformations();
-        // calucluate needed for VLSM();
     }
 
+    //VLSM konstruktor
+    public IPv4 (String name, int neededSize)
+    {
+        this.name = name;
+        this.neededSize = neededSize + 2;
+    }
 
     // todo dve public metody na zakladne zistenie parametrov IP
     // a to jedno pre vlsm a druhe pre zakladne parametre/vsetky
@@ -53,6 +60,25 @@ public class IPv4
         IPadressCount();
         IPtype();
         IPclass();
+    }
+
+    public void doVLSM()
+    {
+        allocateCorrectSize();
+        printInfoVLSM();
+    }
+
+    //metoda na zistenie LEN POTREBNYCH PARAMETROV VLSM supernetu... todo zvazit viacnasobne pouzitie so subnetmi
+    //todo premenovanie metody aby davala vacsi zmysel
+    public void supernetVLSM()
+    {
+        convertToBIN();
+        splitIP();
+        networkIPaddress();
+        broadcastIPaddress();
+
+        //todo delete
+        supernetInfo();
     }
 
     private void convertToBIN()
@@ -117,8 +143,6 @@ public class IPv4
         decNW = convertToDEC(binNW);
     }
 
-
-
     private void broadcastIPaddress()
     {
         // vyrobi nam BC adresu danej siete
@@ -150,7 +174,6 @@ public class IPv4
         decMask = convertToDEC(binMask);
     }
 
-
     private void wildcardIPaddress()
     {
         //vytvorenie wildcard masky
@@ -160,7 +183,6 @@ public class IPv4
             decWildcard[i] = 255 - decMask[i];
     }
 
-
     private void firstUsableIPaddress()
     {
         //prva pouzitelna adresa
@@ -168,14 +190,12 @@ public class IPv4
         decFirstAddress[3] += 1;
     }
 
-
     private void lastUsableIPaddress()
     {
         //posledna pouzitelna adresa
         decLastAddress = decBC.clone();
         decLastAddress[3] -= 1;
     }
-
 
     private void IPadressCount()
     {
@@ -266,6 +286,84 @@ public class IPv4
     public String getTypeIP()
     {
         return typeIP;
+    }
+
+
+
+    //VLSM metody
+    //doacsne public
+    private void allocateCorrectSize()
+    {
+        int x;
+        for (int i = 0; i < 32; i++)
+        {
+            x = (int) Math.pow(2, i);
+
+            if (x > neededSize)
+            {
+                this.prefix = 32 - i;
+
+                allocatedSize = x;
+                break;
+            }
+        }
+
+//        System.out.println(neededSize + " changed to " + allocatedSize);
+    }
+
+
+    //todo zmenit na private
+    public void printInfoVLSM()
+    {
+        System.out.println("###############################################");
+        System.out.println("Nazov siete: " + name);
+        System.out.println("Potrebny pocet hostov: " + neededSize);
+        System.out.println("Alokovany pocec hostov: " + allocatedSize);
+        System.out.println("Prefix subnet siete: " + prefix);
+        System.out.println("exponent: " + (32 - prefix));
+        System.out.println();
+    }
+
+
+    //supernet info just for test
+    //todo premenovanie metody aby davala vacsi zmysel
+    public void supernetInfo()
+    {
+        System.out.println("NW: " + getDecNW());
+        System.out.println("BC: " + getDecBC());
+        System.out.println("prefix: " + getPrefix());
+    }
+
+
+    // getters/setters for VLSM
+
+    public int getAllocatedSize()
+    {
+        return allocatedSize;
+    }
+
+    public int getNeededSize() {
+        return neededSize;
+    }
+
+    public int[] getintNW()
+    {
+        return decNW;
+    }
+
+//    public int getPrefix()
+//    {
+//        return Integer.toString(prefix);
+//    }
+
+    public int[] getintBC()
+    {
+        return decBC;
+    }
+
+    public void setIpv4DEC(int[] ipv4DEC)
+    {
+        this.ipv4DEC = ipv4DEC;
     }
 
 }

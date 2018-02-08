@@ -30,7 +30,7 @@ public class Converter
 
 
 
-        System.out.println(DECnumber + " : " + binaryOut);
+//        System.out.println(DECnumber + " : " + binaryOut);
 
         return binaryOut;
 
