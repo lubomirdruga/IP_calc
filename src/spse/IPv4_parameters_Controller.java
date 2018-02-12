@@ -10,7 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class Controller {
+public class IPv4_parameters_Controller {
 
     public StackPane stackPane;
     public JFXButton clearButton;

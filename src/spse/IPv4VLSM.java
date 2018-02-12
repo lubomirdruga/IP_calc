@@ -28,8 +28,8 @@ public class IPv4VLSM
      * validacia ipv4 adresy   !>255 DONE
      *
      * --
-     * todo vypocet danych adries na zaklade velkosti siete a prefixu
-     * todo urcenie NW a BC adresy + prefix
+     * DONE vypocet danych adries na zaklade velkosti siete a prefixu
+     * DONE urcenie NW a BC adresy + prefix
      *
      *
      * todo na zaciatku dialog s poctom sieti nasledne generovanie textfieldov
@@ -42,22 +42,12 @@ public class IPv4VLSM
     //todo vo controlleri nacitat pole hostov, nasledne cez settter nastavit
 
 
-
-
-
-    int superNetPrefix, supernetHostsCount, subnetsCount;
-    int[] supernetIPv4, nextIP;
-    String superNet;
+    private int superNetPrefix, supernetHostsCount, subnetsCount;
+    private int[] supernetIPv4, nextIP;
+    private String superNet;
     //todo lepsie nazvy premennych, urobit poriadok!
-    IPv4 supernetObj;
-    IPv4[] subnet;
-
-
-
-
-
-
-    // todo, tu zavolat IPV4 metodu 'VLSM' na zistenie NW adresy
+    private IPv4 supernetObj;
+    private IPv4[] subnet;
 
 
 
@@ -65,11 +55,9 @@ public class IPv4VLSM
     {
         this.superNet = superNet.trim();
         this.subnetsCount = subnetsCount;
-        //todo allthe stuff();
-//        magic();
     }
 
-    public void magic()
+    public void start()
     {
         splitAndValidate();
         countSuperNetHosts();
@@ -122,9 +110,6 @@ public class IPv4VLSM
     private void countSuperNetHosts ()
     {
         supernetHostsCount = (int) Math.pow(2, 32 - superNetPrefix);
-
-        System.out.println("celkovy pocet hostov: " + supernetHostsCount );
-
     }
 
     private void createIPv4objects()
@@ -134,14 +119,10 @@ public class IPv4VLSM
         for (int i = 0; i < subnet.length; i++)
         {
             //todo docasne
-//            int[] subnetHostsCount = {64,3,11,56,333,128};
-            int[] subnetHostsCount = {1234,213,3213,5623,21312,23128};
-
-
+            int[] subnetHostsCount = {43000,38520,19800,10415,8032,105};
 
             subnet[i] = new IPv4("Siet " + i, subnetHostsCount[i]);
-            subnet[i].doVLSM();
-
+            subnet[i].allocateCorrectSize();
         }
     }
 
@@ -156,9 +137,6 @@ public class IPv4VLSM
             System.out.println("je mozne subnetovat");
         else
             System.out.println("NIE je mozne subnetovat");
-
-        System.out.println("hosts supernet: " + supernetHostsCount);
-        System.out.println("hosts subnets total: " + spaceNeeded);
     }
 
     private void sortSubnets()
@@ -167,7 +145,6 @@ public class IPv4VLSM
         {
             for (int j = 0; j < subnet.length - i - 1; j++)
             {
-//                if(subnet[j].getAllocatedSize() < subnet[j+1].getAllocatedSize())
                 if(subnet[j].getNeededSize() < subnet[j+1].getNeededSize())
                 {
                     IPv4 tmp = subnet[j];
@@ -176,63 +153,32 @@ public class IPv4VLSM
                 }
             }
         }
-
-
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println("!!!!!!!");
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        //just to test subnets sorting
-        for (int i = 0; i < subnet.length; i++) {
-
-            subnet[i].printInfoVLSM();
-        }
     }
 
     private void getParametersOfSupernet()
     {
         supernetObj = new IPv4(supernetIPv4, superNetPrefix);
-        supernetObj.supernetVLSM();
+        supernetObj.makeVLSMNwParameters();
 
         nextIP = supernetObj.getintNW().clone();
-//        System.out.println(nextIP[0]);
-//        System.out.println(nextIP[1]);
-//        System.out.println(nextIP[2]);
-//        System.out.println(nextIP[3]);
-
-//        System.exit(0);
-
     }
 
     //real VLSM starts here :D
-
     private void doSubnetting()
     {
         for (int i = 0; i < subnet.length; i++)
         {
             subnet[i].setIpv4DEC(nextIP);
-
-            //todo premenovanie metody aby davala vacsi zmysel
-            subnet[i].supernetVLSM();
+            subnet[i].makeVLSMNwParameters();
 
             nextIP = subnet[i].getintBC().clone();
 
-            //TODO osetrit vsetky stavy ip!!!!
             if (nextIP[3] != 255)
-            {
                 nextIP[3] += 1;
-            }
             else if (nextIP[2] != 255)
             {
                 nextIP[3] = 0;
                 nextIP[2] += 1;
-
             }
             else if (nextIP[1] != 255)
             {
@@ -249,7 +195,7 @@ public class IPv4VLSM
             }
         }
 
-
+        //todo remove
         System.out.println();
         System.out.println();
         System.out.println();
@@ -262,19 +208,7 @@ public class IPv4VLSM
 
             System.out.println();
             System.out.println(subnet[i].name);
-
-
-
             subnet[i].supernetInfo();
-
-
-
         }
     }
-
-
-
-
-
-
 }

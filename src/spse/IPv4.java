@@ -5,23 +5,23 @@ import java.util.Scanner;
 public class IPv4
 {
     //static
-    final int IPv4length = 4; //konstanta
+    private final int IPV4_LENGTH = 4; //konstanta
 
 
 
     //ipv4 host adresa zadana uzivatelom
-    int[] ipv4DEC = new int[IPv4length];
-    String[] ipv4BIN = new String[IPv4length];
-    String fullBinAddress, firstPart, secondPart, binOrder, classIP, typeIP;
-    int decOrder, addressCount;
-    int[] decNW, decBC, decMask, decWildcard, decFirstAddress, decLastAddress;
+    private int[] ipv4DEC = new int[IPV4_LENGTH];
+    private String[] ipv4BIN = new String[IPV4_LENGTH];
+    private String fullBinAddress, firstPart, secondPart, binOrder, classIP, typeIP;
+    private int decOrder, addressCount;
+    private int[] decNW, decBC, decMask, decWildcard, decFirstAddress, decLastAddress;
 
-    int prefix;
+    private int prefix;
 
 
 
     //VLSM params
-    public int neededSize, allocatedSize;
+    private int neededSize, allocatedSize;
     String name;
 
     //todo SIDEBAR
@@ -62,15 +62,8 @@ public class IPv4
         IPclass();
     }
 
-    public void doVLSM()
-    {
-        allocateCorrectSize();
-        printInfoVLSM();
-    }
-
-    //metoda na zistenie LEN POTREBNYCH PARAMETROV VLSM supernetu... todo zvazit viacnasobne pouzitie so subnetmi
-    //todo premenovanie metody aby davala vacsi zmysel
-    public void supernetVLSM()
+    //metoda na zistenie LEN POTREBNYCH PARAMETROV VLSM supernetu/subnetu
+    public void makeVLSMNwParameters()
     {
         convertToBIN();
         splitIP();
@@ -87,14 +80,13 @@ public class IPv4
             ipv4BIN[i] = Converter.toBinary(ipv4DEC[i]);
 
         fullBinAddress = ipv4BIN[0] + ipv4BIN[1] + ipv4BIN[2] + ipv4BIN[3];
-
     }
 
     private int[] convertToDEC(String[] binArray)
     {
         //premena cisel z BIN sustavy do DEC sustavy
 
-        int[] decArray = new int[IPv4length];
+        int[] decArray = new int[IPV4_LENGTH];
 
         for (int i = 0; i < binArray.length; i++)
             decArray[i] = Converter.toDEC(binArray[i]);
@@ -115,7 +107,7 @@ public class IPv4
     private String[] substringBinaryIP(String binaryIP)
     {
 
-        String[] dividedBinaryIP = new String[IPv4length];
+        String[] dividedBinaryIP = new String[IPV4_LENGTH];
 
         dividedBinaryIP[0] = binaryIP.substring(0,8);
         dividedBinaryIP[1] = binaryIP.substring(8,16);
@@ -177,7 +169,7 @@ public class IPv4
     private void wildcardIPaddress()
     {
         //vytvorenie wildcard masky
-        decWildcard = new int[IPv4length];
+        decWildcard = new int[IPV4_LENGTH];
 
         for (int i = 0; i < decWildcard.length; i++)
             decWildcard[i] = 255 - decMask[i];
@@ -291,8 +283,7 @@ public class IPv4
 
 
     //VLSM metody
-    //doacsne public
-    private void allocateCorrectSize()
+    public void allocateCorrectSize()
     {
         int x;
         for (int i = 0; i < 32; i++)
@@ -307,26 +298,10 @@ public class IPv4
                 break;
             }
         }
-
-//        System.out.println(neededSize + " changed to " + allocatedSize);
     }
-
-
-    //todo zmenit na private
-    public void printInfoVLSM()
-    {
-        System.out.println("###############################################");
-        System.out.println("Nazov siete: " + name);
-        System.out.println("Potrebny pocet hostov: " + neededSize);
-        System.out.println("Alokovany pocec hostov: " + allocatedSize);
-        System.out.println("Prefix subnet siete: " + prefix);
-        System.out.println("exponent: " + (32 - prefix));
-        System.out.println();
-    }
-
 
     //supernet info just for test
-    //todo premenovanie metody aby davala vacsi zmysel
+    //todo delete
     public void supernetInfo()
     {
         System.out.println("NW: " + getDecNW());
@@ -336,7 +311,6 @@ public class IPv4
 
 
     // getters/setters for VLSM
-
     public int getAllocatedSize()
     {
         return allocatedSize;
@@ -351,11 +325,6 @@ public class IPv4
         return decNW;
     }
 
-//    public int getPrefix()
-//    {
-//        return Integer.toString(prefix);
-//    }
-
     public int[] getintBC()
     {
         return decBC;
@@ -365,5 +334,4 @@ public class IPv4
     {
         this.ipv4DEC = ipv4DEC;
     }
-
 }
