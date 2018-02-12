@@ -6,61 +6,39 @@ import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class Controller {
 
-    public AnchorPane anchorPane;
     public StackPane stackPane;
     public JFXButton clearButton;
     public VBox infoVBox;
+
+    public JFXTextField firstOctet;
+    public JFXTextField secondOctet;
+    public JFXTextField thirdOctet;
+    public JFXTextField fourthOctet;
+    public JFXTextField prefix;
+
+    public Label BCaddressLabel;
+    public Label prefixLabel;
+    public Label firstIPLabel;
+    public Label lastIPLabel;
+    public Label NWaddressLabel;
+    public Label addressCountLabel;
+    public Label typeIPLabel;
+    public Label maskAddressLabel;
+    public Label classIPLabel;
     public Label addressOrderLabel;
-    @FXML
-    private JFXButton submitButton;
-    @FXML
-    private Label wildcardAddressLabel;
-    @FXML
-    private JFXTextField fourthOctet;
-    @FXML
-    private Label BCaddressLabel;
-    @FXML
-    private JFXTextField prefix;
-    @FXML
-    private Label prefixLabel;
-    @FXML
-    private JFXTextField thirdOctet;
-    @FXML
-    private Label firstIPLabel;
-    @FXML
-    private Label lastIPLabel;
-    @FXML
-    private Label NWaddressLabel;
-    @FXML
-    private Label addressCountLabel;
-    @FXML
-    private JFXTextField secondOctet;
-    @FXML
-    private Pane NWLabel;
-    @FXML
-    private Label typeIPLabel;
-    @FXML
-    private Label maskAddressLabel;
-    @FXML
-    private Label classIPLabel;
-    @FXML
-    private JFXTextField firstOctet;
+    public Label wildcardAddressLabel;
 
     private boolean validated = false;
     private IPv4 iPv4;
 
 
-
     //format address count
-
 
     @FXML
     void getInputIP() throws Exception
@@ -121,7 +99,6 @@ public class Controller {
         }
         catch (Exception e)
         {
-
             JFXDialogLayout content  = new JFXDialogLayout();
             content.setHeading(new Text("Chyba!"));
             content.setBody(new Text("Zadaný vstup nie je správny.\n" +
@@ -161,12 +138,10 @@ public class Controller {
         for (int i = 0; i < ipv4Address.length; i++)
             if (ipv4Address[i] > 255)
                 throw new Exception();
-
     }
 
     public void clearAll()
     {
-
         prefix.clear();
 
         firstOctet.clear();
@@ -187,6 +162,5 @@ public class Controller {
         typeIPLabel.setText("");
         iPv4 = null;
         infoVBox.setVisible(false);
-
     }
 }
