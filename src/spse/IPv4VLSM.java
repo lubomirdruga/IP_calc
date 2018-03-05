@@ -14,27 +14,9 @@ public class IPv4VLSM
      * supernet
      * prefix
      *
-     * ----
-     * DONE vypocet moznosti VLSM
      * todo v pripade chyb urobit dialogove okna podla typu chyby !
      *
-     * ---
-     *
-     *  zoradenie poctu host adries od najvacsej DONE
-     * zistenie poctu adries v supernete
-     *
-     *
-     * --
-     * validacia ipv4 adresy   !>255 DONE
-     *
-     * --
-     * DONE vypocet danych adries na zaklade velkosti siete a prefixu
-     * DONE urcenie NW a BC adresy + prefix
-     *
-     *
      * todo na zaciatku dialog s poctom sieti nasledne generovanie textfieldov
-     *
-     *
      *
      * TODO STVORCOVE DELENIE SIETE
      */
@@ -119,7 +101,7 @@ public class IPv4VLSM
         for (int i = 0; i < subnet.length; i++)
         {
             //todo docasne
-            int[] subnetHostsCount = {43000,38520,19800,10415,8032,105};
+            int[] subnetHostsCount = {2,2,2,2};
 
             subnet[i] = new IPv4("Siet " + i, subnetHostsCount[i]);
             subnet[i].allocateCorrectSize();

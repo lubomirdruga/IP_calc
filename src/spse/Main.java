@@ -19,7 +19,7 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("IPv4_parameters.fxml"));
         primaryStage.setTitle("IPcalc");
-        primaryStage.setScene(new Scene(root, 500, 700));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
 
@@ -29,8 +29,9 @@ public class Main extends Application {
 
 //
 //        String supernet = " 10 . 10 . 10 . 0 / 8 ";
+//        String supernet = "193.99.99.2 /28 ";
 //
-//        int[] subnetHostsCount = {32,34,54,56,2,33};
+//        int[] subnetHostsCount = {32,34,54,56};
 //        IPv4VLSM vlsm = new IPv4VLSM(supernet, subnetHostsCount.length);
 //        vlsm.start();
 //        System.exit(0);

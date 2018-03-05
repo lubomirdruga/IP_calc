@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+
 <StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.IPv4_parameters_Controller">
    <children>
       <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="764.0" prefWidth="523.0">
          <children>
-            <Pane fx:id="NWLabel" layoutX="34.0" layoutY="19.0" prefHeight="720.0" prefWidth="460.0" style="-fx-background-color: #ffffff; -fx-background-position: center;">
+            <Pane fx:id="content" layoutX="34.0" layoutY="19.0" prefHeight="720.0" prefWidth="460.0" style="-fx-background-color: #ffffff; -fx-background-position: center;">
                <children>
                   <JFXTextField fx:id="firstOctet" alignment="BOTTOM_CENTER" focusColor="#2782cd" layoutX="105.0" layoutY="68.0" onAction="#getInputIP" prefHeight="41.0" prefWidth="49.0" promptText="192" />
                   <JFXButton fx:id="submitButton" buttonType="RAISED" layoutX="339.0" layoutY="197.0" onAction="#handleSubmit" prefHeight="41.0" prefWidth="92.0" style="-fx-background-color: #2196f3;" text="Odoslať" textFill="#ffffff" />
@@ -94,6 +97,8 @@
                      </children>
                   </VBox>
                   <JFXButton fx:id="clearButton" buttonType="RAISED" layoutX="237.0" layoutY="197.0" onAction="#clearAll" prefHeight="41.0" prefWidth="92.0" style="-fx-background-color: #E74C3C;" text="Vymazať" textFill="WHITE" />
+                  <JFXDrawer fx:id="drawer" layoutX="-34.0" layoutY="-22.0" prefHeight="764.0" prefWidth="145.0" />
+                  <JFXHamburger fx:id="hamburger" layoutX="418.0" layoutY="22.0" />
                </children>
             </Pane>
          </children>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="145.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.Drawer_Controller">
+   <children>
+      <ImageView fitHeight="127.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/bckground.jpeg" />
+         </image>
+      </ImageView>
+      <JFXButton defaultButton="true" onAction="#handleIPv4Params" prefHeight="44.0" prefWidth="148.0" ripplerFill="#0044ff" text="IPv4 Parametre" />
+      <JFXButton onAction="#handleIPv4VLSM" prefHeight="44.0" prefWidth="148.0" text="IPv4 VLSM" />
+      <JFXButton onAction="#handleIPv4Info" prefHeight="44.0" prefWidth="148.0" text="IPv4 informácie" />
+      <Separator prefWidth="200.0" />
+      <JFXButton onAction="#handleIPv6Params" prefHeight="44.0" prefWidth="148.0" text="IPv6 Parametre" />
+      <JFXButton onAction="#handleIPv6VLSM" prefHeight="44.0" prefWidth="148.0" text="IPv6 VLSM" />
+      <JFXButton onAction="#handleIPv6Info" prefHeight="44.0" prefWidth="148.0" text="IPv6 informácie" />
+      <Separator prefWidth="200.0" />
+      <JFXButton onAction="#handleAbout" prefHeight="44.0" prefWidth="148.0" ripplerFill="RED" text="O aplikácii" />
+      <JFXButton onAction="#handleExitBtn" prefHeight="44.0" prefWidth="148.0" text="Ukončiť" />
+   </children>
+</VBox>

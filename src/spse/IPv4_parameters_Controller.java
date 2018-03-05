@@ -1,16 +1,23 @@
 package spse;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class IPv4_parameters_Controller {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class IPv4_parameters_Controller implements Initializable {
 
     public StackPane stackPane;
     public JFXButton clearButton;
@@ -33,12 +40,52 @@ public class IPv4_parameters_Controller {
     public Label classIPLabel;
     public Label addressOrderLabel;
     public Label wildcardAddressLabel;
+    public Pane content;
+    
+    public AnchorPane anchorPane;
+    public JFXDrawer drawer;
+    public JFXHamburger hamburger;
 
     private boolean validated = false;
     private IPv4 iPv4;
 
 
     //format address count
+
+
+//    @FXML
+//    public void initialize()
+//    {
+//        JFXScrollPane scrollPane = new JFXScrollPane();
+//        scrollPane.setContent(infoVBox);
+//        infoVBox.getChildren().addAll(scrollPane);
+//    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+//        rootP = root;
+
+        try {
+            VBox box = FXMLLoader.load(getClass().getResource("Drawer.fxml"));
+            drawer.setSidePane(box);
+        } catch (IOException ex) {
+        }
+
+
+
+        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+        transition.setRate(-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
+            transition.setRate(transition.getRate()*-1);
+            transition.play();
+
+            if(drawer.isShown())
+            {
+                drawer.close();
+            }else
+                drawer.open();
+        });
+    }
 
     @FXML
     void getInputIP() throws Exception
