@@ -14,9 +14,6 @@ public class IPv4VLSM
      * supernet
      * prefix
      *
-     * todo v pripade chyb urobit dialogove okna podla typu chyby !
-     *
-     * todo na zaciatku dialog s poctom sieti nasledne generovanie textfieldov
      *
      * TODO STVORCOVE DELENIE SIETE
      */
@@ -25,22 +22,20 @@ public class IPv4VLSM
 
 
     private int superNetPrefix, supernetHostsCount, subnetsCount;
-    private int[] supernetIPv4, nextIP;
+    private int[] supernetIPv4, nextIP, subnetsArray;
     private String superNet;
-    //todo lepsie nazvy premennych, urobit poriadok!
-    private IPv4 supernetObj;
     private IPv4[] subnet;
 
 
 
-    public IPv4VLSM(String superNet, int subnetsCount)
+    public IPv4VLSM(String superNet, int subnetsCount, int[] subnetsArray)
     {
         this.superNet = superNet.trim();
         this.subnetsCount = subnetsCount;
+        this.subnetsArray = subnetsArray;
     }
 
-    public void start()
-    {
+    public void start() throws Exception {
         splitAndValidate();
         countSuperNetHosts();
         createIPv4objects();
@@ -52,8 +47,7 @@ public class IPv4VLSM
     }
 
 
-    private void splitAndValidate()
-    {
+    private void splitAndValidate() throws Exception {
         try
         {
             String ip = superNet.substring(0, superNet.indexOf("/"));
@@ -74,18 +68,16 @@ public class IPv4VLSM
 
             System.out.println(superNetPrefix);
         }
-        //todo vsekty mozne exceptions
-        catch (IOException e)
-        {
-            System.out.println("zadane cislo nie je z rozsahu IPv4 (0 - 255)");
+        catch (IOException e) {
+            throw new IOException();
         }
         catch (NumberFormatException e)
         {
-            System.out.println("chyba pri parsovani cisla ");
+            throw new NumberFormatException();
         }
         catch (Exception e)
         {
-            System.out.println("chyba");
+            throw new Exception();
         }
     }
 
@@ -101,9 +93,8 @@ public class IPv4VLSM
         for (int i = 0; i < subnet.length; i++)
         {
             //todo docasne
-            int[] subnetHostsCount = {2,2,2,2};
 
-            subnet[i] = new IPv4("Siet " + i, subnetHostsCount[i]);
+            subnet[i] = new IPv4(str(i), subnetsArray[i]);
             subnet[i].allocateCorrectSize();
         }
     }
@@ -139,7 +130,7 @@ public class IPv4VLSM
 
     private void getParametersOfSupernet()
     {
-        supernetObj = new IPv4(supernetIPv4, superNetPrefix);
+        IPv4 supernetObj = new IPv4(supernetIPv4, superNetPrefix);
         supernetObj.makeVLSMNwParameters();
 
         nextIP = supernetObj.getintNW().clone();
@@ -192,5 +183,13 @@ public class IPv4VLSM
             System.out.println(subnet[i].name);
             subnet[i].supernetInfo();
         }
+    }
+
+    public IPv4[] getSubnet() {
+        return subnet;
+    }
+
+    private String str(int i) {
+        return i < 0 ? "" : str((i / 26) - 1) + (char)(65 + i % 26);
     }
 }
