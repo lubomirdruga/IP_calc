@@ -35,6 +35,8 @@ public class Table implements Initializable{
     }
 
 
+
+    // https://drive.google.com/drive/folders/0B_nK3WmoczMgTFhPWmZfby1pQ0k
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -57,44 +59,42 @@ public class Table implements Initializable{
         });
 
 
-//todo do SK !
-
-        JFXTreeTableColumn netNameColumn = new JFXTreeTableColumn("Sub,net name");
+        JFXTreeTableColumn netNameColumn = new JFXTreeTableColumn("Názov siete");
         netNameColumn.setPrefWidth(100);
         netNameColumn.setSortable(false);
         netNameColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().netName);
 
-        JFXTreeTableColumn neededSizeColumn = new JFXTreeTableColumn("Needed size");
-        neededSizeColumn.setPrefWidth(100);
+        JFXTreeTableColumn neededSizeColumn = new JFXTreeTableColumn("Potrebná veľkosť");
+        neededSizeColumn.setPrefWidth(130);
         neededSizeColumn.setSortable(false);
         neededSizeColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().neededSize);
 
-        JFXTreeTableColumn allocatedSizeColumn = new JFXTreeTableColumn("Allocated size");
-        allocatedSizeColumn.setPrefWidth(100);
+        JFXTreeTableColumn allocatedSizeColumn = new JFXTreeTableColumn("Alokovaná veľkosť");
+        allocatedSizeColumn.setPrefWidth(130);
         allocatedSizeColumn.setSortable(false);
         allocatedSizeColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().allocatedSize);
 
-        JFXTreeTableColumn nwAddressColumn = new JFXTreeTableColumn("NW address");
+        JFXTreeTableColumn nwAddressColumn = new JFXTreeTableColumn("Sieťová adresa");
         nwAddressColumn.setPrefWidth(150);
         nwAddressColumn.setSortable(false);
         nwAddressColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().nwAddress);
 
         JFXTreeTableColumn prefixColumn = new JFXTreeTableColumn("Prefix");
-        prefixColumn.setPrefWidth(100);
+        prefixColumn.setPrefWidth(85);
         prefixColumn.setSortable(false);
         prefixColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().prefix);
 
-        JFXTreeTableColumn maskColumn = new JFXTreeTableColumn("Mask");
+        JFXTreeTableColumn maskColumn = new JFXTreeTableColumn("Maska");
         maskColumn.setPrefWidth(150);
         maskColumn.setSortable(false);
         maskColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().mask);
 
-        JFXTreeTableColumn rangeColumn = new JFXTreeTableColumn("Range");
+        JFXTreeTableColumn rangeColumn = new JFXTreeTableColumn("Použiteľný rozsah");
         rangeColumn.setPrefWidth(200);
         rangeColumn.setSortable(false);
         rangeColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().range);
 
-        JFXTreeTableColumn bcAddressColumn = new JFXTreeTableColumn("BC address");
+        JFXTreeTableColumn bcAddressColumn = new JFXTreeTableColumn("Broadcastová adresa");
         bcAddressColumn.setPrefWidth(150);
         bcAddressColumn.setSortable(false);
         bcAddressColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().bcAddress);
