@@ -109,7 +109,9 @@ public class IPv4VLSM
         if (supernetHostsCount > spaceNeeded)
             System.out.println("je mozne subnetovat");
         else
-            System.out.println("NIE je mozne subnetovat");
+//            System.out.println("NIE je mozne subnetovat");
+            throw new ArithmeticException();
+
     }
 
     private void sortSubnets()

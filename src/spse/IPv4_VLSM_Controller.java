@@ -161,6 +161,13 @@ public class IPv4_VLSM_Controller implements Initializable
             showToast("Chyba!", "Zadané číslo (oktet IPv4) nie je z rozsahu IPv4 (0-255)!");
             io.printStackTrace();
         }
+        catch (ArithmeticException ae)
+        {
+            //toast
+            JFXSnackbar snackbar = new JFXSnackbar(anchorPane);
+
+            snackbar.show("Nie je možné subnetovať, supernet sieť je príliš malá", 3000);
+        }
         catch (Exception e) {
             showToast("Chyba!", "Zadaný vstup nie je správny!");
             e.printStackTrace();
