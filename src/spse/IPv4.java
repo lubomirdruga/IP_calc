@@ -1,9 +1,10 @@
 package spse;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+
 import java.util.Scanner;
 
-public class IPv4
-{
+public class IPv4 {
     //static
     private final int IPV4_LENGTH = 4; //konstanta
 
@@ -24,7 +25,6 @@ public class IPv4
     private int neededSize, allocatedSize;
     String name;
 
-    //todo SIDEBAR
 
     //IPv4 zakkladne parametre konstruktor
     public IPv4 (int[] ipv4DEC, int prefix)
@@ -67,8 +67,12 @@ public class IPv4
     {
         convertToBIN();
         splitIP();
+
         networkIPaddress();
         broadcastIPaddress();
+        maskIPaddress();
+        firstUsableIPaddress();
+        lastUsableIPaddress();
 
         //todo delete
         supernetInfo();
@@ -311,6 +315,10 @@ public class IPv4
 
 
     // getters/setters for VLSM
+    public String getName() {
+        return name;
+    }
+
     public int getAllocatedSize()
     {
         return allocatedSize;
