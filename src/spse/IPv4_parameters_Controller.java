@@ -52,23 +52,14 @@ public class IPv4_parameters_Controller implements Initializable {
 
     //format address count
 
-
-//    @FXML
-//    public void initialize()
-//    {
-//        JFXScrollPane scrollPane = new JFXScrollPane();
-//        scrollPane.setContent(infoVBox);
-//        infoVBox.getChildren().addAll(scrollPane);
-//    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        rootP = root;
 
         try {
             VBox box = FXMLLoader.load(getClass().getResource("Drawer.fxml"));
             drawer.setSidePane(box);
         } catch (IOException ex) {
+            System.out.println("File 'Drawer.fxml' not found");
         }
 
 
@@ -76,8 +67,8 @@ public class IPv4_parameters_Controller implements Initializable {
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
         transition.setRate(-1);
         hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
-            transition.setRate(transition.getRate()*-1);
-            transition.play();
+//            transition.setRate(transition.getRate()*-1);
+//            transition.play();
 
             if(drawer.isShown())
             {
@@ -118,7 +109,7 @@ public class IPv4_parameters_Controller implements Initializable {
             }
     }
 
-    void setParameters()
+    private void setParameters()
     {
         NWaddressLabel.setText(iPv4.getDecNW());
         prefixLabel.setText(iPv4.getPrefix());
@@ -163,8 +154,8 @@ public class IPv4_parameters_Controller implements Initializable {
 
     }
 
-
-    public static boolean isNumeric(String str)
+    // https://stackoverflow.com/questions/1102891/how-to-check-if-a-string-is-numeric-in-java
+    private static boolean isNumeric(String str)
     {
         try
         {
@@ -177,7 +168,7 @@ public class IPv4_parameters_Controller implements Initializable {
         return true;
     }
 
-    public void validateIPandPrefix(int prefix, int[] ipv4Address) throws Exception
+    private void validateIPandPrefix(int prefix, int[] ipv4Address) throws Exception
     {
         if (prefix > 32)
             throw new Exception();
