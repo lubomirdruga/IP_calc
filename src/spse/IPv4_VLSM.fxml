@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.IPv4_VLSM_Controller">
+   <children>
+      <AnchorPane fx:id="anchorPane" prefHeight="540.0" prefWidth="778.0">
+         <children>
+            <HBox layoutX="155.0" layoutY="67.0" prefHeight="29.0" prefWidth="471.0">
+               <children>
+                  <JFXTextField fx:id="supernetInput" labelFloat="true" prefHeight="29.0" prefWidth="472.0" promptText="Supernet adresa" text="1.1.1.1/8" />
+               </children>
+            </HBox>
+            <Label layoutX="14.0" layoutY="14.0" text="IPv4 VLSM">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <HBox layoutX="326.0" layoutY="443.0" prefHeight="35.0" prefWidth="310.0">
+               <children>
+                  <Label prefHeight="49.0" prefWidth="100.0" text="Počet subnetov:">
+                     <HBox.margin>
+                        <Insets right="9.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXTextField fx:id="subnetsCountInput" alignment="BOTTOM_LEFT" prefHeight="27.0" prefWidth="42.0" text="2">
+                     <HBox.margin>
+                        <Insets right="11.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+                  <JFXButton buttonType="RAISED" onAction="#changeSubnets" ripplerFill="#53eb6f" style="-fx-background-color: #2574A9;" text="Zmeniť" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" onAction="#submitVLSM" style="-fx-background-color: #019875;" text="Odoslať" textFill="WHITE" />
+               </children>
+            </HBox>
+            <JFXHamburger fx:id="hamburger" layoutX="723.0" layoutY="19.0" />
+            <JFXDrawer fx:id="drawer" layoutX="-1.0" prefHeight="540.0" prefWidth="143.0" />
+            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="155.0" layoutY="115.0" prefHeight="320.0" prefWidth="472.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+               <content>
+                  <VBox fx:id="vBoxContent" alignment="CENTER" prefHeight="290.0" prefWidth="472.0" />
+               </content>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </ScrollPane>
+            <JFXSpinner fx:id="spinner" layoutX="713.0" layoutY="478.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

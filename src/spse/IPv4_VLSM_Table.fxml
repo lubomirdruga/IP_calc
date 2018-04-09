@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane prefHeight="782.0" prefWidth="1212.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.Table">
+   <children>
+      <AnchorPane prefHeight="671.0" prefWidth="967.0">
+         <children>
+            <JFXHamburger fx:id="hamburger" layoutX="1159.0" layoutY="20.0" />
+            <JFXDrawer fx:id="drawer" prefHeight="400.0" prefWidth="143.0" />
+            <JFXTreeTableView fx:id="table" layoutX="73.0" layoutY="91.0" prefHeight="656.0" prefWidth="1077.0" stylesheets="@stylesheet.css" />
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
