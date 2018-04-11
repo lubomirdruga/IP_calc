@@ -60,42 +60,39 @@ public class Table implements Initializable{
 
 
         JFXTreeTableColumn netNameColumn = new JFXTreeTableColumn("Názov siete");
-        netNameColumn.setPrefWidth(100);
+//        netNameColumn.setPrefWidth(100);
         netNameColumn.setSortable(false);
         netNameColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().netName);
 
         JFXTreeTableColumn neededSizeColumn = new JFXTreeTableColumn("Potrebná veľkosť");
-        neededSizeColumn.setPrefWidth(130);
         neededSizeColumn.setSortable(false);
         neededSizeColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().neededSize);
 
         JFXTreeTableColumn allocatedSizeColumn = new JFXTreeTableColumn("Alokovaná veľkosť");
-        allocatedSizeColumn.setPrefWidth(130);
         allocatedSizeColumn.setSortable(false);
         allocatedSizeColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().allocatedSize);
 
         JFXTreeTableColumn nwAddressColumn = new JFXTreeTableColumn("Sieťová adresa");
-        nwAddressColumn.setPrefWidth(150);
+//        nwAddressColumn.setPrefWidth(150);
         nwAddressColumn.setSortable(false);
         nwAddressColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().nwAddress);
 
         JFXTreeTableColumn prefixColumn = new JFXTreeTableColumn("Prefix");
-        prefixColumn.setPrefWidth(85);
         prefixColumn.setSortable(false);
         prefixColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().prefix);
 
         JFXTreeTableColumn maskColumn = new JFXTreeTableColumn("Maska");
-        maskColumn.setPrefWidth(150);
+//        maskColumn.setPrefWidth(150);
         maskColumn.setSortable(false);
         maskColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().mask);
 
         JFXTreeTableColumn rangeColumn = new JFXTreeTableColumn("Použiteľný rozsah");
-        rangeColumn.setPrefWidth(200);
+//        rangeColumn.setPrefWidth(200);
         rangeColumn.setSortable(false);
         rangeColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().range);
 
         JFXTreeTableColumn bcAddressColumn = new JFXTreeTableColumn("Broadcastová adresa");
-        bcAddressColumn.setPrefWidth(150);
+//        bcAddressColumn.setPrefWidth(150);
         bcAddressColumn.setSortable(false);
         bcAddressColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().bcAddress);
 
@@ -103,23 +100,27 @@ public class Table implements Initializable{
 
         ObservableList<Subnet> subnets = FXCollections.observableArrayList();
 
-        for (IPv4 item : items) {
+        for (IPv4 item : items)
             subnets.add(new Subnet(item.getName(),item.getNeededSize(), item.getAllocatedSize(), item.getDecNW(), item.getDecBC(), item.getPrefix(), item.getDecMask(), item.getDecFirstAddress() + " - " + item.getDecLastAddress()));
-        }
+
 
 
         final TreeItem<Subnet> root = new RecursiveTreeItem<>(subnets, RecursiveTreeObject::getChildren);
 
-        //TODO pridat stlpec!!
         table.getColumns().setAll(netNameColumn, neededSizeColumn, allocatedSizeColumn, nwAddressColumn, bcAddressColumn, prefixColumn, maskColumn, rangeColumn);
         table.setRoot(root);
         table.setShowRoot(false);
+//        table.setColumnResizePolicy(JFXTreeTableView.CONSTRAINED_RESIZE_POLICY);
+        neededSizeColumn.setPrefWidth(130);
+        allocatedSizeColumn.setPrefWidth(130);
+        prefixColumn.setPrefWidth(85);
+
+
     }
 
-    class Subnet extends RecursiveTreeObject<Subnet>{
-
+    class Subnet extends RecursiveTreeObject<Subnet>
+    {
         StringProperty netName, nwAddress, bcAddress, prefix, neededSize, allocatedSize, mask, range;
-
 
         public Subnet(String netName, int neededSize, int allocatedSize, String nwAddress, String bcAddress, String prefix, String mask, String range)
         {
@@ -131,9 +132,6 @@ public class Table implements Initializable{
             this.prefix = new SimpleStringProperty("/" + prefix);
             this.mask = new SimpleStringProperty(mask);
             this.range = new SimpleStringProperty(range);
-
         }
-
     }
-
 }
