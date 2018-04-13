@@ -1,5 +1,6 @@
 package spse;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -39,6 +40,10 @@ public class Drawer_Controller
     public void handleIPv6Info()
     {
 
+    }
+
+    public void handleConverter() throws IOException {
+        setScene("Converter.fxml");
     }
 
     public void handleAbout()
