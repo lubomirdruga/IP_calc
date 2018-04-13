@@ -93,7 +93,7 @@ public class IPv4 {
         int[] decArray = new int[IPV4_LENGTH];
 
         for (int i = 0; i < binArray.length; i++)
-            decArray[i] = Converter.toDEC(binArray[i]);
+            decArray[i] = Converter.binToDEC(binArray[i]);
 
         return decArray;
     }
@@ -125,7 +125,7 @@ public class IPv4 {
     {
         //poradie adresy
          binOrder = secondPart;
-         decOrder = Converter.toDEC(binOrder) + 1;
+         decOrder = Converter.binToDEC(binOrder) + 1;
     }
 
     private void networkIPaddress()
