@@ -49,8 +49,6 @@ public class IPv4_VLSM_Controller implements Initializable
             System.out.println("File 'Drawer.fxml' not found");
         }
 
-
-
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
         transition.setRate(-1);
         hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
@@ -61,7 +59,6 @@ public class IPv4_VLSM_Controller implements Initializable
                 drawer.open();
             }
         });
-
 
 
         try {
@@ -131,9 +128,7 @@ public class IPv4_VLSM_Controller implements Initializable
             int[] subnetsArray = new int[netSizeInput.length];
 
             for (int i = 0; i < netSizeInput.length; i++) {
-
                 subnetsArray[i] = Integer.parseInt(netSizeInput[i].getText().trim());
-                
             }
 
             IPv4VLSM vlsm = new IPv4VLSM(supernetInput.getText(), Integer.parseInt(subnetsCountInput.getText()), subnetsArray);
@@ -157,17 +152,13 @@ public class IPv4_VLSM_Controller implements Initializable
         {
             //toast
             JFXSnackbar snackbar = new JFXSnackbar(anchorPane);
-
             snackbar.show("Nie je možné subnetovať, supernet sieť je príliš malá", 3000);
         }
         catch (Exception e) {
             showToast("Chyba!", "Zadaný vstup nie je správny!");
             e.printStackTrace();
         }
-
-
     }
-
 
     private void showToast(String heading, String body)
     {
@@ -186,39 +177,4 @@ public class IPv4_VLSM_Controller implements Initializable
     private String str(int i) {
         return i < 0 ? "" : str((i / 26) - 1) + (char)(65 + i % 26);
     }
-
-
-
-
-
-    // https://drive.google.com/drive/folders/0B_nK3WmoczMgTFhPWmZfby1pQ0k
-//    private void createTable() {
-//
-//        nwColumn = new TableColumn<>("NW address");
-//        nwColumn.setMinWidth(103);
-//        nwColumn.setCellValueFactory(new PropertyValueFactory<>("prefix"));
-//
-//        bcColumn = new TableColumn<>("BC address");
-//        bcColumn.setMinWidth(102);
-//        bcColumn.setCellValueFactory(new PropertyValueFactory<>("prefix"));
-////        levelColumn.setId("column");
-//
-//        prefixColumn = new TableColumn<>("Prefix");
-//        prefixColumn.setMinWidth(102);
-//        prefixColumn.setCellValueFactory(new PropertyValueFactory<>("prefix"));
-////        prefixColumn.setId("column");
-//
-//        items = FXCollections.observableArrayList(finalSubnets);
-//        table = new TableView<>();
-//        table.setItems(items);
-//        table.getColumns().addAll(nwColumn, bcColumn, prefixColumn);
-////        table.setPrefHeight(300);
-//
-//
-//    }
-
-
-
-
-
 }
