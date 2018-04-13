@@ -1,9 +1,7 @@
 package spse;
 
-
 public class Converter
 {
-
     public static String toBinary(int DECnumber)
     {
         String binaryOut = "";
@@ -36,7 +34,6 @@ public class Converter
         }
         return DECNumber;
     }
-
 
     public static String decToBin(int decNum)
     {
@@ -155,14 +152,12 @@ public class Converter
 
     public static String binToHex(String binary)
     {
-
         //BIN TO DEC
         int decimal = Integer.parseInt(binary,2);
 
         //dec to HEX
         return Integer.toString(decimal,16);
     }
-
 
     public static String hexToDec(String hexadecimalInput) throws Exception
     {
@@ -214,8 +209,6 @@ public class Converter
         return Integer.toString(vysledok);
     }
 
-
-
     public static String hexToBin (String hexadecimal)
     {
         char [] hexarray = String.valueOf(hexadecimal).toUpperCase().toCharArray();
@@ -249,6 +242,4 @@ public class Converter
         }
         return fullIp;
     }
-
-
 }
