@@ -71,7 +71,7 @@
                   </HBox>
                </children>
             </VBox>
-            <JFXButton fx:id="guiBtn" buttonType="RAISED" layoutX="1048.0" layoutY="245.0" onAction="#showRectScheme" prefHeight="38.0" prefWidth="158.0" ripplerFill="#30e849" style="-fx-background-color: #bada55;" text="Grafické znázornenie" />
+            <JFXButton fx:id="guiBtn" buttonType="RAISED" layoutX="1048.0" layoutY="245.0" onAction="#showPieChart" prefHeight="38.0" prefWidth="158.0" ripplerFill="#30e849" style="-fx-background-color: #bada55;" text="Grafické znázornenie" />
             <JFXHamburger fx:id="hamburger" layoutX="1204.0" layoutY="26.0" />
             <JFXDrawer fx:id="drawer" prefHeight="712.0" prefWidth="143.0" />
          </children>
