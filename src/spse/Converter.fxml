@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="652.0" prefWidth="498.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.Converter_Controller">
+   <children>
+      <Label layoutX="14.0" layoutY="20.0" text="Prevodník medzi sústavami">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <VBox layoutX="37.0" layoutY="207.0" prefHeight="142.0" prefWidth="423.0">
+         <children>
+            <HBox prefHeight="39.0" prefWidth="420.0">
+               <children>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="37.0" prefWidth="170.0" text="Decimálna (10): ">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="decimalInput" alignment="BOTTOM_LEFT" focusColor="#425ba8" onKeyReleased="#convertFromDecimal" prefHeight="37.0" prefWidth="250.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="39.0">
+               <children>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="37.0" prefWidth="170.0" text="Binárna (2): ">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="binaryInput" alignment="BOTTOM_LEFT" onKeyReleased="#convertFromBinary" prefHeight="37.0" prefWidth="250.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="39.0">
+               <children>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="37.0" prefWidth="170.0" text="Hexadecimálna (16):">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="hexadecimalInput" alignment="BOTTOM_LEFT" onKeyReleased="#convertFromHexadecimal" prefHeight="37.0" prefWidth="250.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </JFXTextField>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <JFXButton buttonType="RAISED" layoutX="372.0" layoutY="158.0" onAction="#clearInputs" prefHeight="41.0" prefWidth="92.0" style="-fx-background-color: E74C3C;" text="Vymazať" textFill="WHITE" />
+      <JFXHamburger fx:id="hamburger" layoutX="444.0" layoutY="24.0" />
+      <JFXDrawer fx:id="drawer" layoutX="-2.0" layoutY="-7.0" prefHeight="764.0" prefWidth="145.0" />
+   </children>
+</AnchorPane>
