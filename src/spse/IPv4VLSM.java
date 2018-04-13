@@ -5,28 +5,10 @@ import java.util.regex.Pattern;
 
 public class IPv4VLSM
 {
-    /**
-     *
-     *      VSTUP
-     *
-     * pocet sieti
-     * DONE / check / todo pocet hostov bude vstup jedneho objeku IPv4!
-     * supernet
-     * prefix
-     *
-     *
-     * TODO STVORCOVE DELENIE SIETE
-     */
-
-    //todo vo controlleri nacitat pole hostov, nasledne cez settter nastavit
-
-
     private int superNetPrefix, supernetHostsCount, subnetsCount, spaceNeeded;
     private int[] supernetIPv4, nextIP, subnetsArray;
     private String superNet;
     private IPv4[] subnet;
-
-
 
     public IPv4VLSM(String superNet, int subnetsCount, int[] subnetsArray)
     {
@@ -92,8 +74,6 @@ public class IPv4VLSM
 
         for (int i = 0; i < subnet.length; i++)
         {
-            //todo docasne
-
             subnet[i] = new IPv4(str(i), subnetsArray[i]);
             subnet[i].allocateCorrectSize();
         }
@@ -106,10 +86,10 @@ public class IPv4VLSM
         for (int i = 0; i < subnet.length; i++)
             spaceNeeded += subnet[i].getAllocatedSize();
 
+        //todo remove
         if (supernetHostsCount > spaceNeeded)
             System.out.println("je mozne subnetovat");
         else
-//            System.out.println("NIE je mozne subnetovat");
             throw new ArithmeticException();
 
     }
@@ -168,22 +148,6 @@ public class IPv4VLSM
                 nextIP[1] = 0;
                 nextIP[0] += 1;
             }
-        }
-
-        //todo remove
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
-        System.out.println("## FINAL SUBNETS ##");
-
-        for (int i = 0; i < subnet.length; i++) {
-
-            System.out.println();
-            System.out.println(subnet[i].name);
-            subnet[i].supernetInfo();
         }
     }
 
