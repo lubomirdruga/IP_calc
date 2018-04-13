@@ -1,9 +1,7 @@
 package spse;
 
-
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -12,8 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -39,11 +35,8 @@ public class IPv4_VLSM_Controller implements Initializable
     public StackPane stackPane;
     public ScrollPane scrollPane;
     public JFXSpinner spinner;
-    public TableView table;
     private JFXTextField[] netSizeInput;
     private IPv4[] finalSubnets;
-    private static ObservableList<IPv4> items;
-    private static TableColumn<IPv4, Integer> nwColumn, bcColumn, prefixColumn;
 
 
     @Override
