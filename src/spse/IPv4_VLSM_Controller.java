@@ -148,6 +148,7 @@ public class IPv4_VLSM_Controller implements Initializable
             finalSubnets = vlsm.getSubnet();
 
             Table.setItems(finalSubnets);
+            Table.setVlsm(vlsm);
 
             Stage stage = (Stage) supernetInput.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("IPv4_VLSM_Table.fxml"));
