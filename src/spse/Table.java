@@ -26,9 +26,9 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 
-public class Table implements Initializable{
+public class Table implements Initializable
+{
 //todo rename
 
     public JFXHamburger hamburger;
@@ -115,12 +115,10 @@ public class Table implements Initializable{
         bcAddressColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().bcAddress);
 
 
-
         ObservableList<Subnet> subnets = FXCollections.observableArrayList();
 
         for (IPv4 item : items)
             subnets.add(new Subnet(item.getName(),item.getNeededSize(), item.getAllocatedSize(), item.getDecNW(), item.getDecBC(), item.getPrefix(), item.getDecMask(), item.getDecFirstAddress() + " - " + item.getDecLastAddress()));
-
 
 
         final TreeItem<Subnet> root = new RecursiveTreeItem<>(subnets, RecursiveTreeObject::getChildren);
@@ -128,6 +126,7 @@ public class Table implements Initializable{
         table.getColumns().setAll(netNameColumn, neededSizeColumn, allocatedSizeColumn, nwAddressColumn, bcAddressColumn, prefixColumn, maskColumn, rangeColumn);
         table.setRoot(root);
         table.setShowRoot(false);
+        //todo predsa len prerobit na prefWidth
         table.setColumnResizePolicy(JFXTreeTableView.CONSTRAINED_RESIZE_POLICY);
         neededSizeColumn.setPrefWidth(130);
         allocatedSizeColumn.setPrefWidth(130);
@@ -143,60 +142,16 @@ public class Table implements Initializable{
         String needAddCount = String.format("%,d", vlsm.getSubnetsSum());
         needAddCount = needAddCount.replaceAll(",", " ");
         neededAddressesLabel.setText(needAddCount);
-
-
     }
 
-    public void showRectScheme() {
+    public void showPieChart() {
 
         HBox supernet = new HBox();
         supernet.setPrefSize(400,400);
 
-//        VBox[] vBox = new  VBox[10];
-//        HBox[] hBox = new  HBox[10];
-//
-//        for (int i = 0; i < vBox.length; i++) {
-//            vBox[i] = new VBox(new Text(Integer.toString(i)));
-//            hBox[i] = new HBox(new Text(Integer.toString(i)));
-//
-//            hBox[i].setStyle(" -fx-padding: 10; -fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 5; -fx-border-radius: 5; -fx-border-color: blue;");
-//            vBox[i].setStyle("-fx-padding: 10;-fx-border-style: solid inside; -fx-border-width: 2;-fx-border-insets: 5; -fx-border-radius: 5;-fx-border-color: blue;");
-//        }
-//
-//        supernet.setStyle(" -fx-padding: 10; -fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 5; -fx-border-radius: 5; -fx-border-color: blue;");
-//
-//
-//
-//
-//        vBox[0].getChildren().addAll(hBox[1], hBox[2]);
-//        vBox[1].getChildren().addAll(hBox[3], hBox[4]);
-//
-//        hBox[1].getChildren().addAll(vBox[2], vBox[3]);
-//        hBox[2].getChildren().addAll(vBox[4], vBox[5]);
-//
-//        hBox[3].getChildren().addAll(vBox[6], vBox[7]);
-//        hBox[4].getChildren().addAll(vBox[8], vBox[9]);
-//
-//        vBox[4].getChildren().addAll(hBox[5], hBox[6]);
-//        vBox[6].getChildren().addAll(hBox[7], hBox[8]);
-//
-//
-//
-//        supernet.getChildren().addAll(vBox[0], vBox[1]);
-
-
-//        Rectangle rectangle = new Rectangle(300, 300);
-//        rectangle.setFill(Color.BLUE);
-//        rectangle.setStroke(Color.RED);
-//        rectangle.setStrokeWidth(10);
-//
-//
-//        supernet.getChildren().addAll(rectangle);
-
         PieChart pieChart = new PieChart();
 
         ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
-
 
         for (IPv4 item : items) {
             String name = item.getName();
@@ -206,25 +161,20 @@ public class Table implements Initializable{
 
         data.add(new PieChart.Data("nevyužité adresy", (vlsm.getSupernetHostsCount() - vlsm.getSpaceNeeded())));
 
-
         pieChart.setData(data);
         pieChart.setLegendSide(Side.BOTTOM);
 
         supernet.getChildren().add(pieChart);
 
-
         JFXDialogLayout content  = new JFXDialogLayout();
         content.setHeading(new Text("Grafické znázornenie využitia supernet siete"));
         content.setBody(supernet);
 
-//todo change errorDialog variable name
-        JFXDialog errorDialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
+        JFXDialog pieChartDialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
         JFXButton closeBtn = new JFXButton("Dobre");
-        closeBtn.setOnAction(event -> errorDialog.close());
+        closeBtn.setOnAction(event -> pieChartDialog.close());
         content.setActions(closeBtn);
-        errorDialog.show();
-
-
+        pieChartDialog.show();
     }
 
     class Subnet extends RecursiveTreeObject<Subnet>
@@ -243,13 +193,4 @@ public class Table implements Initializable{
             this.range = new SimpleStringProperty(range);
         }
     }
-
-    class VLSMRectangle
-    {
-        String prefix;
-        double size;
-
-    }
-
-
 }
