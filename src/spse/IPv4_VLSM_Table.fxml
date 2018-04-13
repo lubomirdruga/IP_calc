@@ -11,40 +11,69 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane prefHeight="782.0" prefWidth="1212.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.Table">
+<StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.Table">
    <children>
-      <AnchorPane prefHeight="671.0" prefWidth="967.0" stylesheets="@stylesheet.css">
+      <AnchorPane prefHeight="707.0" prefWidth="1260.0" stylesheets="@stylesheet.css">
          <children>
-            <JFXHamburger fx:id="hamburger" layoutX="1159.0" layoutY="20.0" />
-            <JFXDrawer fx:id="drawer" prefHeight="400.0" prefWidth="143.0" />
-            <HBox layoutX="53.0" layoutY="333.0" prefHeight="370.0" prefWidth="1134.0">
+            <HBox layoutX="73.0" layoutY="296.0" prefHeight="370.0" prefWidth="1134.0">
                <children>
                   <JFXTreeTableView fx:id="table" prefHeight="370.0" prefWidth="1134.0" />
-               </children></HBox>
-            <VBox layoutX="347.0" layoutY="23.0" prefHeight="151.0" prefWidth="509.0">
+               </children>
+            </HBox>
+            <Label layoutX="33.0" layoutY="39.0" text="Výsledok">
+               <font>
+                  <Font size="38.0" />
+               </font>
+            </Label>
+            <VBox layoutX="30.0" layoutY="116.0" prefHeight="134.0" prefWidth="786.0">
                <children>
-                  <Label prefHeight="46.0" prefWidth="348.0" text="kk">
-                     <font>
-                        <Font size="31.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="50.0" prefWidth="142.0" text="Label">
-                     <font>
-                        <Font size="31.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="50.0" prefWidth="142.0" text="Label">
-                     <font>
-                        <Font size="31.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="50.0" prefWidth="142.0" text="Label">
-                     <font>
-                        <Font size="31.0" />
-                     </font>
-                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Supernet adresa: ">
+                           <font>
+                              <Font size="31.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="supernetAddressLabel" text="Label" textFill="#2196f3">
+                           <font>
+                              <Font size="31.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Počet IP adries v supernet sieti: ">
+                           <font>
+                              <Font size="31.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="supernetAvailableCountLabel" text="Label" textFill="#2196f3">
+                           <font>
+                              <Font name="System Bold" size="31.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Počet potrebných IP adries: ">
+                           <font>
+                              <Font size="31.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="neededAddressesLabel" text="Label" textFill="#2196f3">
+                           <font>
+                              <Font name="System Bold" size="31.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
+            <JFXButton fx:id="guiBtn" buttonType="RAISED" layoutX="1048.0" layoutY="245.0" onAction="#showRectScheme" prefHeight="38.0" prefWidth="158.0" ripplerFill="#30e849" style="-fx-background-color: #bada55;" text="Grafické znázornenie" />
+            <JFXHamburger fx:id="hamburger" layoutX="1204.0" layoutY="26.0" />
+            <JFXDrawer fx:id="drawer" prefHeight="712.0" prefWidth="143.0" />
          </children>
       </AnchorPane>
    </children>
