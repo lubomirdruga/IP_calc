@@ -11,29 +11,47 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class Table implements Initializable{
 //todo rename
 
     public JFXHamburger hamburger;
     public JFXDrawer drawer;
+    public JFXButton guiBtn;
+    public StackPane stackPane;
+    public Label supernetAddressLabel;
+    public Label supernetAvailableCountLabel;
+    public Label neededAddressesLabel;
     @FXML
     private JFXTreeTableView<Subnet> table;
     private static IPv4[] items;
+    private static IPv4VLSM vlsm;
+
+    public static void setVlsm(IPv4VLSM vlsmObj) {
+        vlsm = vlsmObj;
+    }
 
     public static void setItems(IPv4[] finalSubnets) {
         items = finalSubnets;
     }
 
+    //TODO skontrolovat tabulku alokovana a potrebna velkost, MUSI sediet s vysledkami hore
 
 
     // https://drive.google.com/drive/folders/0B_nK3WmoczMgTFhPWmZfby1pQ0k
@@ -110,10 +128,101 @@ public class Table implements Initializable{
         table.getColumns().setAll(netNameColumn, neededSizeColumn, allocatedSizeColumn, nwAddressColumn, bcAddressColumn, prefixColumn, maskColumn, rangeColumn);
         table.setRoot(root);
         table.setShowRoot(false);
-//        table.setColumnResizePolicy(JFXTreeTableView.CONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(JFXTreeTableView.CONSTRAINED_RESIZE_POLICY);
         neededSizeColumn.setPrefWidth(130);
         allocatedSizeColumn.setPrefWidth(130);
         prefixColumn.setPrefWidth(85);
+
+
+        supernetAddressLabel.setText(vlsm.getSuperNetAddress());
+
+        String supernetCount = String.format("%,d", vlsm.getSupernetHostsCount());
+        supernetCount = supernetCount.replaceAll(",", " ");
+        supernetAvailableCountLabel.setText(supernetCount);
+
+        String needAddCount = String.format("%,d", vlsm.getSubnetsSum());
+        needAddCount = needAddCount.replaceAll(",", " ");
+        neededAddressesLabel.setText(needAddCount);
+
+
+    }
+
+    public void showRectScheme() {
+
+        HBox supernet = new HBox();
+        supernet.setPrefSize(400,400);
+
+//        VBox[] vBox = new  VBox[10];
+//        HBox[] hBox = new  HBox[10];
+//
+//        for (int i = 0; i < vBox.length; i++) {
+//            vBox[i] = new VBox(new Text(Integer.toString(i)));
+//            hBox[i] = new HBox(new Text(Integer.toString(i)));
+//
+//            hBox[i].setStyle(" -fx-padding: 10; -fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 5; -fx-border-radius: 5; -fx-border-color: blue;");
+//            vBox[i].setStyle("-fx-padding: 10;-fx-border-style: solid inside; -fx-border-width: 2;-fx-border-insets: 5; -fx-border-radius: 5;-fx-border-color: blue;");
+//        }
+//
+//        supernet.setStyle(" -fx-padding: 10; -fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 5; -fx-border-radius: 5; -fx-border-color: blue;");
+//
+//
+//
+//
+//        vBox[0].getChildren().addAll(hBox[1], hBox[2]);
+//        vBox[1].getChildren().addAll(hBox[3], hBox[4]);
+//
+//        hBox[1].getChildren().addAll(vBox[2], vBox[3]);
+//        hBox[2].getChildren().addAll(vBox[4], vBox[5]);
+//
+//        hBox[3].getChildren().addAll(vBox[6], vBox[7]);
+//        hBox[4].getChildren().addAll(vBox[8], vBox[9]);
+//
+//        vBox[4].getChildren().addAll(hBox[5], hBox[6]);
+//        vBox[6].getChildren().addAll(hBox[7], hBox[8]);
+//
+//
+//
+//        supernet.getChildren().addAll(vBox[0], vBox[1]);
+
+
+//        Rectangle rectangle = new Rectangle(300, 300);
+//        rectangle.setFill(Color.BLUE);
+//        rectangle.setStroke(Color.RED);
+//        rectangle.setStrokeWidth(10);
+//
+//
+//        supernet.getChildren().addAll(rectangle);
+
+        PieChart pieChart = new PieChart();
+
+        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+
+
+        for (IPv4 item : items) {
+            String name = item.getName();
+            double value = item.getAllocatedSize();
+            data.addAll(new PieChart.Data(name, value));
+        }
+
+        data.add(new PieChart.Data("nevyužité adresy", (vlsm.getSupernetHostsCount() - vlsm.getSpaceNeeded())));
+
+
+        pieChart.setData(data);
+        pieChart.setLegendSide(Side.BOTTOM);
+
+        supernet.getChildren().add(pieChart);
+
+
+        JFXDialogLayout content  = new JFXDialogLayout();
+        content.setHeading(new Text("Grafické znázornenie využitia supernet siete"));
+        content.setBody(supernet);
+
+//todo change errorDialog variable name
+        JFXDialog errorDialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
+        JFXButton closeBtn = new JFXButton("Dobre");
+        closeBtn.setOnAction(event -> errorDialog.close());
+        content.setActions(closeBtn);
+        errorDialog.show();
 
 
     }
@@ -134,4 +243,13 @@ public class Table implements Initializable{
             this.range = new SimpleStringProperty(range);
         }
     }
+
+    class VLSMRectangle
+    {
+        String prefix;
+        double size;
+
+    }
+
+
 }
