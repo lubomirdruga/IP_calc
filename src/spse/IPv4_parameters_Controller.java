@@ -50,7 +50,7 @@ public class IPv4_parameters_Controller implements Initializable {
     private IPv4 iPv4;
 
 
-    //format address count
+    //todo format address count
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -62,14 +62,9 @@ public class IPv4_parameters_Controller implements Initializable {
             System.out.println("File 'Drawer.fxml' not found");
         }
 
-
-
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
         transition.setRate(-1);
         hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
-//            transition.setRate(transition.getRate()*-1);
-//            transition.play();
-
             if(drawer.isShown())
             {
                 drawer.close();
@@ -150,8 +145,6 @@ public class IPv4_parameters_Controller implements Initializable {
             content.setActions(closeBtn);
             errorDialog.show();
         }
-
-
     }
 
     // https://stackoverflow.com/questions/1102891/how-to-check-if-a-string-is-numeric-in-java
