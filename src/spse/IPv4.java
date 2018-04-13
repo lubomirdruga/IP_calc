@@ -1,14 +1,9 @@
 package spse;
 
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-
-import java.util.Scanner;
-
-public class IPv4 {
+public class IPv4
+{
     //static
     private final int IPV4_LENGTH = 4; //konstanta
-
-
 
     //ipv4 host adresa zadana uzivatelom
     private int[] ipv4DEC = new int[IPV4_LENGTH];
@@ -16,10 +11,7 @@ public class IPv4 {
     private String fullBinAddress, firstPart, secondPart, binOrder, classIP, typeIP;
     private int decOrder, addressCount;
     private int[] decNW, decBC, decMask, decWildcard, decFirstAddress, decLastAddress;
-
     private int prefix;
-
-
 
     //VLSM params
     private int neededSize, allocatedSize;
@@ -39,12 +31,6 @@ public class IPv4 {
         this.name = name;
         this.neededSize = neededSize + 2;
     }
-
-    // todo dve public metody na zakladne zistenie parametrov IP
-    // a to jedno pre vlsm a druhe pre zakladne parametre/vsetky
-
-    //ostatne budu private
-
 
     public void calculateAllIPinformations()
     {
@@ -73,9 +59,6 @@ public class IPv4 {
         maskIPaddress();
         firstUsableIPaddress();
         lastUsableIPaddress();
-
-        //todo delete
-        supernetInfo();
     }
 
     private void convertToBIN()
@@ -110,7 +93,6 @@ public class IPv4 {
 
     private String[] substringBinaryIP(String binaryIP)
     {
-
         String[] dividedBinaryIP = new String[IPV4_LENGTH];
 
         dividedBinaryIP[0] = binaryIP.substring(0,8);
@@ -197,7 +179,6 @@ public class IPv4 {
     {
         //pocet pouzitelnych adries
         addressCount = (int) (Math.pow(2, (32 - prefix)) - 2);
-
     }
 
     private void IPclass()
@@ -225,7 +206,6 @@ public class IPv4 {
         else
             typeIP = "verejná";
     }
-
 
     //getters to GUI
 
@@ -285,7 +265,6 @@ public class IPv4 {
     }
 
 
-
     //VLSM metody
     public void allocateCorrectSize()
     {
@@ -303,16 +282,6 @@ public class IPv4 {
             }
         }
     }
-
-    //supernet info just for test
-    //todo delete
-    public void supernetInfo()
-    {
-        System.out.println("NW: " + getDecNW());
-        System.out.println("BC: " + getDecBC());
-        System.out.println("prefix: " + getPrefix());
-    }
-
 
     // getters/setters for VLSM
     public String getName() {
