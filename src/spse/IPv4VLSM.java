@@ -21,7 +21,7 @@ public class IPv4VLSM
     //todo vo controlleri nacitat pole hostov, nasledne cez settter nastavit
 
 
-    private int superNetPrefix, supernetHostsCount, subnetsCount;
+    private int superNetPrefix, supernetHostsCount, subnetsCount, spaceNeeded;
     private int[] supernetIPv4, nextIP, subnetsArray;
     private String superNet;
     private IPv4[] subnet;
@@ -101,7 +101,7 @@ public class IPv4VLSM
 
     private void checkSubnettingPossibility()
     {
-        int spaceNeeded = 0;
+        spaceNeeded = 0;
 
         for (int i = 0; i < subnet.length; i++)
             spaceNeeded += subnet[i].getAllocatedSize();
@@ -189,6 +189,28 @@ public class IPv4VLSM
 
     public IPv4[] getSubnet() {
         return subnet;
+    }
+
+    public int getSupernetHostsCount() {
+        return supernetHostsCount;
+    }
+
+    public int getSpaceNeeded() {
+        return spaceNeeded;
+    }
+
+    public String getSuperNetAddress() {
+        return superNet.trim();
+    }
+
+    public int getSubnetsSum() {
+
+        int sum = 0;
+
+        for (int oneSubnetCount : subnetsArray) {
+            sum += oneSubnetCount;
+        }
+        return sum;
     }
 
     private String str(int i) {
