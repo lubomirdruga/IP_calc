@@ -34,8 +34,6 @@ public class Converter_Controller implements Initializable
             System.out.println("File 'Drawer.fxml' not found");
         }
 
-
-
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
         transition.setRate(-1);
         hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
@@ -49,27 +47,19 @@ public class Converter_Controller implements Initializable
 
     }
 
-
     public void convertFromDecimal() {
+        //todo change int to long
 
         try {
             int decimal = Integer.parseInt(decimalInput.getText());
             decimalInput.setFocusColor(Color.rgb(63, 90, 168, 1));
 
             binaryInput.setText(Converter.decToBin(decimal));
-
-            //TODO: Pytat od Mata spravny konverter!!
-            // nefunguje od 16 - 99! pri nule hadze error celkovo chybne -_-
-//           todo fix hexadecimalInput.setText(Converter.decToHex(Integer.toString(decimal)));
-
-
-
+            hexadecimalInput.setText(Converter.decToHex(decimal));
         } catch (NumberFormatException e){
 
-            doCacthErrorBlock(decimalInput);
+            doCatchErrorBlock(decimalInput);
         }
-
-
     }
 
     public void convertFromBinary() {
@@ -88,8 +78,7 @@ public class Converter_Controller implements Initializable
 
         }
         catch (NumberFormatException e) {
-
-           doCacthErrorBlock(binaryInput);
+           doCatchErrorBlock(binaryInput);
         }
     }
 
@@ -111,8 +100,7 @@ public class Converter_Controller implements Initializable
         }
         catch (NumberFormatException e)
         {
-           doCacthErrorBlock(hexadecimalInput);
-
+           doCatchErrorBlock(hexadecimalInput);
         }
     }
 
@@ -133,7 +121,7 @@ public class Converter_Controller implements Initializable
         snackbar.show("Zadávaný vstup nie je správny", 3000);
     }
 
-    private void doCacthErrorBlock(JFXTextField input)
+    private void doCatchErrorBlock(JFXTextField input)
     {
         if (input.getText().isEmpty())
         {
