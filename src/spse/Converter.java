@@ -40,113 +40,101 @@ public class Converter
        return Integer.toBinaryString(Integer.parseInt(String.valueOf(decNum)));
     }
 
-
-    //todo rename method
-    //todo refactor this method in the IPv6 code!
-    //todo Nejdze!!
-
-    public static String decToHex(String input)
+    public static String decToHex(int decNum)         // decNumber = decimal Number
     {
-        String output;
-        int decNum = Integer.parseInt(input);
         int temp = 0;
-        char[] decarray = String.valueOf(decNum).toCharArray();
-        int [] decarrayarr = new int[decarray.length];
-        String [] result = new String[decarrayarr.length];
+        char[] decarray = String.valueOf(decNum).toCharArray();         // conversion DecNumber in array
+        int[] decarrayarr = new int[decarray.length];          // auxiliary field
+        String[] result = new String[decarrayarr.length];
         String hexNum = "";
 
-        for (int i = decarray.length - 1 ; i >= 0 ; i--)
-        {
+        for (int i = decarray.length - 1; i >= 0; i--) {
             temp = decNum % 16;
             decNum = decNum / 16;
 
-            switch (temp)
-            {
-                case 0 : result[i] = "0"; break;
-                case 1 : result[i] = "1"; break;
-                case 2 : result[i] = "2"; break;
-                case 3 : result[i] = "3"; break;
-                case 4 : result[i] = "4"; break;
-                case 5 : result[i] = "5"; break;
-                case 6 : result[i] = "6"; break;
-                case 7 : result[i] = "7"; break;
-                case 8 : result[i] = "8"; break;
-                case 9 : result[i] = "9"; break;
-                case 10 : result[i] = "A"; break;
-                case 11 : result[i] = "B"; break;
-                case 12 : result[i] = "C"; break;
-                case 13 : result[i] = "D"; break;
-                case 14 : result[i] = "E"; break;
-                case 15 : result[i] = "F"; break;
+            // Transfer int to String + convert decimal number to hexadecimal
+            switch (temp) {
+                case 0:
+                    result[i] = "0";
+                    break;
+                case 1:
+                    result[i] = "1";
+                    break;
+                case 2:
+                    result[i] = "2";
+                    break;
+                case 3:
+                    result[i] = "3";
+                    break;
+                case 4:
+                    result[i] = "4";
+                    break;
+                case 5:
+                    result[i] = "5";
+                    break;
+                case 6:
+                    result[i] = "6";
+                    break;
+                case 7:
+                    result[i] = "7";
+                    break;
+                case 8:
+                    result[i] = "8";
+                    break;
+                case 9:
+                    result[i] = "9";
+                    break;
+                case 10:
+                    result[i] = "A";
+                    break;
+                case 11:
+                    result[i] = "B";
+                    break;
+                case 12:
+                    result[i] = "C";
+                    break;
+                case 13:
+                    result[i] = "D";
+                    break;
+                case 14:
+                    result[i] = "E";
+                    break;
+                case 15:
+                    result[i] = "F";
+                    break;
             }
             decarrayarr[i] = temp;
         }
 
+        // fix if 0 is on first position or first and second position
         int m = 0;
-        for (String u: result)
+        for (String u : result)          // if 0 = 1 and 2 position
         {
-            if (result[0] == "0" && result[1] == "0") {
+            if (result[0] == "0" && result[1] == "0")
+            {
                 String helparray[] = new String[result.length - 2];
                 for (String p : helparray) {
                     helparray[m] = result[m + 2];
                     p = helparray[m];
-                    hexNum = hexNum+helparray[m];
+                    hexNum = hexNum + p;
                     m++;
                 }
                 break;
-            } else if (result[0] == "0")
+            }
+            else if (result[0] == "0")          // if 0 = 1 position
             {
                 String helparray[] = new String[result.length - 1];
                 for (String p : helparray) {
                     helparray[m] = result[m + 1];
                     p = helparray[m];
-                    hexNum = hexNum + helparray[m];
+                    hexNum = hexNum + p;
                     m++;
                 }
                 break;
             }
+            hexNum = hexNum + u;
         }
-
-        output = hexNum;
-
-        if (Integer.parseInt(input) >= 0 && Integer.parseInt(input) <= 9)
-        {
-            switch (Integer.parseInt(input))
-            {
-                case 0:
-                    output = "0";
-                    break;
-                case 1:
-                    output = "1";
-                    break;
-                case 2:
-                    output = "2";
-                    break;
-                case 3:
-                    output = "3";
-                    break;
-                case 4:
-                    output = "4";
-                    break;
-                case 5:
-                    output = "5";
-                    break;
-                case 6:
-                    output = "6";
-                    break;
-                case 7:
-                    output = "7";
-                    break;
-                case 8:
-                    output = "8";
-                    break;
-                case 9:
-                    output = "9";
-                    break;
-            }
-        }
-
-        return output;
+        return hexNum;
     }
 
 
