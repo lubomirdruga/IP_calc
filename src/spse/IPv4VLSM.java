@@ -177,6 +177,14 @@ public class IPv4VLSM
         return sum;
     }
 
+    public int[] getSupernetIPv4() {
+        return supernetIPv4;
+    }
+
+    public int getSuperNetPrefix() {
+        return superNetPrefix;
+    }
+
     private String str(int i) {
         return i < 0 ? "" : str((i / 26) - 1) + (char)(65 + i % 26);
     }
