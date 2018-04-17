@@ -1,4 +1,4 @@
-package spse;
+package spse.Controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -17,6 +17,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import spse.Models.IPv4;
+import spse.Models.IPv4VLSM;
 
 import java.io.IOException;
 import java.net.URL;
@@ -131,8 +133,8 @@ public class IPv4_VLSM_Controller implements Initializable
             vlsm.start();
             finalSubnets = vlsm.getSubnet();
 
-            Table.setItems(finalSubnets);
-            Table.setVlsm(vlsm);
+            IPv4_VLSM_Table_Controller.setItems(finalSubnets);
+            IPv4_VLSM_Table_Controller.setVlsm(vlsm);
 
             Stage stage = (Stage) supernetInput.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("IPv4_VLSM_Table.fxml"));

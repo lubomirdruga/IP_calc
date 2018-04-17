@@ -10,11 +10,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="sidePanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="145.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.Drawer_Controller">
+<VBox fx:id="sidePanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="145.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.Controllers.Drawer_Controller">
    <children>
       <ImageView fitHeight="127.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../img/bckground.jpeg" />
+            <Image url="@../../../img/bckground.jpeg" />
          </image>
       </ImageView>
       <JFXButton defaultButton="true" onAction="#handleIPv4Params" prefHeight="44.0" prefWidth="148.0" ripplerFill="#0044ff" text="IPv4 Parametre" />

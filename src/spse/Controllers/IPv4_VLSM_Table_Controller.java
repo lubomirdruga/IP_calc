@@ -1,4 +1,4 @@
-package spse;
+package spse.Controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
+import javafx.scene.Parent;
+import javafx.scene.SubScene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
@@ -22,12 +24,15 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
+import spse.Controllers.IPv4_parameters_Controller;
+import spse.Models.IPv4;
+import spse.Models.IPv4VLSM;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Table implements Initializable
+public class IPv4_VLSM_Table_Controller implements Initializable
 {
 //todo rename
 
@@ -59,7 +64,7 @@ public class Table implements Initializable
     public void initialize(URL arg0, ResourceBundle arg1) {
 
         try {
-            VBox box = FXMLLoader.load(getClass().getResource("Drawer.fxml"));
+            VBox box = FXMLLoader.load(getClass().getResource("Views/Drawer.fxml"));
             drawer.setSidePane(box);
         } catch (IOException ex) {
             System.out.println("File 'Drawer.fxml' not found");
@@ -175,6 +180,37 @@ public class Table implements Initializable
         closeBtn.setOnAction(event -> pieChartDialog.close());
         content.setActions(closeBtn);
         pieChartDialog.show();
+    }
+
+    public void showSupernetInfo() throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("Views/IPv4_parameters.fxml"));
+
+
+
+
+        JFXDialogLayout content  = new JFXDialogLayout();
+//        content.setHeading(new Text("Grafické znázornenie využitia supernet siete"));
+        content.setBody(new SubScene(root, 460,720));
+
+
+        int[] supenetIP = vlsm.getSupernetIPv4().clone();
+
+        IPv4_parameters_Controller ctrl = new IPv4_parameters_Controller();
+
+        ctrl.firstOctet = new JFXTextField(Integer.toString(supenetIP[0]));
+//        ctrl.secondOctet.setText(Integer.toString(supenetIP[1]));
+//        ctrl.thirdOctet.setText(Integer.toString(supenetIP[2]));
+//        ctrl.fourthOctet.setText(Integer.toString(supenetIP[3]));
+//        ctrl.prefix.setText(Integer.toString(vlsm.getSuperNetPrefix()));
+//
+//        ctrl.handleSubmit();
+
+        JFXDialog supernetParametersDialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
+        JFXButton closeBtn = new JFXButton("Dobre");
+        closeBtn.setOnAction(event -> supernetParametersDialog.close());
+        content.setActions(closeBtn);
+        supernetParametersDialog.show();
     }
 
     class Subnet extends RecursiveTreeObject<Subnet>

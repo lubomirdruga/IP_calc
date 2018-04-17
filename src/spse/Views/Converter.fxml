@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="652.0" prefWidth="498.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.Converter_Controller">
+<AnchorPane fx:id="anchorPane" prefHeight="652.0" prefWidth="498.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.Controllers.Converter_Controller">
    <children>
       <Label layoutX="14.0" layoutY="20.0" text="Prevodník medzi sústavami">
          <font>

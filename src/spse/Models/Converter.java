@@ -1,4 +1,4 @@
-package spse;
+package spse.Models;
 
 public class Converter
 {

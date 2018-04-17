@@ -1,4 +1,4 @@
-package spse;
+package spse.Controllers;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
