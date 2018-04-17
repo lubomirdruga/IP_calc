@@ -177,8 +177,8 @@ public class IPv4
 
     private void IPadressCount()
     {
-        //pocet pouzitelnych adries
-        addressCount = (int) (Math.pow(2, (32 - prefix)) - 2);
+        //pocet vsetkych adries
+        addressCount = (int) (Math.pow(2, (32 - prefix)));
     }
 
     private void IPclass()
@@ -244,14 +244,14 @@ public class IPv4
         return decLastAddress[0] + "." + decLastAddress[1] + "." + decLastAddress[2] + "." + decLastAddress[3];
     }
 
-    public String getAddressCount()
+    public int getAddressCount()
     {
-        return Integer.toString(addressCount);
+        return addressCount;
     }
 
-    public String getDecOrder()
+    public int getDecOrder()
     {
-        return Integer.toString(decOrder);
+        return decOrder;
     }
 
     public String getClassIP()
