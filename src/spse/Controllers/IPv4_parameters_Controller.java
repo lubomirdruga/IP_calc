@@ -54,7 +54,7 @@ public class IPv4_parameters_Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         try {
-            VBox box = FXMLLoader.load(getClass().getResource("Drawer.fxml"));
+            VBox box = FXMLLoader.load(getClass().getResource("../Views/Drawer.fxml"));
             drawer.setSidePane(box);
         } catch (IOException ex) {
             System.out.println("File 'Drawer.fxml' not found");

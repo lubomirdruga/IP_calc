@@ -44,7 +44,7 @@ public class IPv4_VLSM_Controller implements Initializable
     public void initialize(URL url, ResourceBundle rb) {
 
         try {
-            VBox box = FXMLLoader.load(getClass().getResource("Drawer.fxml"));
+            VBox box = FXMLLoader.load(getClass().getResource("../Views/Drawer.fxml"));
             drawer.setSidePane(box);
         } catch (IOException ex) {
             System.out.println("File 'Drawer.fxml' not found");
@@ -137,7 +137,7 @@ public class IPv4_VLSM_Controller implements Initializable
             IPv4_VLSM_Table_Controller.setVlsm(vlsm);
 
             Stage stage = (Stage) supernetInput.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("IPv4_VLSM_Table.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("../Views/IPv4_VLSM_Table.fxml"));
             stage.setScene(new Scene(root));
 
         }

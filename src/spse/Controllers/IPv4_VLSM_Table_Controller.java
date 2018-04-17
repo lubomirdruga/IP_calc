@@ -64,7 +64,7 @@ public class IPv4_VLSM_Table_Controller implements Initializable
     public void initialize(URL arg0, ResourceBundle arg1) {
 
         try {
-            VBox box = FXMLLoader.load(getClass().getResource("Views/Drawer.fxml"));
+            VBox box = FXMLLoader.load(getClass().getResource("../Views/Drawer.fxml"));
             drawer.setSidePane(box);
         } catch (IOException ex) {
             System.out.println("File 'Drawer.fxml' not found");
@@ -184,7 +184,7 @@ public class IPv4_VLSM_Table_Controller implements Initializable
 
     public void showSupernetInfo() throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("Views/IPv4_parameters.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../Views/IPv4_parameters.fxml"));
 
 
 

@@ -29,7 +29,7 @@ public class Converter_Controller implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            VBox box = FXMLLoader.load(getClass().getResource("Drawer.fxml"));
+            VBox box = FXMLLoader.load(getClass().getResource("../Views/Drawer.fxml"));
             drawer.setSidePane(box);
         } catch (IOException ex) {
             System.out.println("File 'Drawer.fxml' not found");
