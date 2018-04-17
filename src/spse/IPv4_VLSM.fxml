@@ -32,7 +32,7 @@
                         <Insets right="9.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField fx:id="subnetsCountInput" alignment="BOTTOM_LEFT" prefHeight="27.0" prefWidth="42.0" text="2">
+                  <JFXTextField fx:id="subnetsCountInput" alignment="BOTTOM_LEFT" prefHeight="27.0" prefWidth="42.0" text="6">
                      <HBox.margin>
                         <Insets right="11.0" />
                      </HBox.margin>
