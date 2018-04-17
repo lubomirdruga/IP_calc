@@ -34,7 +34,6 @@ public class IPv4_VLSM_Controller implements Initializable
     public AnchorPane anchorPane;
     public StackPane stackPane;
     public ScrollPane scrollPane;
-    public JFXSpinner spinner;
     private JFXTextField[] netSizeInput;
     private IPv4[] finalSubnets;
 
@@ -65,7 +64,6 @@ public class IPv4_VLSM_Controller implements Initializable
             changeSubnets();
         }catch (Exception ignored){}
 
-//        spinner.setVisible(false);
 
     }
 
@@ -77,7 +75,6 @@ public class IPv4_VLSM_Controller implements Initializable
 
             subnetsCount = Integer.parseInt(subnetsCountInput.getText().trim());
 
-//            spinner.setVisible(true);
             if (subnetsCount <= 0)
                 throw new NumberFormatException();
 
@@ -112,7 +109,6 @@ public class IPv4_VLSM_Controller implements Initializable
             inputRows[0].setPadding(new Insets(25,0,0,0));
             vBoxContent.getChildren().clear();
             vBoxContent.getChildren().addAll(inputRows);
-//            spinner.setVisible(false);
 
         }
         catch(NumberFormatException nfe) {

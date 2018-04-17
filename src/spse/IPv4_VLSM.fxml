@@ -55,7 +55,6 @@
                   <Insets />
                </opaqueInsets>
             </ScrollPane>
-            <JFXSpinner fx:id="spinner" layoutX="713.0" layoutY="478.0" />
          </children>
       </AnchorPane>
    </children>
