@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<StackPane prefHeight="720.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.Controllers.IPv6_parameters_Controller">
+   <children>
+      <AnchorPane>
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Základné parametre IPv6 adresy">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <VBox layoutX="22.0" layoutY="63.0" prefHeight="99.0" prefWidth="437.0">
+               <children>
+                  <HBox prefHeight="40.0" prefWidth="415.0">
+                     <children>
+                        <Label alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="77.0" text="IP adresa" />
+                        <JFXTextField fx:id="ipv6AddressInput" prefHeight="40.0" prefWidth="350.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="40.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="77.0" text="Prefix" />
+                        <JFXTextField fx:id="prefixInput" alignment="BOTTOM_CENTER" onAction="#getInputIP" prefHeight="40.0" prefWidth="50.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <JFXButton buttonType="RAISED" layoutX="262.0" layoutY="183.0" onAction="#clearAll" prefHeight="41.0" prefWidth="92.0" style="-fx-background-color: #E74C3C;" text="Vymazať" textFill="WHITE" />
+            <JFXButton buttonType="RAISED" layoutX="367.0" layoutY="183.0" onAction="#handleSubmit" prefHeight="41.0" prefWidth="92.0" style="-fx-background-color: #2196f3;" text="Odoslať" textFill="#ffffff" />
+            <VBox fx:id="infoVBox" layoutX="24.0" layoutY="238.0" prefHeight="468.0" prefWidth="433.0">
+               <children>
+                  <HBox prefHeight="45.0" prefWidth="400.0">
+                     <children>
+                        <Label prefHeight="41.0" prefWidth="172.0" text="Skrátená adresa:" textAlignment="CENTER" />
+                        <Label fx:id="shortenAddressLabel" prefHeight="41.0" prefWidth="260.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="45.0" prefWidth="400.0">
+                     <children>
+                        <Label prefHeight="41.0" prefWidth="172.0" text="NW adresa:" textAlignment="CENTER" />
+                        <Label fx:id="nwAddressLabel" prefHeight="41.0" prefWidth="260.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="45.0" prefWidth="400.0">
+                     <children>
+                        <Label prefHeight="41.0" prefWidth="172.0" text="Prefix:" textAlignment="CENTER" />
+                        <Label fx:id="prefixLabel" prefHeight="41.0" prefWidth="260.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="45.0" prefWidth="400.0">
+                     <children>
+                        <Label prefHeight="41.0" prefWidth="172.0" text="Unicast adresa:" textAlignment="CENTER" />
+                        <Label fx:id="unicastAddressLabel" prefHeight="41.0" prefWidth="260.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="45.0" prefWidth="400.0">
+                     <children>
+                        <Label prefHeight="41.0" prefWidth="172.0" text="Link local adresa:" textAlignment="CENTER" />
+                        <Label fx:id="linkLocalAddressLabel" prefHeight="41.0" prefWidth="260.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="45.0" prefWidth="400.0">
+                     <children>
+                        <Label prefHeight="41.0" prefWidth="172.0" text="Site local adresa:" textAlignment="CENTER" />
+                        <Label fx:id="siteLocalAddressLabel" prefHeight="41.0" prefWidth="260.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="45.0" prefWidth="400.0">
+                     <children>
+                        <Label prefHeight="41.0" prefWidth="172.0" text="IPv4 kompatibilná:" textAlignment="CENTER" />
+                        <Label fx:id="compatibleIPv4Label" prefHeight="41.0" prefWidth="260.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="45.0" prefWidth="400.0">
+                     <children>
+                        <Label prefHeight="41.0" prefWidth="172.0" text="Loopback adresa:" textAlignment="CENTER" />
+                        <Label fx:id="loopbackAddressLabel" prefHeight="41.0" prefWidth="260.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <JFXDrawer fx:id="drawer" prefHeight="720.0" prefWidth="112.0" />
+            <JFXHamburger fx:id="hamburger" layoutX="436.0" layoutY="20.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
