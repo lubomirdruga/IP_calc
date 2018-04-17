@@ -1,14 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="spse.Controllers.IPv6_subnetting_Controller"
-            prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
+<StackPane fx:id="stackPane" prefHeight="720.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.Controllers.IPv6_subnetting_Controller">
+   <children>
+      <AnchorPane>
+         <children>
+            <Label layoutX="20.0" layoutY="15.0" text="IPv6 subnetting">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <VBox layoutX="23.0" layoutY="60.0" prefHeight="99.0" prefWidth="437.0" />
+            <VBox layoutX="22.0" layoutY="78.0" prefHeight="120.0" prefWidth="437.0">
+               <children>
+                  <HBox prefHeight="40.0" prefWidth="415.0">
+                     <children>
+                        <Label alignment="BOTTOM_LEFT" prefHeight="40.0" prefWidth="77.0" text="IP adresa" />
+                        <JFXTextField fx:id="ipv6AddressInput" prefHeight="40.0" prefWidth="350.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="40.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="BOTTOM_LEFT" prefHeight="40.0" prefWidth="77.0" text="Prefix" />
+                        <JFXTextField fx:id="prefixInput" alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="50.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="40.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="BOTTOM_LEFT" prefHeight="40.0" prefWidth="77.0" text="Počet sietí" />
+                        <JFXTextField fx:id="subnetsCountInput" alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="50.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <JFXButton buttonType="RAISED" layoutX="349.0" layoutY="209.0" onAction="#handleSubmit" prefHeight="41.0" prefWidth="92.0" style="-fx-background-color: #2196f3;" text="Odoslať" textFill="#ffffff" />
+            <JFXButton buttonType="RAISED" layoutX="247.0" layoutY="209.0" onAction="#clearAll" prefHeight="41.0" prefWidth="92.0" style="-fx-background-color: #E74C3C;" text="Vymazať" textFill="WHITE" />
+            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="31.0" layoutY="301.0" prefHeight="239.0" prefWidth="420.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+               <content>
+                  <VBox fx:id="vBoxContent" alignment="CENTER" prefHeight="240.0" prefWidth="420.0" />
+               </content>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </ScrollPane>
+            <JFXHamburger fx:id="hamburger" layoutX="436.0" layoutY="20.0" />
+            <JFXDrawer fx:id="drawer" prefHeight="720.0" prefWidth="112.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
