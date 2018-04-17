@@ -1,7 +1,5 @@
 package spse.Models;
 
-import spse.Models.IPv4;
-
 import java.io.IOException;
 import java.util.regex.Pattern;
 
