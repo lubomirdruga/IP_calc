@@ -146,7 +146,7 @@ public class IPv4_VLSM_Controller implements Initializable
         catch (IOException io){
 
             showToast("Chyba!", "Zadané číslo (oktet IPv4) nie je z rozsahu IPv4 (0-255)!");
-            io.printStackTrace();
+            io.printStackTrace();//todo delete
         }
         catch (ArithmeticException ae)
         {
@@ -156,7 +156,7 @@ public class IPv4_VLSM_Controller implements Initializable
         }
         catch (Exception e) {
             showToast("Chyba!", "Zadaný vstup nie je správny!");
-            e.printStackTrace();
+            e.printStackTrace();//todo delete
         }
     }
 
