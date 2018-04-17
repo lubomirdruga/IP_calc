@@ -17,7 +17,7 @@
          <children>
             <HBox layoutX="155.0" layoutY="67.0" prefHeight="29.0" prefWidth="471.0">
                <children>
-                  <JFXTextField fx:id="supernetInput" labelFloat="true" prefHeight="29.0" prefWidth="472.0" promptText="Supernet adresa" text="1.1.1.1/8" />
+                  <JFXTextField fx:id="supernetInput" labelFloat="true" prefHeight="29.0" prefWidth="472.0" promptText="Supernet adresa" />
                </children>
             </HBox>
             <Label layoutX="14.0" layoutY="14.0" text="IPv4 VLSM">
