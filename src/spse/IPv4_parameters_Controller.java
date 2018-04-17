@@ -49,9 +49,6 @@ public class IPv4_parameters_Controller implements Initializable {
     private boolean validated = false;
     private IPv4 iPv4;
 
-
-    //todo format address count
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -87,7 +84,6 @@ public class IPv4_parameters_Controller implements Initializable {
 
         validated = isNumeric(textField0) && isNumeric(textField1) && isNumeric(textField2) && isNumeric(textField3) && isNumeric(textFieldPrefix);
 
-
             if (validated)
             {
                 validated = false;
@@ -113,8 +109,15 @@ public class IPv4_parameters_Controller implements Initializable {
         wildcardAddressLabel.setText(iPv4.getDecWildcard());
         firstIPLabel.setText(iPv4.getDecFirstAddress());
         lastIPLabel.setText(iPv4.getDecLastAddress());
-        addressCountLabel.setText(iPv4.getAddressCount());
-        addressOrderLabel.setText(iPv4.getDecOrder());
+
+        String addressCount = String.format("%,d", iPv4.getAddressCount());
+        addressCount = addressCount.replaceAll(",", " ");
+        addressCountLabel.setText(addressCount);
+
+        String addressOrder = String.format("%,d", iPv4.getDecOrder());
+        addressOrder = addressOrder.replaceAll(",", " ");
+        addressOrderLabel.setText(addressOrder + ".");
+
         classIPLabel.setText(iPv4.getClassIP());
         typeIPLabel.setText(iPv4.getTypeIP());
 
