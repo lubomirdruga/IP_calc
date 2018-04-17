@@ -12,18 +12,19 @@ public class Drawer_Controller
     public VBox sidePanel;
 
     public void handleIPv4Params() throws IOException {
-        setScene("IPv4_parameters.fxml");
+        setScene("../Views/IPv4_parameters.fxml");
     }
 
     public void handleIPv4VLSM() throws IOException {
-        setScene("IPv4_VLSM.fxml");
+        setScene("../Views/IPv4_VLSM.fxml");
     }
 
     public void handleIPv4Info() {
 
     }
 
-    public void handleIPv6Params() {
+    public void handleIPv6Params() throws IOException {
+        setScene("../Views/IPv6_parameters.fxml");
 
     }
 
@@ -36,7 +37,7 @@ public class Drawer_Controller
     }
 
     public void handleConverter() throws IOException {
-        setScene("Converter.fxml");
+        setScene("../Views/Converter.fxml");
     }
 
     public void handleAbout() {
