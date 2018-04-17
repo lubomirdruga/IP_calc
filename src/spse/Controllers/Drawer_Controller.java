@@ -28,7 +28,8 @@ public class Drawer_Controller
 
     }
 
-    public void handleIPv6VLSM() {
+    public void handleIPv6subnetting() throws IOException {
+        setScene("../Views/IPv6_subnetting.fxml");
 
     }
 
