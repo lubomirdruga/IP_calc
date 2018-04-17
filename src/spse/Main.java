@@ -12,32 +12,21 @@ import java.io.IOException;
 public class Main extends Application {
 
 
+    //todo poriesit dedenie init metody z Drawer_Controller!
+
+    //TODO> prezriet vsetky metody, ktore mam z netu, a pridat k nim do komentov linky kvoli dokumentaicii!
 
 
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("IPv4_parameters.fxml"));
-        primaryStage.setTitle("IPcalc");
+//        Parent root = FXMLLoader.load(getClass().getResource("IPv4_parameters.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Views/IPv4_VLSM.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("Converter.fxml"));
+
+        primaryStage.setTitle("IP subnetting");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
-
-
-
-//        IPv4 VLSM just for testing!
-
-//
-//        String supernet = " 10 . 10 . 10 . 0 / 8 ";
-//        String supernet = "193.99.99.2 /28 ";
-//
-//        int[] subnetHostsCount = {32,34,54,56};
-//        IPv4VLSM vlsm = new IPv4VLSM(supernet, subnetHostsCount.length);
-//        vlsm.start();
-//        System.exit(0);
-
-
-
     }
 
 

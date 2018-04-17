@@ -1,4 +1,162 @@
 package spse.Controllers;
 
-public class IPv6_subnetting_Controller {
+import com.jfoenix.controls.*;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class IPv6_subnetting_Controller implements Initializable{
+    public JFXTextField ipv6AddressInput;
+    public JFXTextField prefixInput;
+    public JFXTextField subnetsCountInput;
+
+    //v pripade nevyuzivania scrollpane premennej odstranit
+    public ScrollPane scrollPane;
+    public VBox vBoxContent;
+    public StackPane stackPane;
+    public JFXDrawer drawer;
+    public JFXHamburger hamburger;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+        try {
+            VBox box = FXMLLoader.load(getClass().getResource("../Views/Drawer.fxml"));
+            drawer.setSidePane(box);
+        } catch (IOException ex) {
+            System.out.println("File 'Drawer.fxml' not found");
+        }
+
+        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
+        transition.setRate(-1);
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
+            if(drawer.isShown())
+            {
+                drawer.close();
+            }else
+                drawer.open();
+        });
+    }
+
+
+
+    public void handleSubmit() {
+
+        vBoxContent.setVisible(true);
+
+        //tu dakde popocitas alebo zavolas metodu, ktora cez tvoj objekt IPv6 subnetting si podeli a nastavis dane siete do textfieldov
+
+
+
+
+
+
+
+
+        createSubnetRows();
+
+
+    }
+
+
+
+    public void createSubnetRows()
+    {
+        int subnetsCount;
+
+        try {
+
+            subnetsCount = Integer.parseInt(subnetsCountInput.getText().trim());
+
+            if (subnetsCount <= 0)
+                throw new NumberFormatException();
+
+            HBox[] subnetsRows = new HBox[subnetsCount];
+
+
+            JFXTextField[] subnetName = new JFXTextField[subnetsCount];
+            JFXTextField[] subnetAddress = new JFXTextField[subnetsCount];
+            Separator[] separators = new Separator[subnetsCount];
+
+
+            for (int i = 0; i < subnetsRows.length; i++) {
+
+                subnetName[i] = new JFXTextField(str(i));
+                subnetName[i].setMinSize(77,30);
+                subnetName[i].setMaxSize(77,30);
+                subnetName[i].setEditable(false);
+
+                subnetAddress[i] = new JFXTextField(ipv6AddressInput.getText().trim() + " /" + prefixInput.getText().trim()); //todo tu do konstruktora () budes pisat konkretne ipv6 subnety
+                subnetAddress[i].setMinSize(333,30);
+                subnetAddress[i].setMaxSize(333,30);
+                subnetAddress[i].setEditable(false);
+
+
+                separators[i] = new Separator(Orientation.VERTICAL);
+                separators[i].setPrefSize(10,30);
+
+                subnetsRows[i] = new HBox();
+                subnetsRows[i].getChildren().addAll(subnetName[i], separators[i], subnetAddress[i]);
+            }
+
+            subnetName[0].setPromptText("Názov siete");
+            subnetName[0].setLabelFloat(true);
+
+            subnetAddress[0].setPromptText("Adresa subnetu");
+            subnetAddress[0].setLabelFloat(true);
+
+
+
+            subnetsRows[0].setPadding(new Insets(10,0,0,0));
+            vBoxContent.getChildren().clear();
+            vBoxContent.getChildren().addAll(subnetsRows);
+
+        }
+        catch(NumberFormatException nfe) {
+            showToast("Zlý vstup!");
+        }
+
+    }
+
+
+
+    public void clearAll() {
+
+        vBoxContent.setVisible(false);
+
+        ipv6AddressInput.clear();
+        prefixInput.clear();
+        subnetsCountInput.clear();
+    }
+
+    private String str(int i) {
+        return i < 0 ? "" : str((i / 26) - 1) + (char)(65 + i % 26);
+    }
+
+    private void showToast(String body)
+    {
+        JFXDialogLayout content  = new JFXDialogLayout();
+        content.setHeading(new Text("Chyba!"));
+        content.setBody(new Text(body));
+
+        JFXDialog errorDialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
+        JFXButton closeBtn = new JFXButton("Dobre");
+
+        closeBtn.setOnAction(event -> errorDialog.close());
+        content.setActions(closeBtn);
+        errorDialog.show();
+    }
 }
