@@ -112,7 +112,7 @@ public class IPv4_VLSM_Controller implements Initializable
 
         }
         catch(NumberFormatException nfe) {
-            showToast("Chyba!", "Zlý vstup!");
+            showToast("Zlý vstup!");
         }
     }
 
@@ -141,7 +141,7 @@ public class IPv4_VLSM_Controller implements Initializable
         }
         catch (IOException io){
 
-            showToast("Chyba!", "Zadané číslo (oktet IPv4) nie je z rozsahu IPv4 (0-255)!");
+            showToast("Zadané číslo (oktet IPv4) nie je z rozsahu IPv4 (0-255)!");
             io.printStackTrace();//todo delete
         }
         catch (ArithmeticException ae)
@@ -151,15 +151,15 @@ public class IPv4_VLSM_Controller implements Initializable
             snackbar.show("Nie je možné subnetovať, supernet sieť je príliš malá", 3000);
         }
         catch (Exception e) {
-            showToast("Chyba!", "Zadaný vstup nie je správny!");
+            showToast("Zadaný vstup nie je správny!");
             e.printStackTrace();//todo delete
         }
     }
 
-    private void showToast(String heading, String body)
+    private void showToast(String body)
     {
         JFXDialogLayout content  = new JFXDialogLayout();
-        content.setHeading(new Text(heading));
+        content.setHeading(new Text("Chyba!"));
         content.setBody(new Text(body));
 
         JFXDialog errorDialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
