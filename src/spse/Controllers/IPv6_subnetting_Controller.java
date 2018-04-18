@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import spse.Models.IPv6;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +30,7 @@ public class IPv6_subnetting_Controller implements Initializable{
     public StackPane stackPane;
     public JFXDrawer drawer;
     public JFXHamburger hamburger;
+    public String [] finalAllSubnets;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -59,11 +61,9 @@ public class IPv6_subnetting_Controller implements Initializable{
 
         //tu dakde popocitas alebo zavolas metodu, ktora cez tvoj objekt IPv6 subnetting si podeli a nastavis dane siete do textfieldov
 
+        IPv6 IPv6Subnetting = new IPv6(ipv6AddressInput.getText(),Integer.parseInt(prefixInput.getText()),Integer.parseInt(subnetsCountInput.getText()));
 
-
-
-
-
+        finalAllSubnets = IPv6Subnetting.subnetting();
 
 
         createSubnetRows();
@@ -75,12 +75,18 @@ public class IPv6_subnetting_Controller implements Initializable{
 
     public void createSubnetRows()
     {
-        int subnetsCount;
+        int subnetsCount = 0;
 
         try {
 
-            subnetsCount = Integer.parseInt(subnetsCountInput.getText().trim());
+            // TODO: 18. 4. 2018 moze tak ostať? .... pri sieti s velkostou 8 to padne ale prepocita to na starej verzii  2001:ACAD:1000:0000:0000:0000:0000:0000 59 8
+            for (int exponent = 0; Integer.parseInt(subnetsCountInput.getText().trim()) >= subnetsCount ; exponent++) {
+                subnetsCount = (int) Math.pow(2, exponent);
+                System.out.println(subnetsCount);
+            }
+            System.out.println(subnetsCount);
 
+            
             if (subnetsCount <= 0)
                 throw new NumberFormatException();
 
@@ -91,19 +97,23 @@ public class IPv6_subnetting_Controller implements Initializable{
             JFXTextField[] subnetAddress = new JFXTextField[subnetsCount];
             Separator[] separators = new Separator[subnetsCount];
 
+            // TODO: 18. 4. 2018 elegantnejsie riesenie
 
+            int x = 0;
             for (int i = 0; i < subnetsRows.length; i++) {
+
 
                 subnetName[i] = new JFXTextField(str(i));
                 subnetName[i].setMinSize(77,30);
                 subnetName[i].setMaxSize(77,30);
                 subnetName[i].setEditable(false);
 
-                subnetAddress[i] = new JFXTextField(ipv6AddressInput.getText().trim() + " /" + prefixInput.getText().trim()); //todo tu do konstruktora () budes pisat konkretne ipv6 subnety
+                subnetAddress[i] = new JFXTextField(finalAllSubnets[x]); //todo tu do konstruktora () budes pisat konkretne ipv6 subnety
                 subnetAddress[i].setMinSize(333,30);
                 subnetAddress[i].setMaxSize(333,30);
                 subnetAddress[i].setEditable(false);
 
+                x++;
 
                 separators[i] = new Separator(Orientation.VERTICAL);
                 separators[i].setPrefSize(10,30);

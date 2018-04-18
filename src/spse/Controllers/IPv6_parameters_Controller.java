@@ -9,9 +9,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import spse.Models.IPv6;
 
 import java.io.IOException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 
 public class IPv6_parameters_Controller implements Initializable{
@@ -62,7 +64,15 @@ public class IPv6_parameters_Controller implements Initializable{
 
 
         setParameters(ipv6Address, prefix);
+        // TODO: 18. 4. 2018 mam tam nechat null alebo vytvorit novy konstruktor? 
+        IPv6 ipv6 = new IPv6 (ipv6AddressInput.getText(),Integer.parseInt(prefixInput.getText()),0);
 
+        try {
+            IPv6.getCompressedAddress(ipv6AddressInput.getText());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        IPv6.Nw(ipv6AddressInput.getText(),Integer.parseInt(prefixInput.getText()));
 
 
     }
