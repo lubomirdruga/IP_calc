@@ -24,7 +24,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
-import spse.Controllers.IPv4_parameters_Controller;
 import spse.Models.IPv4;
 import spse.Models.IPv4VLSM;
 

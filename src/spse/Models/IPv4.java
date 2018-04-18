@@ -1,7 +1,5 @@
 package spse.Models;
 
-import spse.Models.Converter;
-
 public class IPv4
 {
     //static
