@@ -221,7 +221,7 @@ public class IPv4_VLSM_Table_Controller implements Initializable
         {
             this.netName = new SimpleStringProperty(netName);
             this.neededSize = new SimpleStringProperty(Integer.toString(neededSize));
-            this.allocatedSize = new SimpleStringProperty(Integer.toString(allocatedSize - 2));
+            this.allocatedSize = new SimpleStringProperty(Integer.toString(allocatedSize));
             this.nwAddress = new SimpleStringProperty(nwAddress);
             this.bcAddress  = new SimpleStringProperty(bcAddress);
             this.prefix = new SimpleStringProperty("/" + prefix);
