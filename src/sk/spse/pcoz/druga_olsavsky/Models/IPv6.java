@@ -8,13 +8,14 @@ public class IPv6
     //todo kam pridat partIP - opakuje sa , fourthHextet
     String [] partIp;
     int prefix, prefixof, subNumber;
-    String longAddress, fourthOctet, fullIpBinary, ipv6Hex;
+    String longAddress, fourthOctet, fullIpBinary, ipv6Hex,mac;
 
-    public IPv6(String ipv6Hex, int prefix, int subNumber)  // pre subnetting
+    public IPv6(String ipv6Hex, int prefix, int subNumber, String mac)  // pre subnetting
     {
         this.ipv6Hex = ipv6Hex;
         this.prefix = prefix;
         this.subNumber = subNumber;
+        this.mac = mac;
     }
 
 
@@ -493,19 +494,16 @@ public class IPv6
 
     public static String linkLocal(String mac)
     {
-        String[] macAdd = new String[8];
+        String[] macAdd;
         macAdd = mac.split(":");
-
         String[] dividedMac = new String[8];
 
         for (int i = 0; i < macAdd.length; i++) {
             dividedMac[i] = macAdd[i];
         }
-
         dividedMac[7] = dividedMac[5];
         dividedMac[6] = dividedMac[4];
         dividedMac[5] = dividedMac[3];
-
 
         dividedMac[3] = "FF";
         dividedMac[4] = "FE";
@@ -534,6 +532,7 @@ public class IPv6
 
         fullMac = binhex(fullMac);
         dividedMac[0] = fullMac;
+        fullMac = "";
 
 
         for (int i = 0; i <dividedMac.length ; i++)
@@ -583,13 +582,13 @@ public class IPv6
         return FinalNwHexAddress;
     }
 
-    public String[] allIPv6Param(String ip,int prefix) throws UnknownHostException {
+    public String[] allIPv6Param(String ip, int prefix, String mac) throws UnknownHostException {
         String [] returnAllParams = new String[10];
         returnAllParams [0] =  getCompressedAddress(ip);
         returnAllParams [1] = getNwBin(ip,prefix);
         returnAllParams [2] = getPrefix();
         returnAllParams [3] = isglobalUnicast(ip);
-       // returnAllParams [4] = linkLocal(mac);
+        returnAllParams [4] = linkLocal(mac);
         returnAllParams [5] = siteLocal(ip);
         returnAllParams [6] = isLoopback(ip,prefix);
 

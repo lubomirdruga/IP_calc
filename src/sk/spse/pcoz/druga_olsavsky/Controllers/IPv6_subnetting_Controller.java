@@ -64,7 +64,7 @@ public class IPv6_subnetting_Controller implements Initializable{
         //todo try catch
         //tu dakde popocitas alebo zavolas metodu, ktora cez tvoj objekt IPv6 subnetting si podeli a nastavis dane siete do textfieldov
 
-        IPv6Subnetting = new IPv6(ipv6AddressInput.getText(),Integer.parseInt(prefixInput.getText()),Integer.parseInt(subnetsCountInput.getText()));
+        IPv6Subnetting = new IPv6(ipv6AddressInput.getText().toUpperCase(),Integer.parseInt(prefixInput.getText()),Integer.parseInt(subnetsCountInput.getText()),null);
 
         finalAllSubnets = IPv6Subnetting.subnetting();
 
@@ -84,8 +84,7 @@ public class IPv6_subnetting_Controller implements Initializable{
 
             //  2001:ACAD:1000:0000:0000:0000:0000:0000 59 8
 
-
-            for (int exponent = 0; Integer.parseInt(subnetsCountInput.getText().trim()) >subnetsCount ; exponent++) {
+            for (int exponent = 0; Integer.parseInt(subnetsCountInput.getText().trim()) > subnetsCount ; exponent++) {
                 subnetsCount = (int) Math.pow(2, exponent);
                 System.out.println(subnetsCount);
             }

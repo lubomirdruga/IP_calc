@@ -62,28 +62,23 @@ public class IPv6_parameters_Controller implements Initializable{
 
         //todo toto je len na ukazku ako vyberat a nastavit hodnoty do vyslednej podoby ;)
 
-        String ipv6Address = ipv6AddressInput.getText();
-        String prefix = prefixInput.getText();
 
+        IPv6 ipv6 = new IPv6 (ipv6AddressInput.getText().toUpperCase(),Integer.parseInt(prefixInput.getText()),0,macAddressInput.getText().toUpperCase());
 
+        IPv6AllParams = ipv6.allIPv6Param(ipv6AddressInput.getText().toUpperCase(),Integer.parseInt(prefixInput.getText().toUpperCase()),macAddressInput.getText().toUpperCase());
 
-        // TODO: 18. 4. 2018 mam tam nechat null alebo vytvorit novy konstruktor? 
-        IPv6 ipv6 = new IPv6 (ipv6AddressInput.getText(),Integer.parseInt(prefixInput.getText()),0);
-
-//        try {
-//            IPv6.getCompressedAddress(ipv6AddressInput.getText());
-//        } catch (UnknownHostException e) {
-//            e.printStackTrace();
-//        }
-        IPv6AllParams = ipv6.allIPv6Param(ipv6AddressInput.getText(),Integer.parseInt(prefixInput.getText()));
         for (int i = 0; i < IPv6AllParams.length ; i++) {
             System.out.println(IPv6AllParams[i]);
+        }
+
+        if (IPv6AllParams[4].isEmpty())
+        {
+            linkLocalAddressLabel.setVisible(false);
         }
 
         setParameters(IPv6AllParams);
     }
 
-    //todo tie vstupy metody su len na teraz, ty si tam udaje das jednosduchsie
     private void setParameters(String[] IPv6AllParams)
     {
         shortenAddressLabel.setText(this.IPv6AllParams[0]);
@@ -92,18 +87,14 @@ public class IPv6_parameters_Controller implements Initializable{
         unicastAddressLabel.setText(this.IPv6AllParams[3]);
         linkLocalAddressLabel.setText(this.IPv6AllParams[4]);
         siteLocalAddressLabel.setText(this.IPv6AllParams[5]);
-        // TODO: 19. 4. 2018  IPV6 compatibile som nedal, lebo nie som si isty ako to vypocitat
-        //compatibleIPv4Label.setText(ipv6);
         loopbackAddressLabel.setText(this.IPv6AllParams[6]);
 
     }
 
     public void clearAll() {
 
-
         ipv6AddressInput.clear();
         prefixInput.clear();
-
         shortenAddressLabel.setText("");
         nwAddressLabel.setText("");
         prefixLabel.setText("");
