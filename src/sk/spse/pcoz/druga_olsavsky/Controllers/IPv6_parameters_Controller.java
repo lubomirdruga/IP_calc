@@ -72,7 +72,8 @@ public class IPv6_parameters_Controller implements Initializable{
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        IPv6.Nw(ipv6AddressInput.getText(),Integer.parseInt(prefixInput.getText()));
+//        ipv6.Nw(ipv6AddressInput.getText(),Integer.parseInt(prefixInput.getText()));
+
 
 
     }

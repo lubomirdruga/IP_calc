@@ -183,7 +183,7 @@ public class IPv6
 
     // todo pocet hostov mam vypocitat?
     // counting of maximum hosts in IP address
-    public static int hosts (int prefix)
+    public int hosts (int prefix)
     {
         int hostsNumber = 128 - prefix;
         hostsNumber = (int)Math.pow(2, hostsNumber);
@@ -193,7 +193,7 @@ public class IPv6
 
     // todo range zmazat alebo nechať mozno len upravit na tvar pomocou subnettingu len prva a posledna
     //  counting network, broadcast, full ip address, first and last address in binary and hexadecimal
-    public static String range (String ip, int prefix)
+    public String range (String ip, int prefix)
     {
         String nw;          // network address
         String bc;          // broadcast address
@@ -245,7 +245,7 @@ public class IPv6
 
         return fullIp;
     }
-    public static String Nw (String IP, int prefix)
+    public String Nw (String IP, int prefix)
     {
         String partIP [] = IP.split(":");           // one octet = one filed
 

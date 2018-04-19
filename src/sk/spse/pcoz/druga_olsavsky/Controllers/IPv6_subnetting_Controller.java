@@ -82,7 +82,7 @@ public class IPv6_subnetting_Controller implements Initializable{
 
         try {
 
-            // TODO: 18. 4. 2018 moze tak ostať? .... pri sieti s velkostou 8 to padne ale prepocita to na starej verzii  2001:ACAD:1000:0000:0000:0000:0000:0000 59 8
+            //  2001:ACAD:1000:0000:0000:0000:0000:0000 59 8
 
 
             for (int exponent = 0; Integer.parseInt(subnetsCountInput.getText().trim()) >subnetsCount ; exponent++) {
@@ -91,10 +91,9 @@ public class IPv6_subnetting_Controller implements Initializable{
             }
             System.out.println(subnetsCount);
 
-//
+
             if (subnetsCount <= 0)
                 throw new NumberFormatException();
-//            subnetsCount = Integer.parseInt(subnetsCountInput.getText().trim());
 
             HBox[] subnetsRows = new HBox[subnetsCount];
 
@@ -103,7 +102,6 @@ public class IPv6_subnetting_Controller implements Initializable{
             JFXTextField[] subnetAddress = new JFXTextField[subnetsCount];
             Separator[] separators = new Separator[subnetsCount];
 
-            // TODO: 18. 4. 2018 elegantnejsie riesenie
 
             for (int i = 0; i < subnetsRows.length; i++) {
 
@@ -113,7 +111,7 @@ public class IPv6_subnetting_Controller implements Initializable{
                 subnetName[i].setMaxSize(77,30);
                 subnetName[i].setEditable(false);
 
-                subnetAddress[i] = new JFXTextField(finalAllSubnets[i]); //todo tu do konstruktora () budes pisat konkretne ipv6 subnety
+                subnetAddress[i] = new JFXTextField(finalAllSubnets[i]);
                 subnetAddress[i].setMinSize(333,30);
                 subnetAddress[i].setMaxSize(333,30);
                 subnetAddress[i].setEditable(false);
