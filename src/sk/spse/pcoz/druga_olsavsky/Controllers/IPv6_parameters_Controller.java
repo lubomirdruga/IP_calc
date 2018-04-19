@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import sk.spse.pcoz.druga_olsavsky.Models.IPv6;
+import sun.security.x509.IPAddressName;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +32,7 @@ public class IPv6_parameters_Controller implements Initializable{
     public Label loopbackAddressLabel;
     public JFXDrawer drawer;
     public JFXHamburger hamburger;
+    private String [] IPv6AllParams;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -53,7 +55,7 @@ public class IPv6_parameters_Controller implements Initializable{
         });
     }
 
-    public void getInputIP() {
+    public void getInputIP() throws UnknownHostException {
         //todo tu si vytiahnes zadane hodnoty z inputov, overis ich, a tak dalej
         //todo v podstate, navrh toho je na tebe, odporucam pozriet triedu 'IPv4_parameters_Controller' zjednodusis si to :D
 
@@ -63,33 +65,35 @@ public class IPv6_parameters_Controller implements Initializable{
         String prefix = prefixInput.getText();
 
 
-        setParameters(ipv6Address, prefix);
+
         // TODO: 18. 4. 2018 mam tam nechat null alebo vytvorit novy konstruktor? 
         IPv6 ipv6 = new IPv6 (ipv6AddressInput.getText(),Integer.parseInt(prefixInput.getText()),0);
 
-        try {
-            IPv6.getCompressedAddress(ipv6AddressInput.getText());
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
+//        try {
+//            IPv6.getCompressedAddress(ipv6AddressInput.getText());
+//        } catch (UnknownHostException e) {
+//            e.printStackTrace();
+//        }
+        IPv6AllParams = ipv6.allIPv6Param(ipv6AddressInput.getText(),Integer.parseInt(prefixInput.getText()));
+        for (int i = 0; i < IPv6AllParams.length ; i++) {
+            System.out.println(IPv6AllParams[i]);
         }
-//        ipv6.Nw(ipv6AddressInput.getText(),Integer.parseInt(prefixInput.getText()));
 
-
-
+        setParameters(IPv6AllParams);
     }
 
     //todo tie vstupy metody su len na teraz, ty si tam udaje das jednosduchsie
-    private void setParameters(String ipv6, String prefix)
+    private void setParameters(String[] IPv6AllParams)
     {
-        shortenAddressLabel.setText(ipv6);
-        nwAddressLabel.setText(ipv6);
-        prefixLabel.setText(prefix);
-        unicastAddressLabel.setText(ipv6);
-        linkLocalAddressLabel.setText(ipv6);
-        siteLocalAddressLabel.setText(ipv6);
-        compatibleIPv4Label.setText(ipv6);
-        loopbackAddressLabel.setText("áno/nie");
-
+        shortenAddressLabel.setText(this.IPv6AllParams[0]);
+        nwAddressLabel.setText(this.IPv6AllParams[1]);
+        prefixLabel.setText(this.IPv6AllParams[2]);
+        unicastAddressLabel.setText(this.IPv6AllParams[3]);
+        linkLocalAddressLabel.setText(this.IPv6AllParams[4]);
+        siteLocalAddressLabel.setText(this.IPv6AllParams[5]);
+        // TODO: 19. 4. 2018  IPV6 compatibile som nedal, lebo nie som si isty ako to vypocitat
+        //compatibleIPv4Label.setText(ipv6);
+        loopbackAddressLabel.setText(this.IPv6AllParams[6]);
 
     }
 
@@ -112,7 +116,7 @@ public class IPv6_parameters_Controller implements Initializable{
 
     }
 
-    public void handleSubmit() {
+    public void handleSubmit() throws UnknownHostException {
         getInputIP();
         infoVBox.setVisible(true);
 

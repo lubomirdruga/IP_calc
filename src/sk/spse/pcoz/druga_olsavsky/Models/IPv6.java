@@ -471,20 +471,24 @@ public class IPv6
         return fullIp;
     }
 
-    public  boolean isglobalUnicast(String ip)
+    public  String isglobalUnicast(String ip)
     {
         String ipBin = hexbin(ip);
-        String firstThreeNumbers = ipBin.substring(0,4);
-        if (firstThreeNumbers == "001")
+        System.out.println(ipBin);
+        if (ipBin.startsWith("001"))
         {
-            return true;
+            return "áno";
         }
-        return false;
+        return "nie";
     }
 
-    public static boolean isLoopback(String ip)
+    public String isLoopback(String ip, int prefix)
     {
-        return ip == "::/128";
+        if( ip == "::" && prefix == 128)
+        {
+            return "áno";
+        }
+        return "nie";
     }
 
     public static String linkLocal(String mac)
@@ -543,13 +547,53 @@ public class IPv6
         System.out.println(fullMac);
 
 
-
         return fullMac;
     }
-    public static boolean siteLocal(String ip) {
+    public static String siteLocal(String ip) {
         String BinAdd[] = ip.split(":");
         String FirstOctet = hexbin(BinAdd[0]);
 
-        return FirstOctet.startsWith("1111111011");
+        if (FirstOctet.startsWith("1111111011"))
+            return "áno";
+        else
+            return "nie";
     }
+
+    public String getPrefix ()
+    {
+        return Integer.toString(prefix);
+    }
+
+    public String getNwBin(String ip, int prefix) throws UnknownHostException {
+        String NwHexAddress = Nw(ip, prefix);
+        NwHexAddress = binhex(NwHexAddress);
+        String FinalNwHexAddress = "";
+
+        int help = 0;
+        for (int i = 0; i < 8; i++) {
+            if (i < 7) {
+                FinalNwHexAddress = FinalNwHexAddress + NwHexAddress.substring(help, help + 4) + ":";
+            } else {
+                FinalNwHexAddress = FinalNwHexAddress + NwHexAddress.substring(help, help + 4);
+            }
+            help = help + 4;
+        }
+//        FinalNwHexAddress = getCompressedAddress(FinalNwHexAddress);
+//        System.out.println(FinalNwHexAddress);
+        return FinalNwHexAddress;
+    }
+
+    public String[] allIPv6Param(String ip,int prefix) throws UnknownHostException {
+        String [] returnAllParams = new String[10];
+        returnAllParams [0] =  getCompressedAddress(ip);
+        returnAllParams [1] = getNwBin(ip,prefix);
+        returnAllParams [2] = getPrefix();
+        returnAllParams [3] = isglobalUnicast(ip);
+       // returnAllParams [4] = linkLocal(mac);
+        returnAllParams [5] = siteLocal(ip);
+        returnAllParams [6] = isLoopback(ip,prefix);
+
+        return returnAllParams;
+    }
+
 }
