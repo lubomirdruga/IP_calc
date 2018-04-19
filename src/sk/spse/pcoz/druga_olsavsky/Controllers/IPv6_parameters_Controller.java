@@ -32,6 +32,7 @@ public class IPv6_parameters_Controller implements Initializable{
     public Label loopbackAddressLabel;
     public JFXDrawer drawer;
     public JFXHamburger hamburger;
+    public JFXTextField macAddressInput;
     private String [] IPv6AllParams;
 
     @Override
