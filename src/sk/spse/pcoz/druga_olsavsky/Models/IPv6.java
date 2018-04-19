@@ -5,7 +5,7 @@ import java.net.UnknownHostException;
 
 public class IPv6
 {
-    //todo kam pridat partIP - opakuje sa , fourthOctet
+    //todo kam pridat partIP - opakuje sa , fourthHextet
     String [] partIp;
     int prefix, prefixof, subNumber;
     String longAddress, fourthOctet, fullIpBinary, ipv6Hex;
@@ -219,7 +219,7 @@ public class IPv6
     }
 
     // Network and Broadcast
-    public static String Nw(String IP, int prefix)
+    public static String Bc(String IP, int prefix)
     {
         String partIP [] = IP.split(":");           // one octet = one filed
 
@@ -245,7 +245,7 @@ public class IPv6
 
         return fullIp;
     }
-    public static String Bc (String IP, int prefix)
+    public static String Nw (String IP, int prefix)
     {
         String partIP [] = IP.split(":");           // one octet = one filed
 
@@ -484,11 +484,7 @@ public class IPv6
 
     public static boolean isLoopback(String ip)
     {
-        if (ip == "::/128")
-            return true;
-
-        else
-            return false;
+        return ip == "::/128";
     }
 
     public static String linkLocal(String mac)
@@ -550,15 +546,10 @@ public class IPv6
 
         return fullMac;
     }
-    public static Boolean siteLocal(String ip) {
+    public static boolean siteLocal(String ip) {
         String BinAdd[] = ip.split(":");
         String FirstOctet = hexbin(BinAdd[0]);
 
-        if (FirstOctet.startsWith("1111111011"))
-        {
-            return true;
-        }
-        else
-            return false;
+        return FirstOctet.startsWith("1111111011");
     }
 }
