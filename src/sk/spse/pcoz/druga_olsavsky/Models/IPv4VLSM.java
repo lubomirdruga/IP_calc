@@ -1,4 +1,4 @@
-package spse.Models;
+package sk.spse.pcoz.druga_olsavsky.Models;
 
 import java.io.IOException;
 import java.util.regex.Pattern;

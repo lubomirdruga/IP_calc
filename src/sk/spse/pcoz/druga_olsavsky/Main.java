@@ -1,4 +1,4 @@
-package spse;
+package sk.spse.pcoz.druga_olsavsky;
 // todo rename package
 
 import javafx.application.Application;

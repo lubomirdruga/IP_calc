@@ -1,4 +1,4 @@
-package spse.Models;
+package sk.spse.pcoz.druga_olsavsky.Models;
 
 public class IPv4
 {

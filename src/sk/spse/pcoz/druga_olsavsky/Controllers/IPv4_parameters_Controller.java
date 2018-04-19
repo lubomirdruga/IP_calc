@@ -1,4 +1,4 @@
-package spse.Controllers;
+package sk.spse.pcoz.druga_olsavsky.Controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import spse.Models.IPv4;
+import sk.spse.pcoz.druga_olsavsky.Models.IPv4;
 
 import java.io.IOException;
 import java.net.URL;

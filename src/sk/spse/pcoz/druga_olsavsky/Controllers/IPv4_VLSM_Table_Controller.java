@@ -1,4 +1,4 @@
-package spse.Controllers;
+package sk.spse.pcoz.druga_olsavsky.Controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
@@ -24,8 +24,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
-import spse.Models.IPv4;
-import spse.Models.IPv4VLSM;
+import sk.spse.pcoz.druga_olsavsky.Models.IPv4;
+import sk.spse.pcoz.druga_olsavsky.Models.IPv4VLSM;
 
 import java.io.IOException;
 import java.net.URL;

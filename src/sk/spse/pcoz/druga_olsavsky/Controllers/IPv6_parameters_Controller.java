@@ -1,4 +1,4 @@
-package spse.Controllers;
+package sk.spse.pcoz.druga_olsavsky.Controllers;
 
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import spse.Models.IPv6;
+import sk.spse.pcoz.druga_olsavsky.Models.IPv6;
 
 import java.io.IOException;
 import java.net.URL;

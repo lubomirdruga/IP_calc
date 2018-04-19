@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<StackPane prefHeight="720.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spse.Controllers.IPv6_parameters_Controller">
+<StackPane prefHeight="720.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.spse.pcoz.druga_olsavsky.Controllers.IPv6_parameters_Controller">
    <children>
       <AnchorPane>
          <children>

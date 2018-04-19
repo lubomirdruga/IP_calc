@@ -1,4 +1,4 @@
-package spse.Controllers;
+package sk.spse.pcoz.druga_olsavsky.Controllers;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -1,4 +1,4 @@
-package spse.Models;
+package sk.spse.pcoz.druga_olsavsky.Models;
 
 import java.net.Inet6Address;
 import java.net.UnknownHostException;
@@ -30,7 +30,7 @@ public class IPv6
         for (; (int)Math.pow(2,counthelp) < subNumber ; counthelp++) {}           //cyklus urobi subnetiing
         subNumber = (int)Math.pow(2,counthelp);           // premenna countsubent bude mocninou cisla 2
 
-        this.partIp = ipv6Hex.split(":");           // rozdelena spse.Models.IPv6 - jednotlive oktety su v poli
+        this.partIp = ipv6Hex.split(":");           // rozdelena IPv6 - jednotlive oktety su v poli
         this.fourthOctet = partIp[3];               // stvrty oktet
         fourthOctet = hexbin(fourthOctet);          // stvrty oktet premeneneny na BIN
         String binFullIp = "";
