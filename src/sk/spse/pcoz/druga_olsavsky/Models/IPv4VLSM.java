@@ -9,6 +9,7 @@ public class IPv4VLSM
     private int[] supernetIPv4, nextIP, subnetsArray;
     private String superNet;
     private IPv4[] subnet;
+    private IPv4 supernetObj;
 
     public IPv4VLSM(String superNet, int subnetsCount, int[] subnetsArray)
     {
@@ -112,7 +113,7 @@ public class IPv4VLSM
 
     private void getParametersOfSupernet()
     {
-        IPv4 supernetObj = new IPv4(supernetIPv4, superNetPrefix);
+        supernetObj = new IPv4(supernetIPv4, superNetPrefix);
         supernetObj.makeVLSMNwParameters();
 
         nextIP = supernetObj.getintNW().clone();
@@ -164,7 +165,7 @@ public class IPv4VLSM
     }
 
     public String getSuperNetAddress() {
-        return superNet.trim();
+        return supernetObj.getDecNW() + "/" + superNetPrefix;
     }
 
     public int getSubnetsSum() {
