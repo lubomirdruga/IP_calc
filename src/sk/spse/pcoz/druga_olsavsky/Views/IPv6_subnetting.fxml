@@ -9,7 +9,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <StackPane fx:id="stackPane" prefHeight="720.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.spse.pcoz.druga_olsavsky.Controllers.IPv6_subnetting_Controller">
    <children>
       <AnchorPane>
@@ -44,9 +43,9 @@
             </VBox>
             <JFXButton buttonType="RAISED" layoutX="349.0" layoutY="209.0" onAction="#handleSubmit" prefHeight="41.0" prefWidth="92.0" style="-fx-background-color: #2196f3;" text="Odoslať" textFill="#ffffff" />
             <JFXButton buttonType="RAISED" layoutX="247.0" layoutY="209.0" onAction="#clearAll" prefHeight="41.0" prefWidth="92.0" style="-fx-background-color: #E74C3C;" text="Vymazať" textFill="WHITE" />
-            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="31.0" layoutY="301.0" prefHeight="239.0" prefWidth="420.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
+            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="31.0" layoutY="301.0" prefHeight="270.0" prefWidth="420.0" style="-fx-background-color: transparent;" vbarPolicy="NEVER">
                <content>
-                  <VBox fx:id="vBoxContent" alignment="CENTER" prefHeight="240.0" prefWidth="420.0" />
+                  <VBox fx:id="vBoxContent" alignment="CENTER" prefHeight="267.0" prefWidth="420.0" />
                </content>
                <opaqueInsets>
                   <Insets />

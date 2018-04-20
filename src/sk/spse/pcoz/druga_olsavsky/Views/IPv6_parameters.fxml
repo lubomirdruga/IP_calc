@@ -17,7 +17,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <VBox layoutX="22.0" layoutY="63.0" prefHeight="99.0" prefWidth="437.0">
+            <VBox layoutX="22.0" layoutY="63.0" prefHeight="109.0" prefWidth="437.0">
                <children>
                   <HBox prefHeight="40.0" prefWidth="415.0">
                      <children>
@@ -41,7 +41,7 @@
             </VBox>
             <JFXButton buttonType="RAISED" layoutX="262.0" layoutY="183.0" onAction="#clearAll" prefHeight="41.0" prefWidth="92.0" style="-fx-background-color: #E74C3C;" text="Vymazať" textFill="WHITE" />
             <JFXButton buttonType="RAISED" layoutX="367.0" layoutY="183.0" onAction="#handleSubmit" prefHeight="41.0" prefWidth="92.0" style="-fx-background-color: #2196f3;" text="Odoslať" textFill="#ffffff" />
-            <VBox fx:id="infoVBox" layoutX="24.0" layoutY="266.0" prefHeight="263.0" prefWidth="433.0">
+            <VBox fx:id="infoVBox" layoutX="24.0" layoutY="266.0" prefHeight="263.0" prefWidth="433.0" visible="false">
                <children>
                   <HBox prefHeight="45.0" prefWidth="400.0">
                      <children>
