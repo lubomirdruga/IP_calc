@@ -8,13 +8,20 @@ public class IPv6
     //todo kam pridat partIP - opakuje sa , fourthHextet
     String [] partIp;
     int prefix, prefixof, subNumber;
-    String longAddress, fourthOctet, fullIpBinary, ipv6Hex,mac;
+    String longAddress, fourthOctet, fullIpBinary, ipv6Hex;
+    String mac = null;
 
-    public IPv6(String ipv6Hex, int prefix, int subNumber, String mac)  // pre subnetting
+    public IPv6(String ipv6Hex, int prefix, int subNumber)  // pre subnetting
     {
         this.ipv6Hex = ipv6Hex;
         this.prefix = prefix;
         this.subNumber = subNumber;
+    }
+
+    public IPv6(String ipv6Hex, int prefix, String mac)  // pre subnetting
+    {
+        this.ipv6Hex = ipv6Hex;
+        this.prefix = prefix;
         this.mac = mac;
     }
 
@@ -588,7 +595,11 @@ public class IPv6
         returnAllParams [1] = getNwBin(ip,prefix);
         returnAllParams [2] = getPrefix();
         returnAllParams [3] = isglobalUnicast(ip);
-        returnAllParams [4] = linkLocal(mac);
+
+        if (mac != null)
+            returnAllParams [4] = linkLocal(mac);
+        else
+            returnAllParams[4] = "nebola zadaná MAC adresa";
         returnAllParams [5] = siteLocal(ip);
         returnAllParams [6] = isLoopback(ip,prefix);
 

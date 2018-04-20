@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane prefHeight="571.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.spse.pcoz.druga_olsavsky.Controllers.IPv6_parameters_Controller">
+<StackPane fx:id="stackPane" prefHeight="571.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.spse.pcoz.druga_olsavsky.Controllers.IPv6_parameters_Controller">
    <children>
       <AnchorPane prefHeight="543.0" prefWidth="480.0">
          <children>
