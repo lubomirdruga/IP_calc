@@ -11,13 +11,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import sk.spse.pcoz.druga_olsavsky.Models.IPv6;
 import sun.net.util.IPAddressUtil;
-import sun.security.x509.IPAddressName;
-
 import java.io.IOException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 
 public class IPv6_parameters_Controller implements Initializable{
     public JFXTextField ipv6AddressInput;
@@ -58,15 +55,12 @@ public class IPv6_parameters_Controller implements Initializable{
         });
     }
 
-    public void getInputIP() throws UnknownHostException {
-        //todo tu si vytiahnes zadane hodnoty z inputov, overis ich, a tak dalej
-        //todo v podstate, navrh toho je na tebe, odporucam pozriet triedu 'IPv4_parameters_Controller' zjednodusis si to :D
-
-        //todo toto je len na ukazku ako vyberat a nastavit hodnoty do vyslednej podoby ;)
+    public void getInputIP() {
 
         try{
             IPv6 ipv6;
 
+            // todo exceptions neodorbene este, fixnem zajtra
             String ipv6Address = ipv6AddressInput.getText().trim();
             int prefix = Integer.parseInt(prefixInput.getText().trim());
             String mac = macAddressInput.getText().trim();
@@ -106,7 +100,7 @@ public class IPv6_parameters_Controller implements Initializable{
         }
 
 
-
+        //todo toto ti treba ? vypis asi nie, a to skryvanie poriesim
 //        for (int i = 0; i < IPv6AllParams.length ; i++) {
 //            System.out.println(IPv6AllParams[i]);
 //        }
@@ -118,12 +112,15 @@ public class IPv6_parameters_Controller implements Initializable{
 
     }
 
+    //todo je 'this.' nutne ? vstupuje ti to do metody, ak nepotrebujes posielat pole do metody, zmaz vstup a taisto aj this. :)
     private void setParameters(String[] IPv6AllParams)
     {
         shortenAddressLabel.setText(this.IPv6AllParams[0]);
+        //todo skratit sietovu adresu
         nwAddressLabel.setText(this.IPv6AllParams[1]);
         prefixLabel.setText(this.IPv6AllParams[2]);
         unicastAddressLabel.setText(this.IPv6AllParams[3]);
+        //todo "FE80::" vlozit pred link local adresu
         linkLocalAddressLabel.setText(this.IPv6AllParams[4]);
         siteLocalAddressLabel.setText(this.IPv6AllParams[5]);
 
