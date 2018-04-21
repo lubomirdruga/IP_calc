@@ -16,6 +16,7 @@ public class IPv6
         this.ipv6Hex = ipv6Hex;
         this.prefix = prefix;
         this.subNumber = subNumber;
+//        this.mac = null;
     }
 
     public IPv6(String ipv6Hex, int prefix, String mac)  // pre subnetting

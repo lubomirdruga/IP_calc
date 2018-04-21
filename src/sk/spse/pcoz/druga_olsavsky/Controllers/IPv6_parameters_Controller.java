@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import sk.spse.pcoz.druga_olsavsky.Models.IPv6;
+import sun.jvm.hotspot.debugger.AddressException;
 import sun.net.util.IPAddressUtil;
 import java.io.IOException;
 import java.net.URL;
@@ -60,43 +61,37 @@ public class IPv6_parameters_Controller implements Initializable{
         try{
             IPv6 ipv6;
 
-            // todo exceptions neodorbene este, fixnem zajtra
-            String ipv6Address = ipv6AddressInput.getText().trim();
+            String ipv6Address = ipv6AddressInput.getText().trim().toUpperCase();
             int prefix = Integer.parseInt(prefixInput.getText().trim());
-            String mac = macAddressInput.getText().trim();
+            String macAddress = macAddressInput.getText().trim().toUpperCase();
 
-            System.out.println("is valid ipv6: "+ IPAddressUtil.isIPv6LiteralAddress(ipv6Address));
-
-
-
-
+            validateIPv6Address(ipv6Address);
 
             if(!macAddressInput.getText().trim().isEmpty())
             {
-                ipv6 = new IPv6 (ipv6AddressInput.getText().toUpperCase(),Integer.parseInt(prefixInput.getText()), macAddressInput.getText().toUpperCase());
-                IPv6AllParams = ipv6.allIPv6Param(ipv6AddressInput.getText().toUpperCase(),Integer.parseInt(prefixInput.getText().toUpperCase()),macAddressInput.getText().toUpperCase());
+                ipv6 = new IPv6 (ipv6Address,prefix, macAddress);
+
+                //todo ak sa nemylim, do metody allIPv6Param() nepotrebujes zas odosielat vstup adresa, prefix, a macadresa nakolko si ich nastavil v konstruktore o riadok vyssie
+                IPv6AllParams = ipv6.allIPv6Param(ipv6Address, prefix, macAddress);
+                validateMACAddress(macAddress);
 
             }
             else {
-                ipv6 = new IPv6 (ipv6AddressInput.getText().toUpperCase(),Integer.parseInt(prefixInput.getText()), -1);
-                IPv6AllParams = ipv6.allIPv6Param(ipv6AddressInput.getText().toUpperCase(),Integer.parseInt(prefixInput.getText().toUpperCase()),null);
+                ipv6 = new IPv6 (ipv6Address,prefix, -1);
+                //todo poznamka k todo vyssie, v konstruktoroch si nastav this.mac = null; proste, predid chybam :D
+                IPv6AllParams = ipv6.allIPv6Param(ipv6Address,prefix,null);
 
             }
             setParameters(IPv6AllParams);
 
+        } catch (NumberFormatException e){
+            showErrorDialog("Chybne zadaný prefix!");
+        } catch (IllegalArgumentException e){
+            showErrorDialog("Nesprávny tvar IPv6 adresy!");
+        } catch (IllegalStateException e){
+            showErrorDialog("Nesprávny tvar MAC adresy!");
         } catch (Exception e){
-
-            JFXDialogLayout content  = new JFXDialogLayout();
-            content.setHeading(new Text("Chyba!"));
-            content.setBody(new Text("Vami zadaný vstup nie je správny!"));
-
-            JFXDialog errorDialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
-            JFXButton closeBtn = new JFXButton("Dobre");
-
-            closeBtn.setOnAction(event -> errorDialog.close());
-            content.setActions(closeBtn);
-            errorDialog.show();
-
+            e.printStackTrace();
         }
 
 
@@ -141,10 +136,37 @@ public class IPv6_parameters_Controller implements Initializable{
 
     }
 
-    public void handleSubmit() throws UnknownHostException {
+    public void handleSubmit() {
         getInputIP();
         infoVBox.setVisible(true);
 
 
+    }
+
+    private void showErrorDialog(String error){
+        JFXDialogLayout content  = new JFXDialogLayout();
+        content.setHeading(new Text("Chyba!"));
+        content.setBody(new Text(error));
+
+        JFXDialog errorDialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
+        JFXButton closeBtn = new JFXButton("Dobre");
+
+        closeBtn.setOnAction(event -> errorDialog.close());
+        content.setActions(closeBtn);
+        errorDialog.show();
+    }
+
+    private void validateIPv6Address(String ipv6Address){
+
+        if (!IPAddressUtil.isIPv6LiteralAddress(ipv6Address)){
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private void validateMACAddress(String macAddress){
+
+        if (!macAddress.matches("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$")){
+            throw new IllegalStateException();
+        }
     }
 }
