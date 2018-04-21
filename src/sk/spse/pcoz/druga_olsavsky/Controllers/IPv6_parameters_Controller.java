@@ -65,26 +65,30 @@ public class IPv6_parameters_Controller implements Initializable{
             int prefix = Integer.parseInt(prefixInput.getText().trim());
             String macAddress = macAddressInput.getText().trim().toUpperCase();
 
-            validateIPv6Address(ipv6Address);
 
             if(!macAddressInput.getText().trim().isEmpty())
             {
-                ipv6 = new IPv6 (ipv6Address,prefix, macAddress);
-
-                //todo ak sa nemylim, do metody allIPv6Param() nepotrebujes zas odosielat vstup adresa, prefix, a macadresa nakolko si ich nastavil v konstruktore o riadok vyssie
-                IPv6AllParams = ipv6.allIPv6Param(ipv6Address, prefix, macAddress);
                 validateMACAddress(macAddress);
+
+                ipv6 = new IPv6 (ipv6Address,prefix, macAddress);
+                ipv6.validateIPv6Address();
+
+                //todo zbytocne sa nastavuju dane parametre v konstruktore a v metode allIPv6Address
+                IPv6AllParams = ipv6.allIPv6Param(ipv6Address, prefix, macAddress);
 
             }
             else {
                 ipv6 = new IPv6 (ipv6Address,prefix, -1);
-                //todo poznamka k todo vyssie, v konstruktoroch si nastav this.mac = null; proste, predid chybam :D
+                ipv6.validateIPv6Address();
+
+
                 IPv6AllParams = ipv6.allIPv6Param(ipv6Address,prefix,null);
 
             }
             setParameters(IPv6AllParams);
 
         } catch (NumberFormatException e){
+            //todo este dorobim prefix rozsah po prekonzultovani
             showErrorDialog("Chybne zadaný prefix!");
         } catch (IllegalArgumentException e){
             showErrorDialog("Nesprávny tvar IPv6 adresy!");
@@ -156,12 +160,6 @@ public class IPv6_parameters_Controller implements Initializable{
         errorDialog.show();
     }
 
-    private void validateIPv6Address(String ipv6Address){
-
-        if (!IPAddressUtil.isIPv6LiteralAddress(ipv6Address)){
-            throw new IllegalArgumentException();
-        }
-    }
 
     private void validateMACAddress(String macAddress){
 

@@ -61,17 +61,23 @@ public class IPv6_subnetting_Controller implements Initializable{
 //        clearAll();
         vBoxContent.setVisible(true);
 
-        //todo try catch
-        //tu dakde popocitas alebo zavolas metodu, ktora cez tvoj objekt IPv6 subnetting si podeli a nastavis dane siete do textfieldov
+        try{
 
-        IPv6Subnetting = new IPv6(ipv6AddressInput.getText().toUpperCase(),Integer.parseInt(prefixInput.getText()),Integer.parseInt(subnetsCountInput.getText()));
+            int prefix = Integer.parseInt(prefixInput.getText().trim());
+            int subnetsCount = Integer.parseInt(subnetsCountInput.getText());
 
-        finalAllSubnets = IPv6Subnetting.subnetting();
+            IPv6Subnetting = new IPv6(ipv6AddressInput.getText().toUpperCase(),prefix, subnetsCount);
+            IPv6Subnetting.validateIPv6Address();
+            finalAllSubnets = IPv6Subnetting.subnetting();
 
+            createSubnetRows();
 
-        createSubnetRows();
-
-
+        }  catch (IllegalArgumentException e){
+            //todo musis popocitat ci ma zadana IPv6 adresa 4 casti hextetu
+            showErrorDialog("Nesprávny tvar IPv6 adresy!");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -138,7 +144,7 @@ public class IPv6_subnetting_Controller implements Initializable{
 
         }
         catch(NumberFormatException nfe) {
-            showToast("Zlý vstup!");
+            showErrorDialog("Zlý vstup!");
         }
 
     }
@@ -162,7 +168,7 @@ public class IPv6_subnetting_Controller implements Initializable{
         return i < 0 ? "" : str((i / 26) - 1) + (char)(65 + i % 26);
     }
 
-    private void showToast(String body)
+    private void showErrorDialog(String body)
     {
         JFXDialogLayout content  = new JFXDialogLayout();
         content.setHeading(new Text("Chyba!"));

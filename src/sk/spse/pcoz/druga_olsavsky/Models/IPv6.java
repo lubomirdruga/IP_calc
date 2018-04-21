@@ -1,5 +1,7 @@
 package sk.spse.pcoz.druga_olsavsky.Models;
 
+import sun.net.util.IPAddressUtil;
+
 import java.net.Inet6Address;
 import java.net.UnknownHostException;
 
@@ -607,4 +609,11 @@ public class IPv6
         return returnAllParams;
     }
 
+
+    public void validateIPv6Address(){
+
+        if (!IPAddressUtil.isIPv6LiteralAddress(ipv6Hex)){
+            throw new IllegalArgumentException();
+        }
+    }
 }
