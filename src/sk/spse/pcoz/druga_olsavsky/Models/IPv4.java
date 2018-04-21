@@ -15,10 +15,10 @@ public class IPv4
 
     //VLSM params
     private int neededSize, allocatedSize;
-    String name;
+    private String name;
 
 
-    //IPv4 zakkladne parametre konstruktor
+    //IPv4 pre zakladne parametre konstruktor
     public IPv4 (int[] ipv4DEC, int prefix)
     {
         this.ipv4DEC = ipv4DEC;

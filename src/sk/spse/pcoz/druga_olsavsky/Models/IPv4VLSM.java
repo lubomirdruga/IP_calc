@@ -45,11 +45,8 @@ public class IPv4VLSM
                 supernetIPv4[i] = Integer.parseInt(splitedIP[i].trim());
                 if (supernetIPv4[i] > 255 || supernetIPv4[i] < 0)
                     throw new IOException();
-
-                System.out.println(supernetIPv4[i]);
             }
 
-            System.out.println(superNetPrefix);
         }
         catch (IOException e) {
             throw new IOException();
@@ -87,12 +84,9 @@ public class IPv4VLSM
         for (int i = 0; i < subnet.length; i++)
             spaceNeeded += subnet[i].getAllocatedSize();
 
-        //todo remove
-        if (supernetHostsCount > spaceNeeded)
-            System.out.println("je mozne subnetovat");
-        else
+        if (supernetHostsCount < spaceNeeded) {
             throw new ArithmeticException();
-
+        }
     }
 
     private void sortSubnets()
@@ -165,7 +159,7 @@ public class IPv4VLSM
     }
 
     public String getSuperNetAddress() {
-        return supernetObj.getDecNW() + "/" + superNetPrefix;
+        return supernetObj.getDecNW();
     }
 
     public int getSubnetsSum() {
@@ -176,10 +170,6 @@ public class IPv4VLSM
             sum += oneSubnetCount;
         }
         return sum;
-    }
-
-    public int[] getSupernetIPv4() {
-        return supernetIPv4;
     }
 
     public int getSuperNetPrefix() {
