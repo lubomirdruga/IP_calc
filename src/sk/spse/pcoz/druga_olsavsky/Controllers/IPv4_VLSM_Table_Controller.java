@@ -12,8 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
-import javafx.scene.Parent;
-import javafx.scene.SubScene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
@@ -30,10 +28,10 @@ import sk.spse.pcoz.druga_olsavsky.Models.IPv4VLSM;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class IPv4_VLSM_Table_Controller implements Initializable
 {
-//todo rename
 
     public JFXHamburger hamburger;
     public JFXDrawer drawer;
@@ -54,8 +52,6 @@ public class IPv4_VLSM_Table_Controller implements Initializable
     public static void setItems(IPv4[] finalSubnets) {
         items = finalSubnets;
     }
-
-    //TODO skontrolovat tabulku alokovana a potrebna velkost, MUSI sediet s vysledkami hore
 
 
     // https://drive.google.com/drive/folders/0B_nK3WmoczMgTFhPWmZfby1pQ0k
@@ -87,29 +83,32 @@ public class IPv4_VLSM_Table_Controller implements Initializable
         netNameColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().netName);
 
         JFXTreeTableColumn neededSizeColumn = new JFXTreeTableColumn("Potrebná veľkosť");
+        neededSizeColumn.setPrefWidth(140);
         neededSizeColumn.setSortable(false);
         neededSizeColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().neededSize);
 
         JFXTreeTableColumn allocatedSizeColumn = new JFXTreeTableColumn("Alokovaná veľkosť");
+        allocatedSizeColumn.setPrefWidth(140);
         allocatedSizeColumn.setSortable(false);
         allocatedSizeColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().allocatedSize);
 
         JFXTreeTableColumn nwAddressColumn = new JFXTreeTableColumn("Sieťová adresa");
-//        nwAddressColumn.setPrefWidth(150);
+        nwAddressColumn.setPrefWidth(140);
         nwAddressColumn.setSortable(false);
         nwAddressColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().nwAddress);
 
         JFXTreeTableColumn prefixColumn = new JFXTreeTableColumn("Prefix");
+        prefixColumn.setPrefWidth(66);
         prefixColumn.setSortable(false);
         prefixColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().prefix);
 
         JFXTreeTableColumn maskColumn = new JFXTreeTableColumn("Maska");
-//        maskColumn.setPrefWidth(150);
+        maskColumn.setPrefWidth(150);
         maskColumn.setSortable(false);
         maskColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().mask);
 
         JFXTreeTableColumn rangeColumn = new JFXTreeTableColumn("Použiteľný rozsah");
-//        rangeColumn.setPrefWidth(200);
+        rangeColumn.setPrefWidth(250);
         rangeColumn.setSortable(false);
         rangeColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().range);
 
@@ -130,14 +129,8 @@ public class IPv4_VLSM_Table_Controller implements Initializable
         table.getColumns().setAll(netNameColumn, neededSizeColumn, allocatedSizeColumn, nwAddressColumn, bcAddressColumn, prefixColumn, maskColumn, rangeColumn);
         table.setRoot(root);
         table.setShowRoot(false);
-        //todo predsa len prerobit na prefWidth
-        table.setColumnResizePolicy(JFXTreeTableView.CONSTRAINED_RESIZE_POLICY);
-        neededSizeColumn.setPrefWidth(130);
-        allocatedSizeColumn.setPrefWidth(130);
-        prefixColumn.setPrefWidth(85);
 
-
-        supernetAddressLabel.setText(vlsm.getSuperNetAddress());
+        supernetAddressLabel.setText(vlsm.getSuperNetAddress() + "/" + vlsm.getSuperNetPrefix());
 
         String supernetCount = String.format("%,d", vlsm.getSupernetHostsCount());
         supernetCount = supernetCount.replaceAll(",", " ");
@@ -181,29 +174,73 @@ public class IPv4_VLSM_Table_Controller implements Initializable
         pieChartDialog.show();
     }
 
-    public void showSupernetInfo() throws IOException {
+    public void showSupernetInfo() {
 
-        Parent root = FXMLLoader.load(getClass().getResource("../Views/IPv4_parameters.fxml"));
+        String[] address = vlsm.getSuperNetAddress().split(Pattern.quote("."));
+        int[] decAddress = new int[4];
+
+        for (int i = 0; i < decAddress.length; i++)
+            decAddress[i] = Integer.parseInt(address[i]);
 
 
+        IPv4 params = new IPv4(decAddress, vlsm.getSuperNetPrefix());
 
+        params.calculateAllIPinformations();
+
+        HBox[] hBox = new HBox[11];
+
+        Label[] labelsLeft = new Label[11];
+
+        labelsLeft[0] = new Label("NW adresa: ");
+        labelsLeft[1] = new Label("Prefix: ");
+        labelsLeft[2] = new Label("BC adresa: ");
+        labelsLeft[3] = new Label("Maska: ");
+        labelsLeft[4] = new Label("Wildcard: ");
+        labelsLeft[5] = new Label("Prvá použiteľná IP: ");
+        labelsLeft[6] = new Label("Posledná použiteľná IP: ");
+        labelsLeft[7] = new Label("Počet adries: ");
+        labelsLeft[8] = new Label("Poradie adresy: ");
+        labelsLeft[9] = new Label("Trieda IP adresy: ");
+        labelsLeft[10] = new Label("Typ IP adresy: ");
+
+        Label[] labelsRight = new Label[11];
+
+        labelsRight[0] = new Label(params.getDecNW());
+        labelsRight[1] = new Label(params.getPrefix());
+        labelsRight[2] = new Label(params.getDecBC());
+        labelsRight[3] = new Label(params.getDecMask());
+        labelsRight[4] = new Label(params.getDecWildcard());
+        labelsRight[5] = new Label(params.getDecFirstAddress());
+        labelsRight[6] = new Label(params.getDecLastAddress());
+
+        String addressCount = String.format("%,d", params.getAddressCount());
+        addressCount = addressCount.replaceAll(",", " ");
+        labelsRight[7] = new Label(addressCount);
+
+        String addressOrder = String.format("%,d", params.getDecOrder());
+        addressOrder = addressOrder.replaceAll(",", " ");
+        labelsRight[8] = new Label(addressOrder + ".");
+
+        labelsRight[9] = new Label(params.getClassIP());
+        labelsRight[10] = new Label(params.getTypeIP());
+
+
+        for (int i = 0; i < labelsLeft.length; i++) {
+
+            labelsLeft[i].setPrefSize(172,41);
+            labelsRight[i].setPrefSize(260, 41);
+
+            hBox[i] = new HBox();
+            hBox[i].getChildren().addAll(labelsLeft[i], labelsRight[i]);
+        }
+
+        VBox ipInfoBox = new VBox();
+        ipInfoBox.getChildren().addAll(hBox);
 
         JFXDialogLayout content  = new JFXDialogLayout();
-//        content.setHeading(new Text("Grafické znázornenie využitia supernet siete"));
-        content.setBody(new SubScene(root, 460,720));
+        content.setHeading(new Text("Parametre adresy " + vlsm.getSuperNetAddress() + " /" + vlsm.getSuperNetPrefix()));
+        content.setBody(ipInfoBox);
 
-
-        int[] supenetIP = vlsm.getSupernetIPv4().clone();
-
-        IPv4_parameters_Controller ctrl = new IPv4_parameters_Controller();
-
-        ctrl.firstOctet = new JFXTextField(Integer.toString(supenetIP[0]));
-//        ctrl.secondOctet.setText(Integer.toString(supenetIP[1]));
-//        ctrl.thirdOctet.setText(Integer.toString(supenetIP[2]));
-//        ctrl.fourthOctet.setText(Integer.toString(supenetIP[3]));
-//        ctrl.prefix.setText(Integer.toString(vlsm.getSuperNetPrefix()));
-//
-//        ctrl.handleSubmit();
 
         JFXDialog supernetParametersDialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
         JFXButton closeBtn = new JFXButton("Dobre");
