@@ -612,6 +612,7 @@ public class IPv6
 
     public void validateIPv6Address(){
 
+        //todo pre jednoduchost si tu over ci to je uplna IPv6 adresa  error pri neuplnej adrese hodis ako v podmienke nizsie
         if (!IPAddressUtil.isIPv6LiteralAddress(ipv6Hex)){
             throw new IllegalArgumentException();
         }
