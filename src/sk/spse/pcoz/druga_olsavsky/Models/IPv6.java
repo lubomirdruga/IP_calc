@@ -1,5 +1,6 @@
 package sk.spse.pcoz.druga_olsavsky.Models;
 
+import javafx.beans.binding.Bindings;
 import sun.net.util.IPAddressUtil;
 
 import java.net.Inet6Address;
@@ -506,20 +507,21 @@ public class IPv6
     {
         String[] macAdd;
         macAdd = mac.split(":");
-        String[] dividedMac = new String[8];
+        String[] dividedMac = new String[9];
 
         for (int i = 0; i < macAdd.length; i++) {
-            dividedMac[i] = macAdd[i];
+            dividedMac[i+1] = macAdd[i];
         }
+        dividedMac[8] = dividedMac[6];
         dividedMac[7] = dividedMac[5];
         dividedMac[6] = dividedMac[4];
-        dividedMac[5] = dividedMac[3];
 
-        dividedMac[3] = "FF";
-        dividedMac[4] = "FE";
+        dividedMac[0] = "FE80:";
+        dividedMac[4] = "FF";
+        dividedMac[5] = "FE";
 
         String firstEightBits;
-        firstEightBits = hexbin(dividedMac[0]);
+        firstEightBits = hexbin(dividedMac[1]);
 
         char firstEightBitsArr[] = firstEightBits.toCharArray();
 
@@ -541,13 +543,13 @@ public class IPv6
         }
 
         fullMac = binhex(fullMac);
-        dividedMac[0] = fullMac;
+        dividedMac[1] = fullMac;
         fullMac = "";
 
 
         for (int i = 0; i <dividedMac.length ; i++)
         {
-            if (i < 7)
+            if (i < 8)
                 fullMac = fullMac + dividedMac[i] + ":";
             else
                 fullMac = fullMac +dividedMac[i];
@@ -587,24 +589,24 @@ public class IPv6
             }
             help = help + 4;
         }
-//        FinalNwHexAddress = getCompressedAddress(FinalNwHexAddress);
+        FinalNwHexAddress = getCompressedAddress(FinalNwHexAddress);
 //        System.out.println(FinalNwHexAddress);
         return FinalNwHexAddress;
     }
 
-    public String[] allIPv6Param(String ip, int prefix, String mac) throws UnknownHostException {
+    public String[] allIPv6Param() throws UnknownHostException {
         String [] returnAllParams = new String[10];
-        returnAllParams [0] =  getCompressedAddress(ip);
-        returnAllParams [1] = getNwBin(ip,prefix);
+        returnAllParams [0] =  getCompressedAddress(ipv6Hex);
+        returnAllParams [1] = getNwBin(ipv6Hex,prefix);
         returnAllParams [2] = getPrefix();
-        returnAllParams [3] = isglobalUnicast(ip);
+        returnAllParams [3] = isglobalUnicast(ipv6Hex);
 
         if (mac != null)
             returnAllParams [4] = linkLocal(mac);
         else
             returnAllParams[4] = "nebola zadaná MAC adresa";
-        returnAllParams [5] = siteLocal(ip);
-        returnAllParams [6] = isLoopback(ip,prefix);
+        returnAllParams [5] = siteLocal(ipv6Hex);
+        returnAllParams [6] = isLoopback(ipv6Hex,prefix);
 
         return returnAllParams;
     }
