@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="540.0" prefWidth="778.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sk.spse.pcoz.druga_olsavsky.Controllers.IPv6_info_Controller">
+    <children>
+        <Label layoutX="26.0" layoutY="15.0" text="IPv6 Informácie">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <ScrollPane fx:id="scrollPane" layoutX="30.0" layoutY="77.0" prefHeight="438.0" prefWidth="722.0" style="-fx-background-color: transparent;">
+            <content>
+                <TextFlow fx:id="textFlow" lineSpacing="6.0" prefHeight="436.0" prefWidth="719.0" textAlignment="JUSTIFY" />
+            </content>
+        </ScrollPane>
+        <JFXHamburger fx:id="hamburger" layoutX="723.0" layoutY="19.0" />
+        <JFXDrawer fx:id="drawer" layoutX="-1.0" prefHeight="540.0" prefWidth="143.0" />
+    </children>
+</AnchorPane>
