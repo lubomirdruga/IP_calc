@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -20,11 +21,14 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
 
 //        Parent root = FXMLLoader.load(getClass().getResource("IPv4_parameters.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("Views/IPv6_parameters.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("Views/IPv6_parameters.fxml"));
 //        Parent root = FXMLLoader.load(getClass().getResource("Converter.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Views/IPv4_info.fxml"));
+
 
         primaryStage.setTitle("IP subnetting");
         primaryStage.setScene(new Scene(root));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
