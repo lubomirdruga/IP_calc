@@ -10,11 +10,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import sk.spse.pcoz.druga_olsavsky.Models.IPv6;
-//import sun.jvm.hotspot.debugger.AddressException;
-//import sun.net.util.IPAddressUtil;
+
 import java.io.IOException;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 
 public class IPv6_parameters_Controller implements Initializable{
@@ -88,7 +86,6 @@ public class IPv6_parameters_Controller implements Initializable{
 
 
         } catch (NumberFormatException e){
-            //todo este dorobim prefix rozsah po prekonzultovani
             showErrorDialog("Chybne zadaný prefix!");
         } catch (IllegalArgumentException e){
             showErrorDialog("Nesprávny tvar IPv6 adresy!");
@@ -111,11 +108,9 @@ public class IPv6_parameters_Controller implements Initializable{
         linkLocalAddressLabel.setText(IPv6AllParams[4]);
         siteLocalAddressLabel.setText(IPv6AllParams[5]);
         infoVBox.setVisible(true);
-
     }
 
     public void clearAll() {
-
         ipv6AddressInput.clear();
         prefixInput.clear();
         shortenAddressLabel.setText("");
@@ -126,13 +121,10 @@ public class IPv6_parameters_Controller implements Initializable{
         siteLocalAddressLabel.setText("");
 
         infoVBox.setVisible(false);
-
     }
 
     public void handleSubmit() {
         getInputIP();
-
-
     }
 
     private void showErrorDialog(String error){
