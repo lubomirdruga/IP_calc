@@ -18,7 +18,6 @@ import java.util.ResourceBundle;
 public class IPv6_parameters_Controller implements Initializable{
     public JFXTextField ipv6AddressInput;
     public JFXTextField prefixInput;
-    //todo set infoBox to NOT visible
     public VBox infoVBox;
     public Label shortenAddressLabel;
     public Label nwAddressLabel;
