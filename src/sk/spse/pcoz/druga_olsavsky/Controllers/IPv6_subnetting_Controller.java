@@ -64,6 +64,9 @@ public class IPv6_subnetting_Controller implements Initializable{
         try{
 
             int prefix = Integer.parseInt(prefixInput.getText().trim());
+            if (prefix < 48)
+                throw new IOException();
+
             int subnetsCount = Integer.parseInt(subnetsCountInput.getText());
 
             IPv6Subnetting = new IPv6(ipv6AddressInput.getText().toUpperCase(),prefix, subnetsCount);
@@ -73,10 +76,12 @@ public class IPv6_subnetting_Controller implements Initializable{
             createSubnetRows();
 
         }  catch (IllegalArgumentException e){
-            //todo musis popocitat ci ma zadana IPv6 adresa 4 casti hextetu
             showErrorDialog("Nesprávny tvar IPv6 adresy!");
-        }catch (Exception e){
-            e.printStackTrace();
+        } catch (IOException e) {
+            showErrorDialog("Subnetovať je možné v rozsahu prefixu 48 až 64!");
+
+        } catch (Exception e){
+            showErrorDialog("Prefix hľadaných podsietí nemôže byť väčší ako 64!\n[Prefixy podsietí presahujú časť SUBNET ID časť,\nkde sa nesubnetuje.]\nZadajte prosím, menší prefix.");
         }
     }
 
