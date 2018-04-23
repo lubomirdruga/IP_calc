@@ -81,7 +81,9 @@ public class IPv6_subnetting_Controller implements Initializable{
             showErrorDialog("Subnetovať je možné v rozsahu prefixu 48 až 64!");
 
         } catch (Exception e){
-            showErrorDialog("Prefix hľadaných podsietí nemôže byť väčší ako 64!\n[Prefixy podsietí presahujú časť SUBNET ID časť,\nkde sa nesubnetuje.]\nZadajte prosím, menší prefix.");
+            showErrorDialog("Prefix hľadaných podsietí nemôže byť väčší ako 64!\n[Prefixy podsietí presahujú časť SUBNET ID časť,\n" +
+                    "kde sa nesubnetuje.]\n" +
+                    "Zadajte prosím, menší prefix.");
         }
     }
 
