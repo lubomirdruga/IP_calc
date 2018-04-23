@@ -19,12 +19,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class IPv6_subnetting_Controller implements Initializable{
+public class IPv6_subnetting_Controller implements Initializable
+{
     public JFXTextField ipv6AddressInput;
     public JFXTextField prefixInput;
     public JFXTextField subnetsCountInput;
-
-    //v pripade nevyuzivania scrollpane premennej odstranit
     public ScrollPane scrollPane;
     public VBox vBoxContent;
     public StackPane stackPane;
@@ -34,18 +33,22 @@ public class IPv6_subnetting_Controller implements Initializable{
     private IPv6 IPv6Subnetting;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-        try {
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        try
+        {
             VBox box = FXMLLoader.load(getClass().getResource("../Views/Drawer.fxml"));
             drawer.setSidePane(box);
-        } catch (IOException ex) {
+        }
+        catch (IOException ex)
+        {
             System.out.println("File 'Drawer.fxml' not found");
         }
 
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
         transition.setRate(-1);
-        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->
+        {
             if(drawer.isShown())
             {
                 drawer.close();
@@ -54,15 +57,11 @@ public class IPv6_subnetting_Controller implements Initializable{
         });
     }
 
-
-
-    public void handleSubmit() {
-
-//        clearAll();
+    public void handleSubmit()
+    {
         vBoxContent.setVisible(true);
-
-        try{
-
+        try
+        {
             int prefix = Integer.parseInt(prefixInput.getText().trim());
             if (prefix < 48)
                 throw new IOException();
@@ -72,52 +71,47 @@ public class IPv6_subnetting_Controller implements Initializable{
             IPv6Subnetting = new IPv6(ipv6AddressInput.getText().toUpperCase(),prefix, subnetsCount);
             IPv6Subnetting.validateIPv6Address();
             finalAllSubnets = IPv6Subnetting.subnetting();
-
             createSubnetRows();
-
-        }  catch (IllegalArgumentException e){
+        }
+        catch (IllegalArgumentException e)
+        {
             showErrorDialog("Nesprávny tvar IPv6 adresy!");
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             showErrorDialog("Subnetovať je možné v rozsahu prefixu 48 až 64!");
 
-        } catch (Exception e){
+        }
+        catch (Exception e)
+        {
             showErrorDialog("Prefix hľadaných podsietí nemôže byť väčší ako 64!\n[Prefixy podsietí presahujú časť SUBNET ID časť,\n" +
                     "kde sa nesubnetuje.]\n" +
                     "Zadajte prosím, menší prefix.");
         }
     }
 
-
-
     public void createSubnetRows()
     {
         int subnetsCount = 0;
 
-        try {
-
-            //  2001:ACAD:1000:0000:0000:0000:0000:0000 59 8
-
-            for (int exponent = 0; Integer.parseInt(subnetsCountInput.getText().trim()) > subnetsCount ; exponent++) {
+        try
+        {
+            for (int exponent = 0; Integer.parseInt(subnetsCountInput.getText().trim()) > subnetsCount ; exponent++)
+            {
                 subnetsCount = (int) Math.pow(2, exponent);
-                System.out.println(subnetsCount);
             }
-            System.out.println(subnetsCount);
-
 
             if (subnetsCount <= 0)
                 throw new NumberFormatException();
 
             HBox[] subnetsRows = new HBox[subnetsCount];
 
-
             JFXTextField[] subnetName = new JFXTextField[subnetsCount];
             JFXTextField[] subnetAddress = new JFXTextField[subnetsCount];
             Separator[] separators = new Separator[subnetsCount];
 
-
-            for (int i = 0; i < subnetsRows.length; i++) {
-
-
+            for (int i = 0; i < subnetsRows.length; i++)
+            {
                 subnetName[i] = new JFXTextField(str(i));
                 subnetName[i].setMinSize(77,30);
                 subnetName[i].setMaxSize(77,30);
@@ -127,8 +121,6 @@ public class IPv6_subnetting_Controller implements Initializable{
                 subnetAddress[i].setMinSize(333,30);
                 subnetAddress[i].setMaxSize(333,30);
                 subnetAddress[i].setEditable(false);
-
-
 
                 separators[i] = new Separator(Orientation.VERTICAL);
                 separators[i].setPrefSize(10,30);
@@ -143,32 +135,24 @@ public class IPv6_subnetting_Controller implements Initializable{
             subnetAddress[0].setPromptText("Adresa subnetu");
             subnetAddress[0].setLabelFloat(true);
 
-
-
             subnetsRows[0].setPadding(new Insets(10,0,0,0));
             vBoxContent.getChildren().clear();
             vBoxContent.getChildren().addAll(subnetsRows);
-
         }
-        catch(NumberFormatException nfe) {
+        catch(NumberFormatException nfe)
+        {
             showErrorDialog("Zlý vstup!");
         }
-
     }
 
-
-
-    public void clearAll() {
-
+    public void clearAll()
+    {
         vBoxContent.setVisible(false);
-
         ipv6AddressInput.clear();
         prefixInput.clear();
         subnetsCountInput.clear();
-
         IPv6Subnetting = null;
         finalAllSubnets = null;
-
     }
 
     private String str(int i) {

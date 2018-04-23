@@ -1,72 +1,68 @@
 package sk.spse.pcoz.druga_olsavsky.Models;
 
-import javafx.beans.binding.Bindings;
-import sun.net.util.IPAddressUtil;
+// testovaie adresy
+// 2001:ACAD:1000:0000:0000:0000:0000:0000 59 8
+// FF:AA:AA:AA:FF:AA
 
+import sun.net.util.IPAddressUtil;
 import java.net.Inet6Address;
 import java.net.UnknownHostException;
 
 public class IPv6
 {
-    //todo kam pridat partIP - opakuje sa , fourthHextet
     String [] partIp;
-    int prefix, prefixof, subNumber;
-    String longAddress, fourthOctet, fullIpBinary, ipv6Hex;
+    int prefix, subNumber;
+    String fourthOctet, fullIpBinary, ipv6Hex;
     String mac = null;
 
-    public IPv6(String ipv6Hex, int prefix, int subNumber)  // pre subnetting
+    public IPv6(String ipv6Hex, int prefix, int subNumber)  // konstruktor pre subnetting
     {
         this.ipv6Hex = ipv6Hex;
         this.prefix = prefix;
         this.subNumber = subNumber;
-//        this.mac = null;
     }
 
-    public IPv6(String ipv6Hex, int prefix, String mac)  // pre subnetting
+    public IPv6(String ipv6Hex, int prefix, String mac)  // konstruktor pre parametre
     {
         this.ipv6Hex = ipv6Hex;
         this.prefix = prefix;
         this.mac = mac;
     }
 
-
+    //metoda na skracovanie IPv6 adresy
     public static String getCompressedAddress(String longAddress) throws UnknownHostException
     {
         longAddress = Inet6Address.getByName(longAddress).getHostAddress();
         return longAddress.replaceFirst("(^|:)(0+(:|$)){2,8}", "::").toUpperCase();
     }
 
+    //metoda na subnetting
     public String[] subnetting()
     {
         int counthelp = 0;          // premenna ktora pomoze aby sa siete subnetovali podla mocnin 1,2,4,8 ...
-        for (; (int)Math.pow(2,counthelp) < subNumber ; counthelp++) {}           //cyklus urobi subnetiing
+        for (; (int)Math.pow(2,counthelp) < subNumber ; counthelp++) {}           //cyklus na pocet podsieti
         subNumber = (int)Math.pow(2,counthelp);           // premenna countsubent bude mocninou cisla 2
 
         this.partIp = ipv6Hex.split(":");           // rozdelena IPv6 - jednotlive oktety su v poli
         this.fourthOctet = partIp[3];               // stvrty oktet
-        fourthOctet = hexbin(fourthOctet);          // stvrty oktet premeneneny na BIN
-        String binFullIp = "";
+        fourthOctet = hexbin(fourthOctet);          // stvrty oktet premeneny na BIN
 
-        for (int i = 0; i < partIp.length ; i++)            // premena HEX IP na BIN IP v poli
+        for (int i = 0; i < partIp.length ; i++)            // premena HEX IP na BIN IP do pola
         {
             fullIpBinary = fullIpBinary + hexbin(partIp[i]);
         }
-        System.out.println(fullIpBinary);
 
         int countAvailableBits = 0;         //pocet bitov ktore musim pouzit aby sa dal vypocitat pocet kolko IP sa ma vypisat
 
         for (; subNumber > (int)Math.pow(2,countAvailableBits); countAvailableBits++)
-        {
-            System.out.println(countAvailableBits);
-        }
+        { }
 
         String [][] BinaryDoubleArray = new String [subNumber][countAvailableBits];// pomocne pole k vypoctom, naplna sa 1,2,4,8,16 ...
 
-        // TODO: 18. 4. 2018  zmena 128 - prefix
         int temp = 1;           // pomocna premenna
         int spy = 1;            // sledovacia premenna
+        //cyklus na naplenie pola binarne
         for (int i = countAvailableBits -1; i >= 0 ; i--)
-        // TODO: 18. 4. 2018  zmena ako hore
         {
             for (int j = 0 ; j < subNumber ; j++)
             {
@@ -77,7 +73,6 @@ public class IPv6
                 else
                 {
                     BinaryDoubleArray[j][i] = "1";
-
                     if (spy == temp * 2)
                     {
                         spy = 0;
@@ -89,22 +84,11 @@ public class IPv6
             temp = temp * 2;
         }
 
-        // vypis pola (len na testovanie) // todo zmazat vypis?
-        for (int i = 0; i < BinaryDoubleArray.length; i++) {
-            for (int j = 0; j <BinaryDoubleArray[i].length ; j++)
-            {
-                System.out.print(BinaryDoubleArray[i][j] + " ");
-            }
-            System.out.println("");
-        }
-
-        String partIpBin = "";
         String partIpHex = "";
         String fullSubnettingArray[] = new String[subNumber]; // na konci tam budu vsetky IP ktore chce od nas uzivatel
 
         // rozdelenie 4 oktetku na 3 casti 2 cast sa nahradza vypocitanym polom. 1 a 2 cast sa opisuje
         String fourthOctetPartOne = fourthOctet.substring(0,prefix - 48);     // prva cast
-       // String fourthOctetPartTwo = "";         // druha cast
         String fourthOctetPartThree="";         // tretia cast
         // ulozena tretia cast co je od konecneho prefixu - 48 + potrebnych bitov az po koniec
         fourthOctetPartThree = fourthOctet.substring(prefix-48 + countAvailableBits, fourthOctet.length());
@@ -113,21 +97,15 @@ public class IPv6
         {
             fourthOctet = partIp[3];
             fourthOctet = hexbin(fourthOctet);
-            partIpBin = "";         // pomocna premenna
-
-           String fourthOctetPartTwo = "";            // sluzi na premazanie
-
+//            partIpBin = "";         // pomocna premenna
+            String fourthOctetPartTwo = "";            // sluzi na premazanie
             for (int j = 0; j < BinaryDoubleArray[i].length; j++)       // spojenie subnetovaneho BIN oktetu s novym vypoctom a dopoctom celeho subnetu (16 BIN)
             {
                 fourthOctetPartTwo = fourthOctetPartTwo + BinaryDoubleArray[i][j];
             }
-
             fourthOctet = fourthOctetPartOne + fourthOctetPartTwo + fourthOctetPartThree;       // spoja sa casti a vytvori sa jeden cely oktet
-           // partIpBin = fourthOctet + partIpBin;
-           // partIpHex = binhex(partIpBin);          // premeni sa na (HEX)
             partIpHex = binhex(fourthOctet);
             partIp[3] = partIpHex;          // zapise sa HEX na 4 oktet
-
             String fullIpHexAndHex4Octet = "";          //  do tejto premennej sa uklada cela IP v hex.
 
             for (int j = 0; j < partIp.length ; j++)            // vypisanie celej IP adresy
@@ -141,17 +119,15 @@ public class IPv6
                 {
                     fullIpHexAndHex4Octet = fullIpHexAndHex4Octet + partIp[j] + ":";
                 }
-
             }
-
         }
 
         String FullBinaryIpOnChangeToFinishConformation = "";       // finalna uprava aby sa odstranili 0
-        String ipAddressHex = "";           // pomocny string ku BIM vypoctu adries
+        String ipAddressHex = "";           // pomocny string ku BIN vypoctu adries
 
         for (int i = 0; i < fullSubnettingArray.length ; i++)
         {
-            // vypocita sa network adresa (true = NW) a ulozi sa do premennej
+            // vypocita sa network adresa a ulozi sa do premennej
             FullBinaryIpOnChangeToFinishConformation = Nw(fullSubnettingArray[i],prefix+countAvailableBits);
             ipAddressHex = binhex(FullBinaryIpOnChangeToFinishConformation);
 
@@ -183,110 +159,59 @@ public class IPv6
             // prida sa do pola adresa su tam vsetky adresy ktore chce po nas uzivatel
             fullSubnettingArray[i] = FullAddressHexWithPrefixAndDoubleDot;
         }
-        // todo LEN TESTOVACI VYPIS
 
-        for (int i = 0; i < fullSubnettingArray.length; i++) {
-            System.out.println(fullSubnettingArray[i]);
-        }
         // vrati naplnene pole adresami ktore pouzivatel chce
         return fullSubnettingArray;
     }
 
-
-    // todo pocet hostov mam vypocitat?
-    // counting of maximum hosts in IP address
-    public int hosts (int prefix)
-    {
-        int hostsNumber = 128 - prefix;
-        hostsNumber = (int)Math.pow(2, hostsNumber);
-        System.out.println(hostsNumber);
-        return hostsNumber;
-    }
-
-    // todo range zmazat alebo nechať mozno len upravit na tvar pomocou subnettingu len prva a posledna
-    //  counting network, broadcast, full ip address, first and last address in binary and hexadecimal
-    public String range (String ip, int prefix)
-    {
-        String nw;          // network address
-        String bc;          // broadcast address
-        String hb;          // hexadecimal address to binary address
-
-        // first IP in Binary and Hexadecimal
-        nw = Nw(ip,prefix);
-        System.out.println("First address is:");
-        System.out.println(nw);
-
-        hb = binhex(nw);
-        System.out.println(hb);
-
-        // last IP in Binary and Hexadecimal
-        bc = Bc(ip,prefix);
-        System.out.println("Last address is:");
-        System.out.println(bc);
-
-        hb = binhex(bc);
-        System.out.println(hb);
-
-        return nw;
-    }
-
-    // Network and Broadcast
+    //Broadcast
     public static String Bc(String IP, int prefix)
     {
-        String partIP [] = IP.split(":");           // one octet = one filed
+        String partIP [] = IP.split(":");           // jeden oktet = jedno pole
 
-        String temp = "";           // auxiliary variable
-        String fullIp = "";         // full Ip address
+        String temp = "";           // docasna premenna
+        String fullIp = "";         // cela Ip adresa
 
-        // joining bits in full IP
+        // spojenie bitov do adresy
         for (String x: partIP)
         {
-            System.out.println(x);
             temp = hexbin(x);
             fullIp = fullIp + temp ;
         }
-        System.out.println(fullIp);
 
-        // Network (every 1 is replaced of 0)
-            String firstHalf = fullIp.substring(0,prefix);
-            String secondHalf = fullIp.substring(prefix, fullIp.length());
-
-            secondHalf = secondHalf.replaceAll("0","1");
-            System.out.println(firstHalf + secondHalf);
-            fullIp = firstHalf + secondHalf;
+        // kazda 0 je nahradena 1
+        String firstHalf = fullIp.substring(0,prefix);
+        String secondHalf = fullIp.substring(prefix, fullIp.length());
+        secondHalf = secondHalf.replaceAll("0","1");
+        fullIp = firstHalf + secondHalf;
 
         return fullIp;
     }
+
+    //metoda na pocitanie sietovej adresy
     public String Nw (String IP, int prefix)
     {
-        String partIP [] = IP.split(":");           // one octet = one filed
-
-        String temp = "";           // auxiliary variable
-        String fullIp = "";         // full Ip address
-
-        // joining bits in full IP
+        String partIP [] = IP.split(":");
+        String temp = "";
+        String fullIp = "";
+        // spojenie bitov  do plnej IP
         for (String x: partIP)
         {
-            System.out.println(x);
             temp = hexbin(x);
             fullIp = fullIp + temp ;
         }
-        System.out.println(fullIp);
-
         String firstHalf = fullIp.substring(0,prefix);
         String secondHalf = fullIp.substring(prefix, fullIp.length());
 
         secondHalf = secondHalf.replaceAll("1","0");
-        System.out.println(firstHalf + secondHalf);
         fullIp = firstHalf + secondHalf;
         return fullIp.toUpperCase();
     }
 
-    // Calculator hexadecimal to decimal
+    // hexadecimal to decimal
     public static double hexdec(String hexNumber)           // hexNumber = Hexadecimal Number
     {
         String [] arr = new String[hexNumber.length()];
-
         for (int x = 0; x < arr.length ; x++)
         {
             char p = hexNumber.charAt(x);
@@ -294,8 +219,6 @@ public class IPv6
             // input fix
             if (p != 'A' && p!= 'B'  && p != 'C' && p != 'D' && p!= 'E'  && p != 'F' && p != '1' && p!= '2'  && p != '3' && p != '4' && p!= '5'  && p != '6' && p != '7' && p!= '8'  && p != '9' )
             {
-                System.out.println("Zly vstup zadajte ho znova");
-                // hexNumber = sc.nextLine(); // TODO: 8. 11. 2017 opytat sa na to ako to opravit
                 break;
             }
             else
@@ -331,17 +254,16 @@ public class IPv6
             }
             exponent++;
         }
-        System.out.println("Deciamal number is: " + temp);
         return temp;
     }
 
-    // Calculator Decimal to Hexadecimal
+    // Decimal to Hexadecimal
     public static String dechex(int decNum)         // decNumber = decimal Number
     {
         int temp = 0;
-        char[] decarray = String.valueOf(decNum).toCharArray();         // conversion DecNumber in array
-        int [] decarrayarr = new int[decarray.length];          // auxiliary field
-        String [] result = new String[decarrayarr.length];
+        char[] decarray = String.valueOf(decNum).toCharArray();         // decNumber do pola
+        int [] decarrayarr = new int[decarray.length];          // docasne pole
+        String [] result = new String[decarrayarr.length];      // vysledok
         String hexNum = "";
 
         for (int i = decarray.length - 1 ; i >= 0 ; i--)
@@ -349,7 +271,7 @@ public class IPv6
             temp = decNum % 16;
             decNum = decNum / 16;
 
-            // Transfer int to String + convert decimal number to hexadecimal
+            //zmena intu na String + convertovat decimal number to hexadecimal
             switch (temp)
             {
                 case 0 : result[i] = "0"; break;
@@ -372,9 +294,9 @@ public class IPv6
             decarrayarr[i] = temp;
         }
 
-        // fix if 0 is on first position or first and second position
+        // oprava ak je 0 na prvej alebo prvej a druhej pozicii
         int m = 0;
-        for (String u: result)          // if 0 = 1 and 2 position
+        for (String u: result)
         {
             if (result[0] == "0" && result[1] == "0")
             {
@@ -389,7 +311,7 @@ public class IPv6
                 break;
             }
 
-            else if (result[0] == "0")          // if 0 = 1 position
+            else if (result[0] == "0")          // ak 0 = 1 na prvej pozicii
             {
                 String helparray[] = new String[result.length-1];
                 for (String p:helparray)
@@ -406,11 +328,11 @@ public class IPv6
         return hexNum;
     }
 
-    // Calculator hexadecimal number to binary number
+    // hexadecimal number to binary number
     public static String hexbin (String hex)            // hex = Hexadecimal number
     {
-        char [] hexarray = String.valueOf(hex).toUpperCase().toCharArray();         // String hex convert to char array + fix upper and lower case
-        String[] bin = new String[hexarray.length];         // Final binary field
+        char [] hexarray = String.valueOf(hex).toUpperCase().toCharArray();         // konvertovane pole + upper case
+        String[] bin = new String[hexarray.length];         // finalne pole
         int temp = 0;
         String fullIp = "";
 
@@ -435,29 +357,27 @@ public class IPv6
                 case 'E' : bin[temp] = "1110"; break;
                 case 'F' : bin[temp] = "1111"; break;
             }
-            //System.out.print(bin[temp]);
             fullIp = fullIp + bin[temp];
             temp++;
         }
-        System.out.println(" ");
         return fullIp;
     }
 
-    // Calculator Binary to Hexadecimal number
+    // Binary to Hexadecimal number
     public static String binhex(String bin)
     {
         String zero = "0";          // prida sa 0 na zaciatok ak nie je cislo delitlne 4
-
-        for (int i = 0; bin.length() % 4 != 0 ; i++) {
+        for (int i = 0; bin.length() % 4 != 0 ; i++)
+        {
             bin = zero + bin;
         }
 
         String fullIp = "";
         String fullBin = bin;
         int x = 0;
-        for (int i = 0; i < fullBin.length()/4 ; i++)           // divided because 1 hexadecimal = 4 binary
+        for (int i = 0; i < fullBin.length()/4 ; i++)           // rozdelenie lebo 4 bin = 1 hex
         {
-            bin = fullBin.substring(x,x+4);         // control every 4 bits
+            bin = fullBin.substring(x,x+4);         // kontroluje kazde 4 bity
             x = x+4;
             switch (bin)
             {
@@ -486,7 +406,6 @@ public class IPv6
     public  String isglobalUnicast(String ip)
     {
         String ipBin = hexbin(ip);
-        System.out.println(ipBin);
         if (ipBin.startsWith("001"))
         {
             return "áno";
@@ -507,11 +426,13 @@ public class IPv6
     {
         String[] macAdd;
         macAdd = mac.split(":");
-        String[] dividedMac = new String[9];
+        String[] dividedMac = new String[9];        // 9 preto lebo 0 = FE80: + FF + FE
 
         for (int i = 0; i < macAdd.length; i++) {
             dividedMac[i+1] = macAdd[i];
         }
+
+        //posuvanie policok v poli
         dividedMac[8] = dividedMac[6];
         dividedMac[7] = dividedMac[5];
         dividedMac[6] = dividedMac[4];
@@ -520,6 +441,7 @@ public class IPv6
         dividedMac[4] = "FF";
         dividedMac[5] = "FE";
 
+        // invertovanie 7 bitu
         String firstEightBits;
         firstEightBits = hexbin(dividedMac[1]);
 
@@ -534,8 +456,8 @@ public class IPv6
             firstEightBitsArr[6] = '1';
         }
 
+        // konecna MAC
         String fullMac = "";
-
         for (int i = 0; i <firstEightBitsArr.length ; i++)
         {
             fullMac = fullMac + String.valueOf(firstEightBitsArr[i]);
@@ -546,7 +468,6 @@ public class IPv6
         dividedMac[1] = fullMac;
         fullMac = "";
 
-
         for (int i = 0; i <dividedMac.length ; i++)
         {
             if (i < 8)
@@ -554,12 +475,9 @@ public class IPv6
             else
                 fullMac = fullMac +dividedMac[i];
         }
-
-        System.out.println(fullMac);
-
-
         return fullMac;
     }
+
     public static String siteLocal(String ip) {
         String BinAdd[] = ip.split(":");
         String FirstOctet = hexbin(BinAdd[0]);
@@ -575,7 +493,9 @@ public class IPv6
         return Integer.toString(prefix);
     }
 
-    public String getNwBin(String ip, int prefix) throws UnknownHostException {
+    public String getNwBin(String ip, int prefix) throws UnknownHostException
+    {
+        // poskalda IPv6 adresu ktoru compressuje
         String NwHexAddress = Nw(ip, prefix);
         NwHexAddress = binhex(NwHexAddress);
         String FinalNwHexAddress = "";
@@ -590,10 +510,10 @@ public class IPv6
             help = help + 4;
         }
         FinalNwHexAddress = getCompressedAddress(FinalNwHexAddress);
-//        System.out.println(FinalNwHexAddress);
         return FinalNwHexAddress;
     }
 
+    // vsetky parametre
     public String[] allIPv6Param() throws UnknownHostException {
         String [] returnAllParams = new String[10];
         returnAllParams [0] =  getCompressedAddress(ipv6Hex);
@@ -611,20 +531,21 @@ public class IPv6
         return returnAllParams;
     }
 
-
-    public void validateIPv6Address(){
-
+    //overovanie adresy
+    public void validateIPv6Address()
+    {
         partIp = ipv6Hex.split(":");
-
         if (partIp.length != 8)
             throw new IllegalArgumentException();
 
-        for (String aPartIp : partIp) {
+        for (String aPartIp : partIp)
+        {
             if (aPartIp.length() != 4)
                 throw new IllegalArgumentException();
         }
-
-        if (!IPAddressUtil.isIPv6LiteralAddress(ipv6Hex)){
+        // overi ci je adresa 0-9 A-F
+        if (!IPAddressUtil.isIPv6LiteralAddress(ipv6Hex))
+        {
             throw new IllegalArgumentException();
         }
     }

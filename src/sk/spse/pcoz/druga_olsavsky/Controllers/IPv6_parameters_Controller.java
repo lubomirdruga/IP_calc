@@ -34,35 +34,40 @@ public class IPv6_parameters_Controller implements Initializable{
 
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-        try {
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        try
+        {
             VBox box = FXMLLoader.load(getClass().getResource("../Views/Drawer.fxml"));
             drawer.setSidePane(box);
-        } catch (IOException ex) {
+        }
+        catch (IOException ex)
+        {
             System.out.println("File 'Drawer.fxml' not found");
         }
 
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(hamburger);
         transition.setRate(-1);
-        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->{
+        hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED,(e)->
+        {
             if(drawer.isShown())
             {
                 drawer.close();
-            }else
+            }
+            else
                 drawer.open();
         });
     }
 
-    public void getInputIP() {
-
-        try{
+    public void getInputIP()
+    {
+        try
+        {
             IPv6 ipv6;
 
             String ipv6Address = ipv6AddressInput.getText().trim().toUpperCase();
             int prefix = Integer.parseInt(prefixInput.getText().trim());
             String macAddress = macAddressInput.getText().trim().toUpperCase();
-
 
             if(!macAddressInput.getText().trim().isEmpty())
             {
@@ -72,31 +77,32 @@ public class IPv6_parameters_Controller implements Initializable{
                 ipv6.validateIPv6Address();
 
                 IPv6AllParams = ipv6.allIPv6Param();
-
             }
-            else {
+            else
+            {
                 ipv6 = new IPv6 (ipv6Address,prefix, -1);
                 ipv6.validateIPv6Address();
 
-
                 IPv6AllParams = ipv6.allIPv6Param();
-
             }
             setParameters();
-
-
-        } catch (NumberFormatException e){
+        }
+        catch (NumberFormatException e)
+        {
             showErrorDialog("Chybne zadaný prefix!");
-        } catch (IllegalArgumentException e){
+        }
+        catch (IllegalArgumentException e)
+        {
             showErrorDialog("Nesprávny tvar IPv6 adresy!");
-        } catch (IllegalStateException e){
+        }
+        catch (IllegalStateException e)
+        {
             showErrorDialog("Nesprávny tvar MAC adresy!");
-        } catch (Exception e){
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
-
-
-
     }
 
     private void setParameters()
@@ -110,7 +116,8 @@ public class IPv6_parameters_Controller implements Initializable{
         infoVBox.setVisible(true);
     }
 
-    public void clearAll() {
+    public void clearAll()
+    {
         ipv6AddressInput.clear();
         prefixInput.clear();
         shortenAddressLabel.setText("");
@@ -119,15 +126,16 @@ public class IPv6_parameters_Controller implements Initializable{
         unicastAddressLabel.setText("");
         linkLocalAddressLabel.setText("");
         siteLocalAddressLabel.setText("");
-
         infoVBox.setVisible(false);
     }
 
-    public void handleSubmit() {
+    public void handleSubmit()
+    {
         getInputIP();
     }
 
-    private void showErrorDialog(String error){
+    private void showErrorDialog(String error)
+    {
         JFXDialogLayout content  = new JFXDialogLayout();
         content.setHeading(new Text("Chyba!"));
         content.setBody(new Text(error));
@@ -141,9 +149,10 @@ public class IPv6_parameters_Controller implements Initializable{
     }
 
 
-    private void validateMACAddress(String macAddress){
-
-        if (!macAddress.matches("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$")){
+    private void validateMACAddress(String macAddress)
+    {
+        if (!macAddress.matches("^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$"))
+        {
             throw new IllegalStateException();
         }
     }
