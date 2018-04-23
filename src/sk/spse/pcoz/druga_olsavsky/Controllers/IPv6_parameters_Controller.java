@@ -73,7 +73,6 @@ public class IPv6_parameters_Controller implements Initializable{
                 ipv6 = new IPv6 (ipv6Address,prefix, macAddress);
                 ipv6.validateIPv6Address();
 
-                //todo zbytocne sa nastavuju dane parametre v konstruktore a v metode allIPv6Address
                 IPv6AllParams = ipv6.allIPv6Param();
 
             }
@@ -87,6 +86,7 @@ public class IPv6_parameters_Controller implements Initializable{
             }
             setParameters();
 
+
         } catch (NumberFormatException e){
             //todo este dorobim prefix rozsah po prekonzultovani
             showErrorDialog("Chybne zadaný prefix!");
@@ -99,32 +99,18 @@ public class IPv6_parameters_Controller implements Initializable{
         }
 
 
-        //todo toto ti treba ? vypis asi nie, a to skryvanie poriesim
-//        for (int i = 0; i < IPv6AllParams.length ; i++) {
-//            System.out.println(IPv6AllParams[i]);
-//        }
-//
-//        if (IPv6AllParams[4].isEmpty())
-//        {
-//            linkLocalAddressLabel.setVisible(false);
-//        }
 
     }
 
-    //todo je 'this.' nutne ? vstupuje ti to do metody, ak nepotrebujes posielat pole do metody, zmaz vstup a taisto aj this. :)
-    // DONE!
     private void setParameters()
     {
         shortenAddressLabel.setText(IPv6AllParams[0]);
-        //todo skratit sietovu adresu
-        //DONE
         nwAddressLabel.setText(IPv6AllParams[1]);
         prefixLabel.setText(IPv6AllParams[2]);
         unicastAddressLabel.setText(IPv6AllParams[3]);
-        //todo "FE80::" vlozit pred link local adresu
-        //DONE
         linkLocalAddressLabel.setText(IPv6AllParams[4]);
         siteLocalAddressLabel.setText(IPv6AllParams[5]);
+        infoVBox.setVisible(true);
 
     }
 
@@ -145,7 +131,6 @@ public class IPv6_parameters_Controller implements Initializable{
 
     public void handleSubmit() {
         getInputIP();
-        infoVBox.setVisible(true);
 
 
     }

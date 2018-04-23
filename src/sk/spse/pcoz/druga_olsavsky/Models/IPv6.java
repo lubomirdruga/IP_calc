@@ -33,7 +33,7 @@ public class IPv6
     public static String getCompressedAddress(String longAddress) throws UnknownHostException
     {
         longAddress = Inet6Address.getByName(longAddress).getHostAddress();
-        return longAddress.replaceFirst("(^|:)(0+(:|$)){2,8}", "::");
+        return longAddress.replaceFirst("(^|:)(0+(:|$)){2,8}", "::").toUpperCase();
     }
 
     public String[] subnetting()
@@ -279,7 +279,7 @@ public class IPv6
         secondHalf = secondHalf.replaceAll("1","0");
         System.out.println(firstHalf + secondHalf);
         fullIp = firstHalf + secondHalf;
-        return fullIp;
+        return fullIp.toUpperCase();
     }
 
     // Calculator hexadecimal to decimal
@@ -614,7 +614,16 @@ public class IPv6
 
     public void validateIPv6Address(){
 
-        //todo pre jednoduchost si tu over ci to je uplna IPv6 adresa  error pri neuplnej adrese hodis ako v podmienke nizsie
+        partIp = ipv6Hex.split(":");
+
+        if (partIp.length != 8)
+            throw new IllegalArgumentException();
+
+        for (String aPartIp : partIp) {
+            if (aPartIp.length() != 4)
+                throw new IllegalArgumentException();
+        }
+
         if (!IPAddressUtil.isIPv6LiteralAddress(ipv6Hex)){
             throw new IllegalArgumentException();
         }
