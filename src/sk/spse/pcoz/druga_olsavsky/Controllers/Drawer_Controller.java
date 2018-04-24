@@ -1,16 +1,15 @@
 package sk.spse.pcoz.druga_olsavsky.Controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class Drawer_Controller
@@ -46,40 +45,27 @@ public class Drawer_Controller
     }
 
     public void handleAbout() {
-//todo dorobit
+
         Stage about = new Stage();
+        about.initModality(Modality.APPLICATION_MODAL);
         about.setTitle("O aplikacií");
 
-        Text text = new Text("Aplikácia bola vytvorená ako PČOZ maturitnej skúšky študentmi\n" +
+        Text text = new Text("Aplikácia bola vytvorená ako PČOZ maturitnej skúšky študentmi\n\n" +
                 "Ľubomír Druga\n" +
                 "Martin Oľšavský\n" +
-                "IV.SB 2017/2018");
-
+                "IV.SB 2017/2018\n\n" +
+                "Aplikácia je open-source, zdrojový kód nájdete na stránke\n" +
+                "\n\t\thttps://github.com/lubomirdruga/IP_calc");
 
         VBox vBox = new VBox();
+        vBox.setPadding(new Insets(20));
         vBox.getChildren().addAll(text);
+        vBox.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(vBox);
 
         about.setScene(scene);
         about.show();
-
-
-//        JFXDialogLayout aboutContent  = new JFXDialogLayout();
-//        aboutContent.setHeading(new Text("O aplikacií"));
-//        aboutContent.setBody(new Text("Aplikácia bola vytvorená ako PČOZ maturitnej skúšky študentmi\n" +
-//                "Ľubomír Druga\n" +
-//                "Martin Oľšavský\n" +
-//                "IV.SB 2017/2018"));
-//
-//        Stage stage = (Stage) sidePanel.getScene().getWindow();
-//
-//
-//        JFXDialog aboutDialog = new JFXDialog(stage, aboutContent, JFXDialog.DialogTransition.CENTER);
-//        JFXButton closeBtn = new JFXButton("Zavrieť");
-//        closeBtn.setOnAction(event -> aboutDialog.close());
-//        aboutContent.setActions(closeBtn);
-//        aboutDialog.show();
     }
 
     public void handleExitBtn() {
