@@ -45,12 +45,9 @@ public class Converter_Controller implements Initializable
                 drawer.open();
             }
         });
-
     }
 
     public void convertFromDecimal() {
-        //todo change int to long
-
         try {
             int decimal = Integer.parseInt(decimalInput.getText());
             decimalInput.setFocusColor(Color.rgb(63, 90, 168, 1));
@@ -76,7 +73,6 @@ public class Converter_Controller implements Initializable
             }
             else
                 throw new NumberFormatException();
-
         }
         catch (NumberFormatException e) {
            doCatchErrorBlock(binaryInput);
@@ -84,7 +80,6 @@ public class Converter_Controller implements Initializable
     }
 
     public void convertFromHexadecimal() throws Exception {
-
         try
         {
             String input = hexadecimalInput.getText().trim().toUpperCase();
@@ -92,12 +87,11 @@ public class Converter_Controller implements Initializable
             {
                 hexadecimalInput.setFocusColor(Color.rgb(63, 90, 168, 1));
 
-                decimalInput.setText(Converter.hexToDec(input)); //todo zistit ci nehadze errory nahodou
+                decimalInput.setText(Converter.hexToDec(input));
                 binaryInput.setText(Converter.hexToBin(input));
             }
             else
                 throw new NumberFormatException();
-
         }
         catch (NumberFormatException e)
         {

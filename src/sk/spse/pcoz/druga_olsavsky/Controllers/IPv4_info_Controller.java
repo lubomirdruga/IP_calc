@@ -24,8 +24,6 @@ public class IPv4_info_Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-
         try {
             VBox box = FXMLLoader.load(getClass().getResource("../Views/Drawer.fxml"));
             drawer.setSidePane(box);
@@ -166,7 +164,6 @@ public class IPv4_info_Controller implements Initializable {
                 "\t0   - 0000 0000 \t255 - 1111 1111\n" +
                 "\n" +
                 "\n";
-
 
         Text text = new Text(str);
         textFlow.getChildren().add(text);

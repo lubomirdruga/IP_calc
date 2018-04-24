@@ -29,7 +29,6 @@ public class IPv4VLSM
         doSubnetting();
     }
 
-
     private void splitAndValidate() throws Exception {
         try
         {

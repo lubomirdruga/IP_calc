@@ -78,7 +78,6 @@ public class IPv4_VLSM_Table_Controller implements Initializable
 
 
         JFXTreeTableColumn netNameColumn = new JFXTreeTableColumn("Názov siete");
-//        netNameColumn.setPrefWidth(100);
         netNameColumn.setSortable(false);
         netNameColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().netName);
 
@@ -113,7 +112,6 @@ public class IPv4_VLSM_Table_Controller implements Initializable
         rangeColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().range);
 
         JFXTreeTableColumn bcAddressColumn = new JFXTreeTableColumn("Broadcastová adresa");
-//        bcAddressColumn.setPrefWidth(150);
         bcAddressColumn.setSortable(false);
         bcAddressColumn.setCellValueFactory((Callback<TreeTableColumn.CellDataFeatures<Subnet, String>, ObservableValue<String>>) param -> param.getValue().getValue().bcAddress);
 
@@ -240,7 +238,6 @@ public class IPv4_VLSM_Table_Controller implements Initializable
         JFXDialogLayout content  = new JFXDialogLayout();
         content.setHeading(new Text("Parametre adresy " + vlsm.getSuperNetAddress() + " /" + vlsm.getSuperNetPrefix()));
         content.setBody(ipInfoBox);
-
 
         JFXDialog supernetParametersDialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
         JFXButton closeBtn = new JFXButton("Dobre");

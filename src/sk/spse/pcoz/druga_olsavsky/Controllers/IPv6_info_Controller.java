@@ -26,8 +26,6 @@ public class IPv6_info_Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-
         try {
             VBox box = FXMLLoader.load(getClass().getResource("../Views/Drawer.fxml"));
             drawer.setSidePane(box);

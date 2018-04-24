@@ -45,7 +45,6 @@ public class Drawer_Controller
     }
 
     public void handleAbout() {
-
         Stage about = new Stage();
         about.initModality(Modality.APPLICATION_MODAL);
         about.setTitle("O aplikacií");
