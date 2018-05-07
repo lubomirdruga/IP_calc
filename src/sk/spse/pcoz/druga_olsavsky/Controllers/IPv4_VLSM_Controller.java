@@ -36,7 +36,7 @@ public class IPv4_VLSM_Controller implements Initializable
     public AnchorPane anchorPane;
     public StackPane stackPane;
     public ScrollPane scrollPane;
-    private JFXTextField[] netSizeInput;
+    private JFXTextField[] netSizeInput, netNameInput;
     private IPv4[] finalSubnets;
 
 
@@ -80,7 +80,7 @@ public class IPv4_VLSM_Controller implements Initializable
                 throw new NumberFormatException();
 
             HBox[] inputRows = new HBox[subnetsCount];
-            JFXTextField[] netNameInput = new JFXTextField[subnetsCount];
+            netNameInput = new JFXTextField[subnetsCount];
             netSizeInput = new JFXTextField[subnetsCount];
             Separator[] separators = new Separator[subnetsCount];
 
@@ -121,12 +121,15 @@ public class IPv4_VLSM_Controller implements Initializable
     {
         try {
             int[] subnetsArray = new int[netSizeInput.length];
+            String[] subnetNames = new String[netNameInput.length];
 
             for (int i = 0; i < netSizeInput.length; i++) {
                 subnetsArray[i] = Integer.parseInt(netSizeInput[i].getText().trim());
+                subnetNames[i] = netNameInput[i].getText().trim();
+
             }
 
-            IPv4VLSM vlsm = new IPv4VLSM(supernetInput.getText(), Integer.parseInt(subnetsCountInput.getText()), subnetsArray);
+            IPv4VLSM vlsm = new IPv4VLSM(supernetInput.getText(), Integer.parseInt(subnetsCountInput.getText()), subnetsArray, subnetNames);
             vlsm.start();
             finalSubnets = vlsm.getSubnet();
 

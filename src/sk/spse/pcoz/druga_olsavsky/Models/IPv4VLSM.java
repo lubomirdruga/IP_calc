@@ -10,12 +10,14 @@ public class IPv4VLSM
     private String superNet;
     private IPv4[] subnet;
     private IPv4 supernetObj;
+    private String[] subnetNames;
 
-    public IPv4VLSM(String superNet, int subnetsCount, int[] subnetsArray)
+    public IPv4VLSM(String superNet, int subnetsCount, int[] subnetsArray, String[] subnetNames)
     {
         this.superNet = superNet.trim();
         this.subnetsCount = subnetsCount;
         this.subnetsArray = subnetsArray;
+        this.subnetNames = subnetNames;
     }
 
     public void start() throws Exception {
@@ -71,7 +73,7 @@ public class IPv4VLSM
 
         for (int i = 0; i < subnet.length; i++)
         {
-            subnet[i] = new IPv4(str(i), subnetsArray[i]);
+            subnet[i] = new IPv4(subnetNames[i], subnetsArray[i]);
             subnet[i].allocateCorrectSize();
         }
     }
@@ -175,7 +177,4 @@ public class IPv4VLSM
         return superNetPrefix;
     }
 
-    private String str(int i) {
-        return i < 0 ? "" : str((i / 26) - 1) + (char)(65 + i % 26);
-    }
 }
